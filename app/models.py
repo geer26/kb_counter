@@ -1,5 +1,5 @@
 import json, uuid
-from app import db
+from app import db, login
 import bcrypt
 from datetime import datetime
 from flask_login import UserMixin
