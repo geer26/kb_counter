@@ -21,11 +21,11 @@ class Users(UserMixin, db.Model):
     last_modified_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
     is_superuser = db.Column(db.Boolean, nullable=False, default=False)
     is_enabled = db.Column(db.Boolean, nullable=False, default=True)
-    authenticated = db.Column(db.Boolean, nullable=False, default=False)
-    expiration = db.Column(db.Integer, default=0)
+    
+
 
     def __repr__(self):
-        return f'<Username: {self.username}> <is superuser:{self.is_superuser}>'
+        return f'<Username: {self.username}> <ID:{self.id}>'
 
 
     def set_password(self, password):
