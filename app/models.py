@@ -81,5 +81,18 @@ class Bell(db.Model):
         return {'value':self.value}
 
 
+class Workout(db.Model):
+    id = db.Column(db.Integer, index=True, primary_key=True)
+    wname = db.Column(db.String(64), unique=True, nullable=False)
+    workout = db.Column(db.String(), default=None)
+    '''
+    eg.
+    [{'max': 600(time in secs), 'type': 'warmup'(warmup/time/rest), 'add': 'KÉSZÜLJ!(plain text)'},{...}]
+    '''
+    created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
+
+
+'''
 class Competitor(db.Model):
     pass
+'''
