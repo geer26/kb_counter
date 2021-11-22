@@ -10,7 +10,7 @@ class Config(object):
     SECRET_KEY = os.environ.get('SECRET_KEY') or '01!ChAnGeThIs!10'
     SESSION_COOKIE_NAME = os.environ.get('SESSION_COOKIE_NAME') or 'Fallback_cookie_name'
     COOKIE_LIFESPAN = os.environ.get('SESSION_LIFESPAN') or 60 * 60 * 24 * 30
-    ENV_FOLDER = basedir
+    ENV_FOLDER = os.environ.get('KEY_FOLDER') or basedir
 
     # ----------STATICS & TEMPLATES
     STATIC_FOLDER = 'static'
