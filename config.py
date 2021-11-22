@@ -20,6 +20,11 @@ class Config(object):
     LOG_FOLDER = os.path.join(basedir, 'log')
 
     # ----------DATABASE
+
+    SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    """
     if os.environ.get('DB_TYPE') == 'sqlite':
         print('SELECTED DB: SQLite')
         SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')
@@ -35,3 +40,4 @@ class Config(object):
         else:
             SQLALCHEMY_DATABASE_URI = os.environ.get('DB_URI')
             SQLALCHEMY_TRACK_MODIFICATIONS = False
+    """
