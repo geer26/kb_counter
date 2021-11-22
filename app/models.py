@@ -13,6 +13,7 @@ def load_user(id):
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     username = db.Column(db.String(32), unique=True, nullable=False)
+    ident = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String(), nullable=False, default=secret.dump('nomail@all'))  # enc, updatable
     password_hash = db.Column(db.String(128), nullable=False)
     salt = db.Column(db.String(128), nullable=False)
@@ -20,8 +21,18 @@ class User(UserMixin, db.Model):
     is_superuser = db.Column(db.Boolean, nullable=False, default=False)
 
 
+    def __init__(self):
+        self.ident = self.gen_ident()
+
     def __repr__(self):
         return f'<Username: {self.username}> <ID:{self.id}>'
+
+
+    def gen_ident(self):
+        uid = str(uuid.uuid1()).split('-')[3]
+        ts = str(datetime.now().timestamp()).encode()
+        ts_hash= bcrypt.hashpw(ts, bcrypt.gensalt()).decode()[51:53]
+        return uid + ts_hash
 
 
     def set_password(self, password):

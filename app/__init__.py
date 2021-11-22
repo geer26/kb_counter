@@ -7,7 +7,9 @@ from fernet import Secret
 
 from cryptography.fernet import Fernet
 
-import base64
+import base64, uuid
+import bcrypt
+from datetime import datetime
 
 app = Flask(__name__)
 app.config.from_object(Config)
@@ -20,7 +22,14 @@ login = LoginManager(app)
 
 secret = Secret(app)
 
+'''
 for i in range(10):
-    print(Fernet.generate_key().decode())
+    #print(Fernet.generate_key().decode())
+    #print(str(datetime.now().timestamp())[-6:])
+    uid = str(uuid.uuid1()).split('-')[3]
+    ts = str(datetime.now().timestamp()).encode()
+    ts_hash = bcrypt.hashpw(ts, bcrypt.gensalt()).decode()[51:53]
+    print(uid+ts_hash)
+'''
 
 from app import routes, models
