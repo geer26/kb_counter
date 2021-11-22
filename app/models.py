@@ -1,5 +1,5 @@
 import json, uuid
-from app import db, login
+from app import db, login, secret
 import bcrypt
 from datetime import datetime
 from flask_login import UserMixin
@@ -7,21 +7,17 @@ from flask_login import UserMixin
 
 @login.user_loader
 def load_user(id):
-    return Users.query.get(int(id))
+    return User.query.get(int(id))
 
 
-class Users(UserMixin, db.Model):
+class User(UserMixin, db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     username = db.Column(db.String(32), unique=True, nullable=False)
-    #email = db.Column(db.String(), nullable=False, default=secret.dump('nomail@all'))  # enc, updatable
+    email = db.Column(db.String(), nullable=False, default=secret.dump('nomail@all'))  # enc, updatable
     password_hash = db.Column(db.String(128), nullable=False)
     salt = db.Column(db.String(128), nullable=False)
-    settings = db.Column(db.String(), nullable=False, default='{}')  #updatable
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
-    last_modified_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
     is_superuser = db.Column(db.Boolean, nullable=False, default=False)
-    is_enabled = db.Column(db.Boolean, nullable=False, default=True)
-    
 
 
     def __repr__(self):
@@ -74,3 +70,16 @@ class Users(UserMixin, db.Model):
             'is_superuser': self.is_superuser,
             'is_enabled': self.is_enabled
         }
+
+
+class Bell(db.Model):
+    id = db.Column(db.Integer, index=True, primary_key=True)
+    value = db.Column(db.Integer, nullable=False, default=8)
+
+
+    def __repr__(self):
+        return {'value':self.value}
+
+
+class Competitor(db.Model):
+    pass
