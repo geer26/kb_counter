@@ -23,21 +23,3 @@ class Config(object):
 
     SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-    """
-    if os.environ.get('DB_TYPE') == 'sqlite':
-        print('SELECTED DB: SQLite')
-        SQLALCHEMY_DATABASE_URI = os.environ.get('DATABASE_URL') or 'sqlite:///' + os.path.join(basedir, 'app.db')
-        SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-    elif os.environ.get('DB_TYPE') == 'pgdb':
-        print('SELECTED DB: MDB')
-
-        if os.environ.get('PRODUCTION') and os.environ.get('PRODUCTION') == 'PROD':
-            SQLALCHEMY_DATABASE_URI = os.environ.get('DB_URI')
-            SQLALCHEMY_TRACK_MODIFICATIONS = False
-
-        else:
-            SQLALCHEMY_DATABASE_URI = os.environ.get('DB_URI')
-            SQLALCHEMY_TRACK_MODIFICATIONS = False
-    """
