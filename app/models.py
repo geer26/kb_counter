@@ -13,26 +13,18 @@ def load_user(id):
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     username = db.Column(db.String(32), unique=True, nullable=False)
-    ident = db.Column(db.Integer, nullable=False)
     email = db.Column(db.String(), nullable=False, default=secret.dump('nomail@all'))  # enc, updatable
     password_hash = db.Column(db.String(128), nullable=False)
     salt = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
     is_superuser = db.Column(db.Boolean, nullable=False, default=False)
+    #-------- Connections
+    events = db.relationship('Event', backref='referee', lazy='dynamic', cascade="all, delete-orphan")
+    workouts = db.relationship('Workout', backref='owner', lazy='dynamic', cascade="all, delete-orphan")
 
-
-    def __init__(self):
-        self.ident = self.gen_ident()
 
     def __repr__(self):
         return f'<Username: {self.username}> <ID:{self.id}>'
-
-
-    def gen_ident(self):
-        uid = str(uuid.uuid1()).split('-')[3]
-        ts = str(datetime.now().timestamp()).encode()
-        ts_hash= bcrypt.hashpw(ts, bcrypt.gensalt()).decode()[51:53]
-        return uid + ts_hash
 
 
     def set_password(self, password):
@@ -83,6 +75,31 @@ class User(UserMixin, db.Model):
         }
 
 
+class Event(db.Model):
+    id = db.Column(db.Integer, index=True, primary_key=True)
+    created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
+    ident = db.Column(db.String(6), nullable=False)
+
+    user = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # -------- Connections
+    competitors = db.relationship('Competitor', backref='event', lazy='dynamic', cascade="all, delete-orphan")
+
+
+    def __init__(self):
+        self.ident = self.gen_ident()
+
+
+    def __repr__(self):
+        return {'id':self.id, 'ident': self.ident, 'user': self.user}
+
+
+    def gen_ident(self):
+        uid = str(uuid.uuid1()).split('-')[3]
+        ts = str(datetime.now().timestamp()).encode()
+        ts_hash= bcrypt.hashpw(ts, bcrypt.gensalt()).decode()[51:53]
+        return str(uid + ts_hash)
+
+
 class Bell(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     value = db.Column(db.Integer, nullable=False, default=8)
@@ -102,8 +119,16 @@ class Workout(db.Model):
     '''
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
 
+    user = db.Column(db.Integer, db.ForeignKey('user.id'))
 
-'''
+
+    def __repr__(self):
+        return {'id':self.id, 'user': self.user, 'workout': self.workout}
+
+
+
 class Competitor(db.Model):
-    pass
-'''
+    id = db.Column(db.Integer, index=True, primary_key=True)
+    wname = db.Column(db.String(64), unique=True, nullable=False)
+
+    event = db.Column(db.Integer, db.ForeignKey('event.id'))
