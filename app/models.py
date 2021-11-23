@@ -126,7 +126,6 @@ class Workout(db.Model):
         return {'id':self.id, 'user': self.user, 'workout': self.workout}
 
 
-
 class Competitor(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     wname = db.Column(db.String(64), unique=True, nullable=False)
