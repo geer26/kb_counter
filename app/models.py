@@ -18,7 +18,9 @@ class User(UserMixin, db.Model):
     salt = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
     is_superuser = db.Column(db.Boolean, nullable=False, default=False)
-    #-------- Connections
+
+    # -------- Connections
+    # -------- BACKREF
     events = db.relationship('Event', backref='referee', lazy='dynamic', cascade="all, delete-orphan")
     workouts = db.relationship('Workout', backref='owner', lazy='dynamic', cascade="all, delete-orphan")
 
@@ -80,8 +82,10 @@ class Event(db.Model):
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
     ident = db.Column(db.String(6), nullable=False)
 
-    user = db.Column(db.Integer, db.ForeignKey('user.id'))
     # -------- Connections
+    # -------- FK
+    user = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # -------- BACKREF
     competitors = db.relationship('Competitor', backref='event', lazy='dynamic', cascade="all, delete-orphan")
 
 
@@ -115,10 +119,12 @@ class Workout(db.Model):
     workout = db.Column(db.String(), default=None)
     '''
     eg.
-    [{'max': 600(time in secs), 'type': 'warmup'(warmup/time/rest), 'add': 'KÉSZÜLJ!(plain text)'},{...}]
+    [{'time': 600(time in secs), 'type': 'warmup'(warmup/time/rest), 'max': 120(maximum reps) , 'add': 'KÉSZÜLJ!(plain text)'},{...}]
     '''
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
 
+    # -------- Connections
+    # -------- FK
     user = db.Column(db.Integer, db.ForeignKey('user.id'))
 
 
@@ -129,5 +135,10 @@ class Workout(db.Model):
 class Competitor(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     wname = db.Column(db.String(64), unique=True, nullable=False)
+    weight = db.Column(db.Integer, default=0)
+    y_o_b = db.Column(db.Integer, default=1980)
 
+
+    # -------- Connections
+    # -------- FK
     event = db.Column(db.Integer, db.ForeignKey('event.id'))
