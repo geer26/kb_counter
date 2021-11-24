@@ -5,7 +5,7 @@ from flask_restful import Resource
 from flask_login import current_user, login_user, logout_user
 from flask import request, render_template, send_from_directory, session, Response
 from app import api, db
-from app.workers import pw_complexity, addsu, adduser, get_all_data
+from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser
 
 
 
@@ -45,5 +45,23 @@ class GetAllData(Resource):
 
 
 
+#Done!
+class DeleteUser(Resource):
+    def post(self):
+
+        #get data from posted json
+        json_data = request.get_json(force=True)
+
+        if deluser(json_data):
+            return {'status': 0, 'message': 'User deleted!'}, 200
+        else:
+            return {'status': 1, 'message': f'No user with ID {json_data["id"]}!'}, 500
+
+        return {'status': 9, 'message': 'Something went wrong!'}, 500
+
+
+
+
 api.add_resource(AddUser, '/API/adduser')
 api.add_resource(GetAllData, '/API/query')
+api.add_resource(DeleteUser, '/API/deluser')

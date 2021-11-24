@@ -42,6 +42,15 @@ def adduser(data):
     return True
 
 
+def deluser(data):
+    user = User.query.get(int(data['id']))
+    if not user:
+        return False
+    db.session.delete(user)
+    db.session.commit()
+    return True
+
+
 def get_all_data():
     data = {}
 
