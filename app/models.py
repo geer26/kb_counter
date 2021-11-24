@@ -63,7 +63,6 @@ class User(UserMixin, db.Model):
         }
 
 
-
 class Event(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
@@ -100,6 +99,7 @@ class Workout(db.Model):
     wname = db.Column(db.String(64), unique=True, nullable=False)
     workout = db.Column(db.String(), default=None)
     '''
+    
     eg.
     [{'time': 600(time in secs), 'type': 'warmup'(warmup/time/rest), 'max': 120(maximum reps) , 'add': 'KÉSZÜLJ!(plain text)'},{...}]
     eg. pentathlon:
@@ -167,3 +167,15 @@ class Category(db.Model):
 
     def __repr__(self):
         return {'name': self.name, '': self.id}
+
+
+class Exercise(db.Model):
+    id = db.Column(db.Integer, index=True, primary_key=True)
+    name = db.Column(db.String(64), nullable=False, default='Noname exercise')  #Name of exercise, to represent
+    type = db.Column(db.String(32), nullable=False, default='rest')  #rest/warmup/workout
+    max_rep = db.Column(db.Integer, nullable=False, default=0)  #max countable rep, if -1->unlimited
+    duration = db.Column(db.Integer, nullable=False, default=0)  #duration of exercise in seconds
+
+
+    def __repr__(self):
+        return {'name': self.name, 'type': self.type, 'max': self.max_rep, 'duration': self.duration}
