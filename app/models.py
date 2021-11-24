@@ -20,6 +20,7 @@ class User(UserMixin, db.Model):
     is_superuser = db.Column(db.Boolean, nullable=False, default=False)
 
     # -------- Connections
+    # -------- FK
     # -------- BACKREF
     #events = db.relationship('Event', backref='owner', lazy='dynamic', cascade="all, delete-orphan")
     #workouts = db.relationship('Workout', backref='owner', lazy='dynamic', cascade="all, delete-orphan")

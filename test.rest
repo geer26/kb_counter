@@ -2,7 +2,7 @@
 # Endpoint: /API/adduser
 # Method: POST
 # Type: application/json
-# JSON payload: {"username": <str>, "password": <str>, "email": <str>, "is_enabled": <boolean>, "is_superuser": <boolean>}
+# JSON payload: {"username": <str>, "password": <str>, "su": <boolean>}
 # Returns: 200, 401 or 500 with message
 POST http://127.0.0.1:5001/API/adduser HTTP/1.1
 content-type: application/json
@@ -24,7 +24,7 @@ POST http://127.0.0.1:5001/API/deluser HTTP/1.1
 content-type: application/json
 
 {
-    "id": 2
+    "id": 3
 }
 
 
