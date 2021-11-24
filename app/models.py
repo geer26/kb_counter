@@ -1,5 +1,5 @@
 import json, uuid
-from app import db, login, secret
+from app import db, login
 import bcrypt
 from datetime import datetime
 from flask_login import UserMixin
@@ -13,7 +13,7 @@ def load_user(id):
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     username = db.Column(db.String(32), unique=True, nullable=False)
-    email = db.Column(db.String(), nullable=False, default=secret.dump('nomail@all'))  # enc, updatable
+    email = db.Column(db.String(), nullable=False, default='nomail@all')
     password_hash = db.Column(db.String(128), nullable=False)
     salt = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
@@ -58,23 +58,10 @@ class User(UserMixin, db.Model):
             'email': self.email,
             'settings': self.settings,
             'created_at': self.created_at.strftime("%m/%d/%Y, %H:%M:%S"),
-            'last_modified_at': self.last_modified_at.strftime("%m/%d/%Y, %H:%M:%S"),
             'is_superuser': self.is_superuser,
             'is_enabled': self.is_enabled
         }
 
-
-    def get_self_json_enc(self):
-        return {
-            'id': self.id,
-            'username': self.username,
-            'email': str(secret.load(self.email)),
-            'settings': self.settings,
-            'created_at': self.created_at.strftime("%m/%d/%Y, %H:%M:%S"),
-            'last_modified_at': self.last_modified_at.strftime("%m/%d/%Y, %H:%M:%S"),
-            'is_superuser': self.is_superuser,
-            'is_enabled': self.is_enabled
-        }
 
 
 class Event(db.Model):
