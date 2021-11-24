@@ -13,7 +13,7 @@ def load_user(id):
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     username = db.Column(db.String(32), unique=True, nullable=False)
-    email = db.Column(db.String(), nullable=False, default='nomail@all')
+    #email = db.Column(db.String(), nullable=False, default='nomail@all')
     password_hash = db.Column(db.String(128), nullable=False)
     salt = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
@@ -21,8 +21,9 @@ class User(UserMixin, db.Model):
 
     # -------- Connections
     # -------- BACKREF
-    events = db.relationship('Event', backref='referee', lazy='dynamic', cascade="all, delete-orphan")
+    events = db.relationship('Event', backref='owner', lazy='dynamic', cascade="all, delete-orphan")
     workouts = db.relationship('Workout', backref='owner', lazy='dynamic', cascade="all, delete-orphan")
+    exercises = db.relationship('Exercise', backref='owner', lazy='dynamic', cascade="all, delete-orphan")
 
 
     def __repr__(self):
@@ -47,7 +48,7 @@ class User(UserMixin, db.Model):
 
 
     def get_self(self):
-        return json.dumps({'ID': self.id, 'username': self.username, 'APIkey': self.APIkey,
+        return json.dumps({'ID': self.id, 'username': self.username,
                            'created': self.created.strftime("%m/%d/%Y, %H:%M:%S"), 'is superuser': self.is_superuser})
 
 
@@ -55,7 +56,7 @@ class User(UserMixin, db.Model):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email,
+            #'email': self.email,
             'settings': self.settings,
             'created_at': self.created_at.strftime("%m/%d/%Y, %H:%M:%S"),
             'is_superuser': self.is_superuser,
@@ -175,6 +176,10 @@ class Exercise(db.Model):
     type = db.Column(db.String(32), nullable=False, default='rest')  #rest/warmup/workout
     max_rep = db.Column(db.Integer, nullable=False, default=0)  #max countable rep, if -1->unlimited
     duration = db.Column(db.Integer, nullable=False, default=0)  #duration of exercise in seconds
+    # -------- Connections
+    # -------- FK
+    user = db.Column(db.Integer, db.ForeignKey('user.id'))
+    # -------- BACKREF
 
 
     def __repr__(self):
