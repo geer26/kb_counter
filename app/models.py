@@ -137,8 +137,17 @@ class Competitor(db.Model):
     wname = db.Column(db.String(64), unique=True, nullable=False)
     weight = db.Column(db.Integer, default=0)
     y_o_b = db.Column(db.Integer, default=1980)
-
+    #gender - w/m
+    result = db.Column(db.Integer, default=0)
 
     # -------- Connections
     # -------- FK
     event = db.Column(db.Integer, db.ForeignKey('event.id'))
+
+
+class Category(db.Model):
+    id = db.Column(db.Integer, index=True, primary_key=True)
+    #gender - male/female
+    #level - amateur/intermediate
+    #age - 18-/18-49/50+
+    #w_class - w:70-/w:70+/m:80-/m:95-/m:90+
