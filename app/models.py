@@ -21,13 +21,13 @@ class User(UserMixin, db.Model):
 
     # -------- Connections
     # -------- BACKREF
-    events = db.relationship('Event', backref='owner', lazy='dynamic', cascade="all, delete-orphan")
-    workouts = db.relationship('Workout', backref='owner', lazy='dynamic', cascade="all, delete-orphan")
-    exercises = db.relationship('Exercise', backref='owner', lazy='dynamic', cascade="all, delete-orphan")
+    #events = db.relationship('Event', backref='owner', lazy='dynamic', cascade="all, delete-orphan")
+    #workouts = db.relationship('Workout', backref='owner', lazy='dynamic', cascade="all, delete-orphan")
+    #exercises = db.relationship('Exercise', backref='owner', lazy='dynamic', cascade="all, delete-orphan")
 
 
     def __repr__(self):
-        return f'<Username: {self.username}> <ID:{self.id}>'
+        return {'Username': self.username, 'ID':self.id}
 
 
     def set_password(self, password):
@@ -47,20 +47,12 @@ class User(UserMixin, db.Model):
             return False
 
 
-    def get_self(self):
-        return json.dumps({'ID': self.id, 'username': self.username,
-                           'created': self.created.strftime("%m/%d/%Y, %H:%M:%S"), 'is superuser': self.is_superuser})
-
-
     def get_self_json(self):
         return {
             'id': self.id,
             'username': self.username,
-            #'email': self.email,
-            'settings': self.settings,
             'created_at': self.created_at.strftime("%m/%d/%Y, %H:%M:%S"),
-            'is_superuser': self.is_superuser,
-            'is_enabled': self.is_enabled
+            'is_superuser': self.is_superuser
         }
 
 
@@ -73,7 +65,7 @@ class Event(db.Model):
     # -------- FK
     user = db.Column(db.Integer, db.ForeignKey('user.id'))
     # -------- BACKREF
-    competitors = db.relationship('Competitor', backref='event', lazy='dynamic', cascade="all, delete-orphan")
+    #competitors = db.relationship('Competitor', backref='event', lazy='dynamic', cascade="all, delete-orphan")
 
 
     def __init__(self):

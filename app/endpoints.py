@@ -5,7 +5,7 @@ from flask_restful import Resource
 from flask_login import current_user, login_user, logout_user
 from flask import request, render_template, send_from_directory, session, Response
 from app import api, db
-from app.workers import pw_complexity, addsu, adduser
+from app.workers import pw_complexity, addsu, adduser, get_all_data
 
 
 
@@ -38,4 +38,12 @@ class AddUser(Resource):
 
 
 
+#Done!
+class GetAllData(Resource):
+    def get(self):
+        return get_all_data(), 200
+
+
+
 api.add_resource(AddUser, '/API/adduser')
+api.add_resource(GetAllData, '/API/query')

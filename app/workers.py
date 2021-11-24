@@ -1,4 +1,4 @@
-
+import json
 from app import db
 from app.models import User
 
@@ -40,3 +40,13 @@ def adduser(data):
     db.session.add(user)
     db.session.commit()
     return True
+
+
+def get_all_data():
+    data = {}
+
+    data['USERS'] = []
+    for user in User.query.all():
+        data['USERS'].append(user.get_self_json())
+
+    return data
