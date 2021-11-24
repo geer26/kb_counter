@@ -104,6 +104,10 @@ class Event(db.Model):
         return str(uid + ts_hash)
 
 
+    def get_ident(self):
+        return str(self.ident)
+
+
 class Bell(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     value = db.Column(db.Integer, nullable=False, default=8)
@@ -120,6 +124,19 @@ class Workout(db.Model):
     '''
     eg.
     [{'time': 600(time in secs), 'type': 'warmup'(warmup/time/rest), 'max': 120(maximum reps) , 'add': 'KÉSZÜLJ!(plain text)'},{...}]
+    eg. pentathlon:
+    [
+    { 'time': 5, 'type': 'warmup', 'max': 0, 'add': 'Felkészülés'},
+    { 'time': 360, 'type': 'time', 'max': 120, 'add': 'Clean'},
+    { 'time': 300, 'type': 'rest', 'max': 0, 'add': 'Pihenő'},
+    { 'time': 360, 'type': 'time', 'max': 60, 'add': 'Clean&Press'},
+    { 'time': 300, 'type': 'rest', 'max': 0, 'add': 'Pihenő'},
+    { 'time': 360, 'type': 'rest', 'max': 120, 'add': 'Jerk'},
+    { 'time': 300, 'type': 'rest', 'max': 0, 'add': 'Pihenő'},
+    { 'time': 360, 'type': 'rest', 'max': 108, 'add': 'Half Snatch'},
+    { 'time': 300, 'type': 'rest', 'max': 0, 'add': 'Pihenő'},
+    { 'time': 360, 'type': 'rest', 'max': 120, 'add': 'Push Press'}
+    ]
     '''
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
 
@@ -132,23 +149,43 @@ class Workout(db.Model):
         return {'id':self.id, 'user': self.user, 'workout': self.workout}
 
 
+    def get_workout(self):
+        return json.dumps(self.workout)
+
+
 class Competitor(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
-    wname = db.Column(db.String(64), unique=True, nullable=False)
+    cname = db.Column(db.String(64))
+    association = db.Column(db.String(128))
     weight = db.Column(db.Integer, default=0)
     y_o_b = db.Column(db.Integer, default=1950)
-    #gender - w/m
-    #association - <string>
+    gender = db.Column(db.Integer, nullable=False, default=1)  # 1 - male, 2 - female
     result = db.Column(db.Integer, default=0)
 
     # -------- Connections
     # -------- FK
+
     event = db.Column(db.Integer, db.ForeignKey('event.id'))
+    category = db.Column(db.Integer, db.ForeignKey('category.id'))
+
+
+    def __repr__(self):
+        return {'id': self.id, 'name': self.name, 'result': self.result}
 
 
 class Category(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
+    name = db.Column(db.String(32))
+    gender = db.Column(db.Integer, nullable=False, default=1)  # 1 - male, 2 - female
+    level = db.Column(db.Integer, nullable=False, default=1)  # 1 - Amateur, 2- Intermediate
+    age_min = db.Column(db.Integer, nullable=False, default=0)
+    age_max = db.Column(db.Integer, nullable=False, default=18)
+    #Categories: (level)<int> (gender)<int>
     #gender - male/female
     #level - amateur/intermediate
     #age - 18-/18-49/50+
     #w_class - w:70-/w:70+/m:80-/m:95-/m:90+
+
+
+    def __repr__(self):
+        return {'name': self.name, '': self.id}
