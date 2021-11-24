@@ -138,6 +138,7 @@ class Competitor(db.Model):
     weight = db.Column(db.Integer, default=0)
     y_o_b = db.Column(db.Integer, default=1980)
     #gender - w/m
+    #association - <string>
     result = db.Column(db.Integer, default=0)
 
     # -------- Connections
