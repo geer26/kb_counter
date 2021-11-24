@@ -136,7 +136,7 @@ class Competitor(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     wname = db.Column(db.String(64), unique=True, nullable=False)
     weight = db.Column(db.Integer, default=0)
-    y_o_b = db.Column(db.Integer, default=1980)
+    y_o_b = db.Column(db.Integer, default=1950)
     #gender - w/m
     #association - <string>
     result = db.Column(db.Integer, default=0)
