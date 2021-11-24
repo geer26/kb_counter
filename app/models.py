@@ -108,15 +108,6 @@ class Event(db.Model):
         return str(self.ident)
 
 
-class Bell(db.Model):
-    id = db.Column(db.Integer, index=True, primary_key=True)
-    value = db.Column(db.Integer, nullable=False, default=8)
-
-
-    def __repr__(self):
-        return {'value':self.value}
-
-
 class Workout(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     wname = db.Column(db.String(64), unique=True, nullable=False)
