@@ -5,6 +5,7 @@ from flask_login import LoginManager
 from config import Config
 from flask_restful import Api
 from flask_socketio import SocketIO
+from roomhandler import Roomhandler
 
 
 app = Flask(__name__)
@@ -24,6 +25,9 @@ api = Api(app)
 
 socket = SocketIO(app)
 socket.init_app(app, cors_allowed_origins="*")
+
+
+handler=Roomhandler()
 
 
 from app import routes, models, workers, endpoints
