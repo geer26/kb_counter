@@ -109,15 +109,17 @@ class Login(Resource):
 
 
 
-#Documented!
+#Done!
 class Logout(Resource):
     def get(self):
 
         if not current_user or not current_user.is_authenticated:
-            return {'status': 1, 'message': 'Logout request refused!'}, 400
+            return {'status': 1, 'message': 'User already logged out!'}, 400
         username = current_user.username
-        print(logout_user())
-        return {'status': 0, 'message': f'User {username} logged out!'}, 200
+        if logout_user():
+            return {'status': 0, 'message': f'User {username} logged out!'}, 200
+        else:
+            {'status': 2, 'message': f'Server error occured!'}, 500
 
 
 

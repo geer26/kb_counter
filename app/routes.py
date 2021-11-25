@@ -7,6 +7,10 @@ from flask_login import current_user, login_user, logout_user, login_required
 def index():
     if not current_user.is_authenticated:
         return render_template('landingpage.html')
+    elif current_user.is_authenticated and current_user.is_superuser:
+        return f'Superuser logged in!'
+    elif current_user.is_authenticated and not current_user.is_superuser:
+        return f'User logged in!'
 
 
 #websocket event dispatcher
