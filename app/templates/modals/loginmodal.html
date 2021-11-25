@@ -1,6 +1,49 @@
-{% extends 'modals/modalback.html' %}
+<div id="modalback" class="modalback" >
+    <div id="loginmodal" class="loginmodal">
 
-{% block modalcontent %}
-<input type="text">
-<button class="btn btn-large butt">Belépés</button>
-{% endblock %}
+        <div class="input-field">
+          <input id="uname" type="text" class="validate">
+          <label for="uname">Felhasználónév</label>
+        </div>
+
+        <div class="input-field">
+          <input id="pw" type="password" class="validate">
+          <label for="pw">Jelszó</label>
+        </div>
+
+
+    <div class="rbholder">
+
+        <p>
+        <label>
+            <input name="group1" type="radio" id="SIN" checked />
+            <span>
+                SINGLE mód
+                <img src="static/img/help_small.png" style="height: 20px; width: 20px;">
+            </span>
+        </label>
+        </p>
+        <p>
+        <label>
+            <input name="group1" id="EXC" type="radio" />
+            <span>
+                EXCLUDED mód
+                <img src="static/img/help_small.png" style="height: 20px; width: 20px;">
+            </span>
+        </label>
+        </p>
+        <p>
+        <label>
+            <input name="group1" type="radio" id="COO" disabled="disabled"/>
+            <span>
+                COOPERATIVE mód
+                <img src="static/img/help_small.png" style="height: 20px; width: 20px;">
+            </span>
+        </label>
+        </p>
+
+    </div>
+
+    <span><button class="btn btn-large butt">Belépés</button></span>
+</div>
+</div>
