@@ -1,0 +1,14 @@
+.landing-content{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
+    padding-top: 10%;
+    margin: 5%;
+}
+
+.butt{
+    font-weight: bold;
+    margin: 20px;
+}

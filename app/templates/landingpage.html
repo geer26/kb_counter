@@ -3,13 +3,20 @@
 
 {% block header %}
 <link rel="stylesheet" href="/static/css/landing.css">
-<script src="/static/js/wstest.js" defer></script>
+<link rel="stylesheet" href="/static/css/modals.css">
+<!--<script src="/static/js/wstest.js" defer></script>-->
 {% endblock %}
 
 
 {% block body %}
-HELLO WORLD!
-<br>
-<input type="text" id="echoinput" style="width: 50%;">
-<button id="echobutton" onclick="echo()">WS ECHO</button>
+
+{% include 'modals/loginmodal.html' %}
+
+<div class="landing-content">
+    KETLEBELL SZÁMLÁLÓ
+    <h3>Válasszon az alábbi lehetőségek közül!</h3>
+    <button class="btn btn-large butt">Belépés</button>
+    <button class="btn btn-large butt">Csatlakozás</button>
+</div>
+
 {% endblock %}

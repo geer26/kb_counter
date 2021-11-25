@@ -27,8 +27,6 @@ def newmessage(data):
 
     sid = request.sid
 
-    print(data)
-
     if data['event'] == 100:
         mess = {}
         mess['event'] = 100
