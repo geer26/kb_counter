@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 
+
 {% block header %}
 <link rel="stylesheet" href="/static/css/landing.css">
+<script src="/static/js/wstest.js" defer></script>
 {% endblock %}
 
 
 {% block body %}
 HELLO WORLD!
+<br>
+<input type="text" id="echoinput" style="width: 50%;">
+<button id="echobutton" onclick="echo()">WS ECHO</button>
 {% endblock %}

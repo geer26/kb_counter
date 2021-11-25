@@ -14,10 +14,12 @@ def index():
 
 
 #websocket event dispatcher
-@socket.on('newmessage')
+@socket.on('general')
 def newmessage(data):
 
     sid = request.sid
+
+    print(data)
 
 '''
     #incoming request for error message with message - DONE
