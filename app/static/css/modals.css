@@ -72,13 +72,13 @@
 
 .closeicon{
 
-    background-image: url('/static/img/close.png');
+    background-image: url('/static/img/closeicon.png');
     background-repeat: no-repeat;
     background-size: cover;
 
     position: absolute;
-    top: -15px;
-    right: -15px;
+    top: 5px;
+    right: 5px;
     height: 30px;
     width: 30px;
     transition-duration: .2s;
@@ -86,11 +86,13 @@
     cursor: pointer;
 }
 
-.closeicon:hover{ű
-    top: -18px;
-    right: -18px;
-    height: 36px;
-    width: 36px;
+.closeicon:hover{
+    top: 2.5px;
+    right: 2.5px;
+    height: 32.5px;
+    width: 32.5px;
+    -webkit-filter: drop-shadow(5px 5px 5px #222);
+    filter: drop-shadow(5px 5px 5px #222);
 }
 
 .errormessage{

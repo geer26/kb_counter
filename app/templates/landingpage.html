@@ -5,18 +5,20 @@
 <link rel="stylesheet" href="/static/css/landing.css">
 <link rel="stylesheet" href="/static/css/modals.css">
 <!--<script src="/static/js/wstest.js" defer></script>-->
+<script src="/static/js/landingpage.js"></script>
 {% endblock %}
 
 
 {% block body %}
 
 {% include 'modals/loginmodal.html' %}
+{% include 'modals/joinmodal.html' %}
 
 <div class="landing-content">
     KETLEBELL SZÁMLÁLÓ
     <h3>Válasszon az alábbi lehetőségek közül!</h3>
-    <button class="btn btn-large butt">Belépés</button>
-    <button class="btn btn-large butt">Csatlakozás</button>
+    <button class="btn btn-large butt" onclick="openmodal($('#login_modalback'))">Belépés</button>
+    <button class="btn btn-large butt" onclick="openmodal($('#join_modalback'))">Csatlakozás</button>
 </div>
 
 {% endblock %}
