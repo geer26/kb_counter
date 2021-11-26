@@ -18,3 +18,65 @@ function openmodal(modal){
     modal.show();
     return true;
 }
+
+
+
+function join(){
+    //show_loader();
+    $.ajax({
+            url: '/API/login',
+            type: 'POST',
+            dataType: "json",
+            //update data content!
+            //data: JSON.stringify({id: id}),
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                //console.log(result);
+                hide_loader();
+                window.location.href = "/";
+                /*
+                $('#main').empty();
+                $('#main').append(result['html']);
+                $("[data-target="+visible_tab.toString()+"]").click();
+                get_logs();
+                */
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                console.log(jqXhr);
+            }
+    });
+}
+
+
+
+function login(){
+    //show_loader();
+    $.ajax({
+            url: '/API/login',
+            type: 'POST',
+            dataType: "json",
+            //update data content!
+            //data: JSON.stringify({id: id}),
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                //console.log(result);
+                hide_loader();
+                window.location.href = "/";
+                /*
+                $('#main').empty();
+                $('#main').append(result['html']);
+                $("[data-target="+visible_tab.toString()+"]").click();
+                get_logs();
+                */
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                console.log(jqXhr);
+            }
+    });
+}
