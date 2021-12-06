@@ -3,15 +3,19 @@ from flask import request, redirect, render_template, send_from_directory, send_
 from flask_login import current_user, login_user, logout_user, login_required
 
 
-@app.route('/')
-@app.route('/index')
+@app.route( '/', methods=['GET', 'POST'] )
+@app.route( '/index', methods=['GET', 'POST'] )
 def index():
-    if not current_user.is_authenticated:
-        return render_template('landingpage.html')
-    elif current_user.is_authenticated and current_user.is_superuser:
-        return f'Superuser logged in!'
-    elif current_user.is_authenticated and not current_user.is_superuser:
-        return render_template('user/userindex.html')
+    if request.method == 'POST' and not current_user.is_authenticated:
+        print(request.values)
+        return redirect('/')
+    else:
+        if not current_user.is_authenticated:
+            return render_template('landingpage.html')
+        elif current_user.is_authenticated and current_user.is_superuser:
+            return f'Superuser logged in!'
+        elif current_user.is_authenticated and not current_user.is_superuser:
+            return render_template('user/userindex.html')
 
 
 #websocket connection
