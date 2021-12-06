@@ -16,31 +16,43 @@
         </div>
 
 
-    <div class="rbholder">
+        <div class="rbholder">
 
         <p>
         <label>
-            <input name="group1" type="radio" id="SIN" checked />
+            <input name="group1" type="radio" id="SET" checked />
+            <span>
+                SZERKESZTŐ mód
+                <img src="static/img/help_small.png" style="height: 20px; width: 20px;" class="tooltipped" data-position="bottom" data-tooltip="Szerkesztő mód!">
+            </span>
+        </label>
+        </p>
+
+        <p>
+        <label>
+            <input name="group1" type="radio" id="SIN"/>
             <span>
                 SINGLE mód
                 <img src="static/img/help_small.png" style="height: 20px; width: 20px;" class="tooltipped" data-position="bottom" data-tooltip="Segéd nem tud csatlakozni a számláláshoz!">
             </span>
         </label>
         </p>
+
         <p>
         <label>
             <input name="group1" id="EXC" type="radio" />
             <span>
-                EXCLUDED mód
+                FŐBÍRÓ mód
                 <img src="static/img/help_small.png" style="height: 20px; width: 20px;" class="tooltipped" data-position="bottom" data-tooltip="Csak a segédek számlálnak!">
             </span>
         </label>
         </p>
+
         <p>
         <label>
             <input name="group1" type="radio" id="COO" disabled="disabled"/>
             <span>
-                COOPERATIVE mód
+                SEGÉD mód
                 <img src="static/img/help_small.png" style="height: 20px; width: 20px;" class="tooltipped" data-position="bottom" data-tooltip="A funkció le van tiltva!">
             </span>
         </label>
@@ -48,6 +60,8 @@
 
     </div>
 
-    <span><button class="btn btn-large butt">Belépés</button></span>
-</div>
+        <span><button class="btn btn-large butt" onclick="login()">Belépés</button></span>
+
+    </div>
+
 </div>

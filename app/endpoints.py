@@ -67,8 +67,12 @@ class Login(Resource):
 
     def post(self):
 
+        #return '',200
+
         # get data from posted json
         json_data = request.get_json(force=True)
+
+        print(f'POSTED DATA: {json_data}')
 
         #Drop request if already logged in
         if current_user.is_authenticated:

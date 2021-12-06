@@ -8,10 +8,10 @@ POST http://127.0.0.1:5001/API/adduser HTTP/1.1
 content-type: application/json
 
 {
-    "username": "user",
-    "password": "123456aA"
+    "username": "admin",
+    "password": "123456aA",
+    "su": true
 }
-
 
 
 ### Delete user
@@ -24,33 +24,8 @@ POST http://127.0.0.1:5001/API/deluser HTTP/1.1
 content-type: application/json
 
 {
-    "id": 3
+    "id": 1
 }
-
-
-
-### Login user
-# Endpoint: /API/login
-# Method: POST
-# Type: application/json
-# JSON payload: {"username": <str>, "password": <str>}
-# Returns: 200 or 401 with message
-POST http://127.0.0.1:5001/API/login HTTP/1.1
-content-type: application/json
-
-{
-    "username": "user",
-    "password": "123456aA"
-}
-
-
-
-### Logout user
-# Endpoint: /API/logout
-# Method: GET
-# Returns: 200 or 400 with message
-GET http://127.0.0.1:5001/API/logout HTTP/1.1
-
 
 
 ### Query all in DB

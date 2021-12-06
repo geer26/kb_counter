@@ -11,7 +11,7 @@ def index():
     elif current_user.is_authenticated and current_user.is_superuser:
         return f'Superuser logged in!'
     elif current_user.is_authenticated and not current_user.is_superuser:
-        return f'User logged in!'
+        return render_template('user/userindex.html')
 
 
 #websocket connection

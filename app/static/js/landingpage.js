@@ -54,17 +54,19 @@ function join(){
 
 function login(){
     //show_loader();
+    console.log('HELLO WORLD!')
+    d = {username:'test', password: 'qwertz'};
     $.ajax({
             url: '/API/login',
             type: 'POST',
             dataType: "json",
             //update data content!
-            //data: JSON.stringify({id: id}),
+            data: d,
             contentType: "application/json; charset=utf-8",
 
             success: result => {
                 //console.log(result);
-                hide_loader();
+                //hide_loader();
                 window.location.href = "/";
                 /*
                 $('#main').empty();
@@ -75,7 +77,7 @@ function login(){
             },
 
             error: (jqXhr, textStatus, errorMessage) => {
-                hide_loader();
+                //hide_loader();
                 console.log(jqXhr);
             }
     });
