@@ -18,6 +18,13 @@ def index():
             return render_template('user/userindex.html')
 
 
+@app.route('/logout')
+@login_required
+def logout():
+    logout_user()
+    return redirect('/')
+
+
 #websocket connection
 @socket.on('connect')
 def connect(auth):

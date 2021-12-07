@@ -67,12 +67,10 @@ class Login(Resource):
 
     def post(self):
 
-        #return '',200
-
         # get data from posted json
         json_data = request.get_json(force=True)
 
-        print(f'POSTED DATA: {json_data}')
+        #print(f'POSTED DATA: {json_data}')
 
         #Drop request if already logged in
         if current_user.is_authenticated:
@@ -133,4 +131,4 @@ api.add_resource(AddUser, '/API/adduser')
 api.add_resource(GetAllData, '/API/query')
 api.add_resource(DeleteUser, '/API/deluser')
 api.add_resource(Login, '/API/login')
-api.add_resource(Logout, '/API/logout')
+#api.add_resource(Logout, '/API/logout')
