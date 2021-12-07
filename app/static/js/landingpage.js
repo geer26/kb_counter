@@ -65,9 +65,12 @@ function join(){
 
 function login(){
     show_loader();
-    un = $('#uname').val();
-    pw = $('#pw').val();
-    d = JSON.stringify({username:un, password:pw});
+    var un = $('#uname').val();
+    var pw = $('#pw').val();
+
+    var mode = $("input[name='mode']:checked").attr('id');
+
+    d = JSON.stringify({username:un, password:pw, mode:mode});
     $.ajax({
             url: '/API/login',
             type: 'POST',

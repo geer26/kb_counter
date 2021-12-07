@@ -133,34 +133,70 @@ class Competitor(db.Model):
     y_o_b = db.Column(db.Integer, default=1950)
     gender = db.Column(db.Integer, nullable=False, default=1)  # 1 - male, 2 - female
     result = db.Column(db.Integer, default=0)
+    category = db.Column(db.String(32), default=None)
 
     # -------- Connections
     # -------- FK
-
     event = db.Column(db.Integer, db.ForeignKey('event.id'))
-    category = db.Column(db.Integer, db.ForeignKey('category.id'))
+    workout = db.Column(db.Integer, db.ForeignKey('workout.id'))
 
 
     def __repr__(self):
         return {'id': self.id, 'name': self.name, 'result': self.result}
 
 
-class Category(db.Model):
-    id = db.Column(db.Integer, index=True, primary_key=True)
-    name = db.Column(db.String(32))
-    gender = db.Column(db.Integer, nullable=False, default=1)  # 1 - male, 2 - female
-    level = db.Column(db.Integer, nullable=False, default=1)  # 1 - Amateur, 2- Intermediate
-    age_min = db.Column(db.Integer, nullable=False, default=0)
-    age_max = db.Column(db.Integer, nullable=False, default=18)
-    #Categories: (level)<int> (gender)<int>
-    #gender - male/female
-    #level - amateur/intermediate
-    #age - 18-/18-49/50+
-    #w_class - w:70-/w:70+/m:80-/m:95-/m:90+
+    def generate_category(self):
+
+        age = datetime.now().year - self.y_o_b
+
+        if self.gender == 2:
+            if age <= 18:
+                self.category = 'W-U18'
+                return True
+            elif age >=50:
+                self.category = 'W-50+'
+                return True
+            else:
+                if self.weight < 70:
+                    self.category = 'W-70-'
+                    return True
+                elif self.weight >= 70:
+                    self.category = 'W-70+'
+                    return True
+                else:
+                    return False
+
+        elif self.gender == 1:
+            if age <= 18:
+                self.category = 'M-U18'
+                return True
+            elif age >= 50:
+                self.category = 'M-50+'
+                return True
+            else:
+                if self.weight < 80:
+                    self.category = 'M-80-'
+                    return True
+                elif self.weight >= 80 and self.weight < 95:
+                    self.category = 'M-95-'
+                    return True
+                elif self.weight >= 95:
+                    self.category = 'M-95+'
+                    return True
+                else:
+                    return False
+
+        else:
+            return False
 
 
-    def __repr__(self):
-        return {'name': self.name, '': self.id}
+    def increment_result(self, point):
+        try:
+            self.result += int(point)
+            return True
+        except TypeError:
+            return False
+
 
 
 class Exercise(db.Model):

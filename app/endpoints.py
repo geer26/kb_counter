@@ -87,6 +87,7 @@ class Login(Resource):
         #Extract creditentials from payload
         username = json_data['username']
         password = json_data['password']
+        mode = json_data['mode']
 
         #Deprecated, will be False as default!
         '''
@@ -108,22 +109,8 @@ class Login(Resource):
         #If OK, log user in and return 200
         login_user(user, remember=False)
         #Edit cookies and session here!
+        session['_mode'] = mode
         return {"status": 0, 'message': f'User {user.username} logged in!'}, 200
-
-
-
-#Done!
-class Logout(Resource):
-    def get(self):
-
-        if not current_user or not current_user.is_authenticated:
-            return {'status': 1, 'message': 'User already logged out!'}, 400
-        username = current_user.username
-        if logout_user():
-            return {'status': 0, 'message': f'User {username} logged out!'}, 200
-        else:
-            {'status': 2, 'message': f'Server error occured!'}, 500
-
 
 
 
@@ -131,4 +118,3 @@ api.add_resource(AddUser, '/API/adduser')
 api.add_resource(GetAllData, '/API/query')
 api.add_resource(DeleteUser, '/API/deluser')
 api.add_resource(Login, '/API/login')
-#api.add_resource(Logout, '/API/logout')
