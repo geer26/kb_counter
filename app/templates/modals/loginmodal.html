@@ -7,13 +7,17 @@
 
         <!--<form id="loginform" method="post" action="/">-->
 
+            <p id="loginerror" style="display: none;" class="errormessage">
+                HIBA!
+            </p>
+
             <div class="input-field">
-                <input id="uname" type="text" class="validate">
+                <input id="uname" type="text" class="validate" onkeypress="hide_error()">
                 <label for="uname">Felhasználónév</label>
             </div>
 
             <div class="input-field">
-                <input id="pw" type="password" class="validate">
+                <input id="pw" type="password" class="validate" onkeypress="hide_error()">
                 <label for="pw">Jelszó</label>
             </div>
 

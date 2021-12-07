@@ -3,7 +3,17 @@ $(document).ready(function(){
   });
 
 
+function hide_error(){
+    $('.errormessage').hide();
+}
+
+
 function closemodal(modal){
+    var inputs = modal.find("input");
+    inputs.each(function(){
+        $(this).val('');
+    });
+    hide_error();
     modal.hide();
     return true;
 }
@@ -14,7 +24,7 @@ function openmodal(modal){
     inputs.each(function(){
         $(this).val('');
     });
-
+    hide_error();
     modal.show();
     return true;
 }
@@ -33,7 +43,7 @@ function join(){
 
             success: result => {
                 //console.log(result);
-                hide_loader();
+                //hide_loader();
                 window.location.href = "/";
                 /*
                 $('#main').empty();
@@ -44,8 +54,9 @@ function join(){
             },
 
             error: (jqXhr, textStatus, errorMessage) => {
-                hide_loader();
+                //hide_loader();
                 console.log(jqXhr);
+                console.log(jqXhr['responseJSON']);
             }
     });
 }
@@ -72,7 +83,10 @@ function login(){
 
             error: (jqXhr, textStatus, errorMessage) => {
                 //hide_loader();
-                console.log(jqXhr);
+                //console.log(jqXhr);
+                //console.log(jqXhr['responseJSON']['message']);
+                $('#loginerror').text( jqXhr['responseJSON']['message'] );
+                $('#loginerror').show();
             }
     });
 }

@@ -74,15 +74,15 @@ class Login(Resource):
 
         #Drop request if already logged in
         if current_user.is_authenticated:
-            return {'status': 2, 'message': 'Already logged in!'}, 400
+            return {'status': 2, 'message': 'Már be van lépve!'}, 400
 
         #Drop request if there is no payload
         if not json_data:
-            return {'status': 4, 'message': 'LOGIN request must have params!'}, 400
+            return {'status': 4, 'message': 'Hiányzó kötelező mezők!'}, 400
 
         #Drop request in case of missing param
         if not json_data['username'] or not json_data['password']:
-            return {'status': 3, 'message': 'Username and password must be presented for login!'}, 400
+            return {'status': 3, 'message': 'Hiányzó kötelező mezők!'}, 400
 
         #Extract creditentials from payload
         username = json_data['username']
@@ -100,10 +100,10 @@ class Login(Resource):
         user = User.query.filter_by(username=str(username)).one_or_none()
         #Return 401 by invalid username
         if not user:
-            return {'status': 1, 'message': 'Invalid username!'}, 401
+            return {'status': 1, 'message': 'Hibás azonsító adat!'}, 401
         #Return 401 by invalid password
         if not user.check_password(str(password)):
-            return {'status': 1, 'message': 'Invalid password!'}, 401
+            return {'status': 1, 'message': 'Hibás azonsító adat!'}, 401
 
         #If OK, log user in and return 200
         login_user(user, remember=False)
