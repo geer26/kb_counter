@@ -10,6 +10,7 @@ def load_user(id):
     return User.query.get(int(id))
 
 
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     username = db.Column(db.String(32), unique=True, nullable=False)
@@ -57,6 +58,7 @@ class User(UserMixin, db.Model):
         }
 
 
+
 class Event(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
@@ -86,6 +88,7 @@ class Event(db.Model):
 
     def get_ident(self):
         return str(self.ident)
+
 
 
 class Workout(db.Model):
@@ -125,6 +128,7 @@ class Workout(db.Model):
         return json.dumps(self.workout)
 
 
+
 class Competitor(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     cname = db.Column(db.String(64))
@@ -133,7 +137,7 @@ class Competitor(db.Model):
     y_o_b = db.Column(db.Integer, default=1950)
     gender = db.Column(db.Integer, nullable=False, default=1)  # 1 - male, 2 - female
     result = db.Column(db.Integer, default=0)
-    category = db.Column(db.String(32), default=None)
+    category = db.Column(db.String(32), default='')
 
     # -------- Connections
     # -------- FK
@@ -202,6 +206,8 @@ class Competitor(db.Model):
 class Exercise(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     name = db.Column(db.String(64), nullable=False, default='Noname exercise')  #Name of exercise, to represent
+    short_name = db.Column(db.String(32), default='Noname_short')
+    link = db.Column(db.String(), default='')
     type = db.Column(db.String(32), nullable=False, default='rest')  #rest/warmup/workout
     max_rep = db.Column(db.Integer, nullable=False, default=0)  #max countable rep, if -1->unlimited
     duration = db.Column(db.Integer, nullable=False, default=0)  #duration of exercise in seconds
