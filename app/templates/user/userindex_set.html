@@ -2,20 +2,28 @@
 
 
 {% block header %}
+<link rel="stylesheet" href="/static/css/user/settings_mode.css">
+<script src="/static/js/user/settings_mode.js"></script>
 {% endblock %}
 
 
 {% block body %}
 
-<button class="btn btn-large" onclick="window.location.href='/logout'">Kilépés</button>
+<div id="container" class="container">
 
-<h3>
-  USER INDEX
-</h3>
+  <div id="navbar" class="navbar">
 
-<p>SETTINGS MODE</p>
+    <button class="btn btn-large" onclick="window.location.href='/logout'">Kilépés</button>
 
-<div id="content">
+  </div>
+
+  <div id="content" class="content">
+
+    <h3>USER INDEX</h3>
+
+    <p>SETTINGS MODE</p>
+
+  </div>
 
 </div>
 

@@ -1,11 +1,43 @@
-.content{
+:root {
+  --main-bg-color: brown;
+  --navbar-bg: rgba(123,123,123,.4)
+}
+
+.container{
     position: absolute;
     width: 100vw;
     height: 100vh;
     top: 0;
     left: 0;
 
+    display: grid;
+    grid-template-columns: 1fr 9fr;
+    grid-template-rows: 1fr;
+    gap: 0px 0px;
+    grid-template-areas:
+        "navbar content";
+
+    //display: flex;
+    //justify-content: center;
+    //align-items: center;
+}
+
+
+.navbar{
+    grid-area: navbar;
+    height: 100%;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    border: 1px solid red;
+    background-color: var(--navbar-bg);
+}
+
+
+.content{
+    grid-area: content;
+    height: 100%;
+    width: 100%;
+    border: 1px solid blue;
 }
