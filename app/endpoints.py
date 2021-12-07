@@ -109,6 +109,7 @@ class Login(Resource):
 
         #If OK, log user in and return 200
         login_user(user, remember=False)
+        #Edit cookies and session here!
         return {"status": 0, 'message': f'User {user.username} logged in!'}, 200
 
 

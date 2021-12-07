@@ -55,25 +55,19 @@ function join(){
 function login(){
     //show_loader();
     console.log('HELLO WORLD!')
-    d = {username:'test', password: 'qwertz'};
+    un = $('#uname').val();
+    pw = $('#pw').val();
+    d = JSON.stringify({username:un, password:pw});
     $.ajax({
             url: '/API/login',
             type: 'POST',
             dataType: "json",
-            //update data content!
             data: d,
             contentType: "application/json; charset=utf-8",
 
             success: result => {
-                //console.log(result);
                 //hide_loader();
                 window.location.href = "/";
-                /*
-                $('#main').empty();
-                $('#main').append(result['html']);
-                $("[data-target="+visible_tab.toString()+"]").click();
-                get_logs();
-                */
             },
 
             error: (jqXhr, textStatus, errorMessage) => {

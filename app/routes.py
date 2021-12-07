@@ -13,7 +13,7 @@ def index():
         if not current_user.is_authenticated:
             return render_template('landingpage.html')
         elif current_user.is_authenticated and current_user.is_superuser:
-            return f'Superuser logged in!'
+            return render_template('superuser/adminindex.html')
         elif current_user.is_authenticated and not current_user.is_superuser:
             return render_template('user/userindex.html')
 
