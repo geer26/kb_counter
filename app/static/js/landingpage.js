@@ -32,7 +32,7 @@ function openmodal(modal){
 
 
 function join(){
-    //show_loader();
+    show_loader();
     $.ajax({
             url: '/API/login',
             type: 'POST',
@@ -43,8 +43,8 @@ function join(){
 
             success: result => {
                 //console.log(result);
-                //hide_loader();
-                window.location.href = "/";
+                hide_loader();
+                //window.location.href = "/";
                 /*
                 $('#main').empty();
                 $('#main').append(result['html']);
@@ -54,7 +54,7 @@ function join(){
             },
 
             error: (jqXhr, textStatus, errorMessage) => {
-                //hide_loader();
+                hide_loader();
                 console.log(jqXhr);
                 console.log(jqXhr['responseJSON']);
             }

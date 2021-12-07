@@ -89,12 +89,12 @@
 }
 
 .closeicon:hover{
-    top: 2.5px;
-    right: 2.5px;
-    height: 22.5px;
-    width: 22.5px;
-    -webkit-filter: drop-shadow(5px 5px 5px #222);
-    filter: drop-shadow(5px 5px 5px #222);
+    top: 3px;
+    right: 3px;
+    height: 22px;
+    width: 22px;
+    -webkit-filter: drop-shadow(3px 3px 3px #222);
+    filter: drop-shadow(3px 3px 3px #222);
 }
 
 .errormessage{
