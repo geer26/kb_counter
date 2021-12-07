@@ -64,8 +64,7 @@ function join(){
 
 
 function login(){
-    //show_loader();
-    console.log('HELLO WORLD!')
+    show_loader();
     un = $('#uname').val();
     pw = $('#pw').val();
     d = JSON.stringify({username:un, password:pw});
@@ -77,12 +76,12 @@ function login(){
             contentType: "application/json; charset=utf-8",
 
             success: result => {
-                //hide_loader();
+                hide_loader();
                 window.location.href = "/";
             },
 
             error: (jqXhr, textStatus, errorMessage) => {
-                //hide_loader();
+                hide_loader();
                 //console.log(jqXhr);
                 //console.log(jqXhr['responseJSON']['message']);
                 $('#loginerror').text( jqXhr['responseJSON']['message'] );

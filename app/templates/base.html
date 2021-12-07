@@ -21,9 +21,11 @@
 
     <link rel="stylesheet" href="/static/css/materialize.min.css">
     <link rel="stylesheet" href="/static/css/base.css">
+    <link rel="stylesheet" href="/static/css/loader.css">
     <script src="/static/js/jquery-3.6.0.js"></script>
     <script src="/static/js/materialize.min.js"></script>
     <script src="/static/js/socket.io.js"></script>
+    <script src="/static/js/loader.js"></script>
 
     {% block header %}
     {% endblock %}
@@ -31,6 +33,7 @@
 </head>
 <body>
 
+    {% include 'modals/loadermodal.html' %}
     <div id="content">
     {% block body %}
     {% endblock %}
