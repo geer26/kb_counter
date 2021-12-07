@@ -15,8 +15,16 @@ def index():
             return render_template('landingpage.html')
         elif current_user.is_authenticated and current_user.is_superuser:
             return render_template('superuser/adminindex.html')
-        elif current_user.is_authenticated and not current_user.is_superuser:
-            return render_template('user/userindex.html')
+        elif current_user.is_authenticated and not current_user.is_superuser and session['_mode'] == 'SET' :
+            return render_template('user/userindex_set.html')
+        elif current_user.is_authenticated and not current_user.is_superuser and session['_mode'] == 'EXC' :
+            return render_template('user/userindex_exc.html')
+        elif current_user.is_authenticated and not current_user.is_superuser and session['_mode'] == 'SIN' :
+            return render_template('user/userindex_sin.html')
+        elif current_user.is_authenticated and not current_user.is_superuser and session['_mode'] == 'COO' :
+            return render_template('user/userindex_coo.html')
+        else:
+            return '', 404
 
 
 @app.route('/logout')
