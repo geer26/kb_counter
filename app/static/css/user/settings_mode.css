@@ -69,11 +69,14 @@
     left: 0;
 
     display: grid;
-    grid-template-columns: 1fr 9fr;
-    grid-template-rows: 1fr;
+    grid-template-columns: 8fr 2fr;
+    grid-template-rows: 2fr 2fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
-        "navbar content";
+        "main works"
+        "main exc"
+        "main ."
+        ;
 
     //display: flex;
     //justify-content: center;
@@ -82,7 +85,7 @@
 
 
 .navbar{
-    grid-area: navbar;
+    grid-area: main;
     height: 100%;
     width: 100%;
     display: flex;
