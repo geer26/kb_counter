@@ -1,6 +1,7 @@
 from app import app, socket, handler
 from flask import request, redirect, render_template, send_from_directory, send_file, session
 from flask_login import current_user, login_user, logout_user, login_required
+from app.workers import get_settingsmode_data
 
 
 @app.route( '/', methods=['GET', 'POST'] )
@@ -16,7 +17,8 @@ def index():
         elif current_user.is_authenticated and current_user.is_superuser:
             return render_template('superuser/adminindex.html')
         elif current_user.is_authenticated and not current_user.is_superuser and session['_mode'] == 'SET' :
-            return render_template('user/userindex_set.html')
+            data = get_settingsmode_data()
+            return render_template('user/userindex_set.html', data=data, title='Beállítások')
         elif current_user.is_authenticated and not current_user.is_superuser and session['_mode'] == 'EXC' :
             return render_template('user/userindex_exc.html')
         elif current_user.is_authenticated and not current_user.is_superuser and session['_mode'] == 'SIN' :

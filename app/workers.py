@@ -1,6 +1,7 @@
 import json
 from app import db
-from app.models import User
+from app.models import User, Event, Workout, Competitor, Exercise
+from flask_login import current_user
 
 
 
@@ -57,5 +58,25 @@ def get_all_data():
     data['USERS'] = []
     for user in User.query.all():
         data['USERS'].append(user.get_self_json())
+
+    return data
+
+
+def get_settingsmode_data():
+    data = {}
+
+    userid = int(current_user.id)
+    print(userid)
+
+    data['user'] = User.query.get(userid).get_self_json()
+    print(data['user'])
+
+    data['events'] = []
+    for event in Event.query.filter(User.id==userid).all():
+        e = event.get_self_json()
+        e['competitors'] = []
+        for competitor in Competitor.query.filter(Event.id==event.id).all():
+            e['competitors'].append(competitor.get_self_json())
+        data['events'].append(e)
 
     return data
