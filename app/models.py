@@ -61,6 +61,8 @@ class User(UserMixin, db.Model):
 
 class Event(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
+    description = db.Column(db.String(256), default='No description')
+    short_name = db.Column(db.String(32), default='No name')
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
     ident = db.Column(db.String(6), nullable=False)
 
@@ -90,11 +92,21 @@ class Event(db.Model):
         return str(self.ident)
 
 
+    def get_self_json(self):
+        return {
+            'id': self.id,
+            'name': self.short_name,
+            'description': self.description,
+            'created_at': self.created_at.strftime("%m/%d/%Y, %H:%M:%S"),
+            'ident': self.ident
+        }
+
+
 
 class Workout(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
-    wname = db.Column(db.String(64), unique=True, nullable=False)
-    workout = db.Column(db.String(), default=None)
+    short_name = db.Column(db.String(32), unique=True, nullable=False, default='No name')
+    description = db.Column(db.String(256), default=None)
     '''
     
     eg.
@@ -126,6 +138,15 @@ class Workout(db.Model):
 
     def get_workout(self):
         return json.dumps(self.workout)
+
+
+    def get_self_json(self):
+        return {
+            'id': self.id,
+            'name': self.short_name,
+            'description': self.description,
+            'created_at': self.created_at.strftime("%m/%d/%Y, %H:%M:%S")
+        }
 
 
 
@@ -202,6 +223,19 @@ class Competitor(db.Model):
             return False
 
 
+    def get_self_json(self):
+        return {
+            'id': self.id,
+            'name': self.cname,
+            'association': self.association,
+            'weight': self.weight,
+            'y_o_b': self.y_o_b,
+            'gender': self.gender,
+            'result': self.result,
+            'category': self.category
+        }
+
+
 
 class Exercise(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
@@ -219,3 +253,15 @@ class Exercise(db.Model):
 
     def __repr__(self):
         return {'name': self.name, 'type': self.type, 'max': self.max_rep, 'duration': self.duration}
+
+
+    def get_self_json(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'short_name': self.short_name,
+            'link': self.link,
+            'type': self.type,
+            'max_rep': self.max_rep,
+            'duration': self.duration
+        }
