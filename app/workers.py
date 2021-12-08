@@ -72,10 +72,10 @@ def get_settingsmode_data():
     print(data['user'])
 
     data['events'] = []
-    for event in Event.query.filter(User.id==userid).all():
+    for event in Event.query.filter_by(user=userid).all():
         e = event.get_self_json()
         e['competitors'] = []
-        for competitor in Competitor.query.filter(Event.id==event.id).all():
+        for competitor in Competitor.query.filter_by(event=event.id).all():
             e['competitors'].append(competitor.get_self_json())
         data['events'].append(e)
 
