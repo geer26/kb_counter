@@ -1,38 +1,44 @@
+
 :root {
   --main-bg-color: brown;
-  --navbar-bg: rgba(123,123,123,.4)
+  --navbar-bg: rgba(132, 132, 232,.4);
 }
 
-.container{
-    position: absolute;
+
+.content-container{
+    //position: relative;
     width: 100%;
     height: 100%;
-    top: 0;
-    left: 0;
 
-    padding: 5px;
-
-    border: 2px solid yellow;
+    //padding: 5px;
+    //margin: auto;
 
     display: grid;
     grid-template-columns: 8fr 2fr;
     grid-template-rows: 2fr 2fr 1fr;
-    gap: 5px 5px;
+    gap: 15px 15px;
     grid-template-areas:
         "active_window etc1"
         "active_window etc2"
-        "active_window ."
-        ;
+        "active_window .";
 }
 
 
 .active_window{
+    position: relative;
     grid-area: active_window;
     height: 100%;
     width: 100%;
+
+    overflow: hidden;
+
     display: flex;
-    justify-content: center;
+    //justify-content: center;
     align-items: center;
+    flex-direction: column;
+
+    backdrop-filter: blur(2px);
+
     border: 1px solid black;
     border-radius: 5px;
     background-color: var(--navbar-bg);
@@ -42,21 +48,77 @@
 
 
 .etc1{
+    position: relative;
     grid-area: etc1;
     height: 100%;
     width: 100%;
+
+    overflow: hidden;
+
+    display: flex;
+    //justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
     border: 1px solid black;
     border-radius: 5px;
+    background-color: var(--navbar-bg);
     -webkit-box-shadow: 1px 1px 6px 3px rgba(0,0,0,0.73);
     box-shadow: 1px 1px 6px 3px rgba(0,0,0,0.73);
 }
 
+
 .etc2{
+    position: relative;
     grid-area: etc2;
     height: 100%;
     width: 100%;
+
+    overflow: hidden;
+
+    display: flex;
+    //justify-content: center;
+    align-items: center;
+    flex-direction: column;
+
     border: 1px solid black;
     border-radius: 5px;
+    background-color: var(--navbar-bg);
     -webkit-box-shadow: 1px 1px 6px 3px rgba(0,0,0,0.73);
     box-shadow: 1px 1px 6px 3px rgba(0,0,0,0.73);
+}
+
+
+.title{
+    position: relative;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px 5px 0 0;
+    text-align: center;
+    -webkit-box-shadow: 1px 1px 6px 3px rgba(0,0,0,0.73);
+    box-shadow: 1px 1px 6px 3px rgba(0,0,0,0.73);
+}
+
+
+.title p{
+    margin: 0;
+    padding: 0;
+    color: white;
+}
+
+
+.window-content{
+    position: relative;
+    overflow: auto;
+    width: 100%;
+    max-height: 100%;
+    margin-top: 7px;
+    margin-bottom: 5px;
+    padding: 5px;
+    display: flex;
+    //justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }

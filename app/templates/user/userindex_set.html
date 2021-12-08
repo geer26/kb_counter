@@ -9,21 +9,69 @@
 
 {% block body %}
 
-<div id="container" class="container">
+<div class="content-container">
 
   <div id="active_window" class="active_window">
-    <h3>USER INDEX</h3>
-    <p>SETTINGS MODE</p>
+
+    <div class="title teal lighten-2">
+      <p id="active_title">ESEMÉNYEK</p>
+    </div>
+
+    <div class="window-content">
+      <p>EVENTS HERE!</p>
+    </div>
+
   </div>
 
   <div id="etc1" class="etc1">
-    <p>WORKOUTS HERE!</p>
+
+    <div class="title teal lighten-2">
+      <p id="etc1_title">VERSENYSZÁMOK</p>
+    </div>
+
+    <div class="window-content">
+      <p>WORKOUTS HERE!</p>
+    </div>
+
   </div>
 
   <div id="etc2" class="etc2">
-    <button class="btn btn-large" onclick="window.location.href='/logout'">Kilépés</button>
+
+    <div class="title teal lighten-2">
+      <p id="etc2_title">EXERCISES HERE!</p>
+    </div>
+
+    <div class="window-content">
+      <p>EXERCISES HERE</p>
+      <p>EXERCISES HERE</p>
+      <p>EXERCISES HERE</p>
+      <p>EXERCISES HERE</p>
+      <p>EXERCISES HERE</p>
+      <p>EXERCISES HERE</p>
+      <p>EXERCISES HERE</p>
+      <p>EXERCISES HERE</p>
+      <p>EXERCISES HERE</p>
+      <p>EXERCISES HERE</p>
+      <p>EXERCISES HERE</p>
+      <p>EXERCISES HERE</p>
+      <p>EXERCISES HERE</p>
+      <p>EXERCISES HERE</p>
+    </div>
+
   </div>
 
+</div>
+
+<div class="fixed-action-btn" style="margin-right: 30px; margin-bottom: 30px;">
+  <a class="btn-floating btn-large red">
+    <i class="large material-icons">menu</i>
+  </a>
+  <ul>
+    <li><a class="btn-floating btn-large grey"><i class="material-icons">format_quote</i></a></li>
+    <li><a class="btn-floating btn-large grey"><i class="material-icons">publish</i></a></li>
+    <li><a class="btn-floating btn-large grey"><i class="material-icons">attach_file</i></a></li>
+    <li><a class="btn-floating btn-large red"><i class="material-icons" onclick="window.location.href='/logout'">logout</i></a></li>
+  </ul>
 </div>
 
 {% endblock %}
