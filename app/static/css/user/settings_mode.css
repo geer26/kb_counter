@@ -48,7 +48,7 @@
 
 }
 
-exercises {
+.exercises {
     grid-area: exercises;
     background-color: #CB8DCE;
     display: relative;
