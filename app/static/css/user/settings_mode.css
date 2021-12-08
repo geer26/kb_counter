@@ -2,65 +2,7 @@
   --main-bg-color: brown;
   --navbar-bg: rgba(123,123,123,.4)
 }
-//background-color: var(--navbar-bg);
 
-
-.container {
-    position: absolute;
-    width: 100vw;
-    height: 100vh;
-    top: 0;
-    left: 0;
-
-    display: grid;
-    grid-template-rows: 1fr 1fr 1fr 1fr 1fr;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-
-    border: 2px solid red;
-
-    grid-gap: 5px 5px;
-
-    grid-template-areas:
-        "events events events workouts workouts"
-        "events events events workouts workouts"
-        "events events events exercises exercises"
-        "events events events exercises exercises"
-        "events events events . .";
-}
-
-.events {
-    grid-area: events;
-    background-color: #9ED9F9;
-    height: 100%;
-    width: 100%;
-    //display: flex;
-    //justify-content: center;
-
-}
-
-.workouts {
-    grid-area: workouts;
-    background-color: #5F7EF8;
-    height: 100%;
-    width: 100%;
-    //display: flex;
-    //justify-content: center;
-
-}
-
-.exercises {
-    grid-area: exercises;
-    background-color: #CB8DCE;
-    display: relative;
-    height: 100%;
-    width: 100%;
-    //display: flex;
-    //justify-content: center;
-
-}
-
-
-/*
 .container{
     position: absolute;
     width: 100vw;
@@ -69,13 +11,13 @@
     left: 0;
 
     display: grid;
-    grid-template-columns: 8fr 2fr;
+    grid-template-columns: 8fr 3fr;
     grid-template-rows: 2fr 2fr 1fr;
     gap: 0px 0px;
     grid-template-areas:
-        "main works"
-        "main exc"
-        "main ."
+        "active_window etc1"
+        "active_window etc2"
+        "active_window ."
         ;
 
     //display: flex;
@@ -84,24 +26,28 @@
 }
 
 
-.navbar{
-    grid-area: main;
+.active_window{
+    grid-area: active_window;
     height: 100%;
     width: 100%;
     display: flex;
     justify-content: center;
-    //align-items: center;
-    padding: 5px;
+    align-items: center;
     border: 1px solid red;
     background-color: var(--navbar-bg);
 }
 
 
-.content{
-    grid-area: content;
+.etc1{
+    grid-area: etc1;
     height: 100%;
     width: 100%;
-    padding: 5px;
     border: 1px solid blue;
 }
-*/
+
+.etc2{
+    grid-area: etc2;
+    height: 100%;
+    width: 100%;
+    border: 1px solid green;
+}
