@@ -103,13 +103,15 @@ function add_exercise(){
 
             success: result => {
                 hide_loader();
-                //window.location.href = "/";
-                //update exercise pane
-                console.log(result);
+                closemodal($('#addexercise_modalback'));
+                $('#etc2_content').empty();
+                $('#etc2_content').append(result['fragment']);
+                return;
             },
 
             error: (jqXhr, textStatus, errorMessage) => {
                 hide_loader();
+                closemodal($('#addexercise_modalback'));
                 showerror(jqXhr['responseJSON']['message'], $('#addexerciseerror'))
             }
     });

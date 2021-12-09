@@ -95,7 +95,6 @@ def get_settingsmode_data():
         data['workouts'].append(workout.get_self_json())
 
     data['exercises'] = []
-    print(f'LEN: {Exercise.query.filter_by(user=userid).all()}')
     for exercise in Exercise.query.filter_by(user=userid).all():
         data['exercises'].append(exercise)
 

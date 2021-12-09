@@ -5,7 +5,8 @@ from flask_restful import Resource
 from flask_login import current_user, login_user, logout_user
 from flask import request, render_template, send_from_directory, session, Response
 from app import api, db
-from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, add_exercise, del_exercise
+from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, add_exercise,\
+    del_exercise, get_user_exercises
 from app.models import User
 
 
@@ -118,11 +119,15 @@ class Add_exercise(Resource):
     def post(self):
         # get data from posted json
         json_data = request.get_json(force=True)
-        #print(f'POSTED DATA: {json_data}')
+        # call worker that adds record
         if add_exercise(json_data):
-            #TODO re-render fragment!
-            return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': None}, 200
+            # compose fragment to replace old
+            data = get_user_exercises(json_data['userid'])
+            fragment = render_template('user/fragments/frag_exercises.html', data=data)
+            # return the rendered fragment
+            return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': fragment}, 200
         else:
+            # something - somewhere went wrong!
             return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
 
 
@@ -131,11 +136,15 @@ class Del_exercise(Resource):
     def post(self):
         # get data from posted json
         json_data = request.get_json(force=True)
-        # print(f'POSTED DATA: {json_data}')
+        # call worker that deletes record
         if del_exercise(json_data):
-            # TODO re-render fragment!
-            return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': None}, 200
+            # compose fragment to replace old
+            data = get_user_exercises(json_data['userid'])
+            fragment = render_template('user/fragments/frag_exercises.html', data=data)
+            # return the rendered fragment
+            return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': fragment}, 200
         else:
+            # something - somewhere went wrong!
             return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
 
 
