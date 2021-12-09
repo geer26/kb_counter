@@ -8,9 +8,9 @@ POST http://127.0.0.1:5001/API/adduser HTTP/1.1
 content-type: application/json
 
 {
-    "username": "admin",
-    "password": "123456aA",
-    "su": true
+    "username": "user",
+    "password": "123456",
+    "su": false
 }
 
 
@@ -26,6 +26,44 @@ content-type: application/json
 {
     "id": 1
 }
+
+
+### Add new exercise
+# Endpoint: /API/addexercise
+# Method: POST
+# Type: application/json
+# JSON payload: {name: <str>, short_name: <str>, link: <str>, type: <str>, max_rep:<int>, duration:<int>, userid:<int>}
+# Returns: 200 or 500 with message
+POST http://127.0.0.1:5001/API/addexercise HTTP/1.1
+content-type: application/json
+
+{
+    "name": "test3",
+    "short_name": "t3",
+    "link": "youtu.be",
+    "type": "rest",
+    "max_rep": 45,
+    "duration": 300,
+    "userid": 2
+}
+
+
+
+### Delete exercise
+# Endpoint: /API/delexercise
+# Method: POST
+# Type: application/json
+# JSON payload: {id:<int>, userid:<int>}
+# Returns: 200 or 500 with message
+POST http://127.0.0.1:5001/API/delexercise HTTP/1.1
+content-type: application/json
+
+{
+    "id": 7,
+    "userid": 2
+}
+
+
 
 
 ### Query all in DB
