@@ -79,4 +79,14 @@ def get_settingsmode_data():
             e['competitors'].append(competitor.get_self_json())
         data['events'].append(e)
 
+    data['workouts'] = []
+    for workout in Workout.query.filter_by(user=userid).all():
+        data['workouts'].append(workout.get_self_json())
+
+    data['exercises'] = []
+    for exercise in Exercise.query.filter_by(user=userid).all():
+        data['exercises'].append(exercise)
+
+    print(data)
+
     return data
