@@ -29,7 +29,7 @@ class User(UserMixin, db.Model):
 
 
     def __repr__(self):
-        return {'Username': self.username, 'ID':self.id}
+        return f'Username: {self.username}, ID: {self.id}'
 
 
     def set_password(self, password):
@@ -78,7 +78,7 @@ class Event(db.Model):
 
 
     def __repr__(self):
-        return {'id':self.id, 'ident': self.ident, 'user': self.user}
+        return f'id: {self.id}, ident: {self.ident}, user: {self.user}'
 
 
     def gen_ident(self):
@@ -133,7 +133,7 @@ class Workout(db.Model):
 
 
     def __repr__(self):
-        return {'id':self.id, 'user': self.user, 'workout': self.workout}
+        return f'id: {self.id}, user: {self.user}, workout: {self.workout}'
 
 
     def get_workout(self):
@@ -167,7 +167,7 @@ class Competitor(db.Model):
 
 
     def __repr__(self):
-        return {'id': self.id, 'name': self.name, 'result': self.result}
+        return f'id: {self.id}, name: {self.name}, result: {self.result}'
 
 
     def generate_category(self):
@@ -252,7 +252,7 @@ class Exercise(db.Model):
 
 
     def __repr__(self):
-        return {'name': self.name, 'type': self.type, 'max': self.max_rep, 'duration': self.duration}
+        return f'name: {self.name}, type: {self.type}, max: {self.max_rep}, duration: {self.duration}'
 
 
     def get_self_json(self):
@@ -263,5 +263,6 @@ class Exercise(db.Model):
             'link': self.link,
             'type': self.type,
             'max_rep': self.max_rep,
-            'duration': self.duration
+            'duration': self.duration,
+            'user': self.user
         }

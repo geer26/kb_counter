@@ -1,0 +1,13 @@
+{% if data['exercises']|length < 1 %}
+    <p> - Nincsenek gyakorlatok! - </p>
+
+{% else %}
+
+    {% for e in data['exercises'] %}
+
+    <div>
+        <p>{{e.short_name}}</p>
+    </div>
+
+    {% endfor %}
+{% endif %}

@@ -38,45 +38,79 @@ function hide_error(){
 
 
 function add_exercise(){
-    //show_loader();
-
     //extract data from modal
-    //var un = $('#uname').val();
-    //var pw = $('#pw').val();
-    //var mode = $("input[name='mode']:checked").attr('id');
     var name;
-    $('#name').val() ? name = $('#name').val() : showerror('Adjon nevet a gyakorlatnak!', $('#addexerciseerror'));
+    if ($('#name').val()){
+        name = $('#name').val()
+    } else{
+        showerror('Adjon nevet a gyakorlatnak!', $('#addexerciseerror'));
+        return;
+    }
+
     var short_name;
-    $('#sname').val() ? sname = $('#sname').val() : showerror('Határozza meg a megjelenítendő nevet!', $('#addexerciseerror'));
+    if ($('#sname').val()){
+        short_name = $('#sname').val()
+    } else{
+        showerror('Határozza meg a megjelenítendő nevet!', $('#addexerciseerror'));
+        return;
+    }
+
     var link = $('#link').val();
+    if ($('#link').val()){
+        link = $('#link').val();
+    } else{
+        link = null
+    }
+
     var type;
-    console.log($('#type').val());
+    if ($('#type').val()){
+        type = $('#type').val();
+    } else{
+        showerror('Határozza meg a gyakorlat típusát!', $('#addexerciseerror'));
+        return;
+    }
+
     var max_rep;
+    if ($('#maxrep').val()){
+        max_rep = $('#maxrep').val();
+    } else{
+        max_rep = null
+    }
+
     var duration;
-    var user;
+    if ($('#duration').val()){
+        duration = $('#duration').val();
+    } else{
+        showerror('Határozza meg a gyakorlat időtartamát!', $('#addexerciseerror'));
+        return;
+    }
+
+    var userid;
+    userid = parseInt($('#userident').text());
 
     //compose data to post
     var d;
-    //d = JSON.stringify({username:un, password:pw, mode:mode});
+    d = {name: name, short_name: short_name, link: link, type: type, max_rep:max_rep, duration:duration, userid:userid};
 
+    show_loader();
     //send ajax POST request
-    /*
     $.ajax({
             url: '/API/addexercise',
             type: 'POST',
             dataType: "json",
-            data: d,
+            data: JSON.stringify(d),
             contentType: "application/json; charset=utf-8",
 
             success: result => {
                 hide_loader();
                 //window.location.href = "/";
                 //update exercise pane
+                console.log(result);
             },
 
             error: (jqXhr, textStatus, errorMessage) => {
                 hide_loader();
                 showerror(jqXhr['responseJSON']['message'], $('#addexerciseerror'))
             }
-    }); */
+    });
 }

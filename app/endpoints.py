@@ -5,7 +5,7 @@ from flask_restful import Resource
 from flask_login import current_user, login_user, logout_user
 from flask import request, render_template, send_from_directory, session, Response
 from app import api, db
-from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser
+from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, add_exercise, del_exercise
 from app.models import User
 
 
@@ -114,7 +114,36 @@ class Login(Resource):
 
 
 
+class Add_exercise(Resource):
+    def post(self):
+        # get data from posted json
+        json_data = request.get_json(force=True)
+        #print(f'POSTED DATA: {json_data}')
+        if add_exercise(json_data):
+            #TODO re-render fragment!
+            return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': None}, 200
+        else:
+            return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+
+
+
+class Del_exercise(Resource):
+    def post(self):
+        # get data from posted json
+        json_data = request.get_json(force=True)
+        # print(f'POSTED DATA: {json_data}')
+        if del_exercise(json_data):
+            # TODO re-render fragment!
+            return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': None}, 200
+        else:
+            return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+
+
+
+
 api.add_resource(AddUser, '/API/adduser')
 api.add_resource(GetAllData, '/API/query')
 api.add_resource(DeleteUser, '/API/deluser')
 api.add_resource(Login, '/API/login')
+api.add_resource(Add_exercise, '/API/addexercise')
+api.add_resource(Del_exercise, '/API/delexercise')
