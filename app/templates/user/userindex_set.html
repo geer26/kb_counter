@@ -9,12 +9,15 @@
 
 {% block body %}
 
+{% include 'modals/addexercise_modal.html' %}
+
 <div class="content-container">
 
   <div id="active_window" class="active_window">
 
     <div class="title teal lighten-2">
       <p id="active_title">ESEMÉNYEK</p>
+      <i class="material-icons btn btn-small addbtn blue">add</i>
     </div>
 
     <div class="window-content">
@@ -27,6 +30,7 @@
 
     <div class="title teal lighten-2">
       <p id="etc1_title">VERSENYSZÁMOK</p>
+      <i class="material-icons btn btn-small addbtn blue">add</i>
     </div>
 
     <div class="window-content">
@@ -39,22 +43,10 @@
 
     <div class="title teal lighten-2">
       <p id="etc2_title">GYAKORLATOK</p>
+      <i class="material-icons btn btn-small addbtn blue" onclick="openmodal($('#addexercise_modalback'))">add</i>
     </div>
 
     <div class="window-content">
-      <p>EXERCISES HERE</p>
-      <p>EXERCISES HERE</p>
-      <p>EXERCISES HERE</p>
-      <p>EXERCISES HERE</p>
-      <p>EXERCISES HERE</p>
-      <p>EXERCISES HERE</p>
-      <p>EXERCISES HERE</p>
-      <p>EXERCISES HERE</p>
-      <p>EXERCISES HERE</p>
-      <p>EXERCISES HERE</p>
-      <p>EXERCISES HERE</p>
-      <p>EXERCISES HERE</p>
-      <p>EXERCISES HERE</p>
       <p>EXERCISES HERE</p>
     </div>
 
@@ -62,7 +54,7 @@
 
 </div>
 
-<div class="fixed-action-btn" style="margin-right: 30px; margin-bottom: 30px;">
+<div class="fixed-action-btn" style="margin-right: 30px; margin-bottom: 30px; z-index: 100;">
   <a class="btn-floating btn-large red">
     <i class="large material-icons">menu</i>
   </a>

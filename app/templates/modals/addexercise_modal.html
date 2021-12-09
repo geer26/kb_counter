@@ -1,0 +1,50 @@
+<div id="addexercise_modalback" class="modalback" style="display: none;">
+
+    <div id="joinmodal" class="loginmodal">
+
+        <div id="close_joinmodal" class="closeicon" onclick="closemodal($('#addexercise_modalback'))"></div>
+
+        <p id="loginerror" style="display: none;" class="errormessage">
+          HIBA!
+        </p>
+
+        <div class="input-field">
+          <input id="name" type="text" class="validate">
+          <label for="name">Gyakorlat neve</label>
+        </div>
+
+        <div class="input-field">
+          <input id="sname" type="text" class="validate">
+          <label for="sname">Rövid név</label>
+        </div>
+
+        <div class="input-field">
+          <input id="link" type="text" class="validate">
+          <label for="link">Link</label>
+        </div>
+
+        <div class="input-field col s12">
+          <select>
+            <option value="" disabled selected>Válasszon típust!</option>
+            <option value="rest">Pihenő</option>
+            <option value="warmup">Felkészülés</option>
+            <option value="workout">Munka</option>
+          </select>
+          <label>Típus</label>
+        </div>
+
+        <div class="input-field">
+          <input id="maxrep" type="number" class="validate">
+          <label for="maxrep">Maximum számolt ismétlés</label>
+        </div>
+
+        <div class="input-field">
+          <input id="duration" type="number" class="validate">
+          <label for="duration">Mért idő másodpercben</label>
+        </div>
+
+        <span><button class="btn btn-large butt">Hozzáadás</button></span>
+
+    </div>
+
+</div>
