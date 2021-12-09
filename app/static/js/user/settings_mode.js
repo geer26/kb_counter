@@ -4,6 +4,12 @@ $(document).ready(function(){
 });
 
 
+function showerror(message,errorplace){
+    errorplace.text(message);
+    errorplace.show();
+}
+
+
 function closemodal(modal){
     var inputs = modal.find("input");
     inputs.each(function(){
@@ -32,16 +38,31 @@ function hide_error(){
 
 
 function add_exercise(){
-    show_loader();
-    var un = $('#uname').val();
-    var pw = $('#pw').val();
+    //show_loader();
 
-    var mode = $("input[name='mode']:checked").attr('id');
+    //extract data from modal
+    //var un = $('#uname').val();
+    //var pw = $('#pw').val();
+    //var mode = $("input[name='mode']:checked").attr('id');
+    var name;
+    $('#name').val() ? name = $('#name').val() : showerror('Adjon nevet a gyakorlatnak!', $('#addexerciseerror'));
+    var short_name;
+    $('#sname').val() ? sname = $('#sname').val() : showerror('Határozza meg a megjelenítendő nevet!', $('#addexerciseerror'));
+    var link = $('#link').val();
+    var type;
+    console.log($('#type').val());
+    var max_rep;
+    var duration;
+    var user;
 
-    d = JSON.stringify({username:un, password:pw, mode:mode});
+    //compose data to post
+    var d;
+    //d = JSON.stringify({username:un, password:pw, mode:mode});
 
+    //send ajax POST request
+    /*
     $.ajax({
-            url: '/API/login',
+            url: '/API/addexercise',
             type: 'POST',
             dataType: "json",
             data: d,
@@ -49,15 +70,13 @@ function add_exercise(){
 
             success: result => {
                 hide_loader();
-                window.location.href = "/";
+                //window.location.href = "/";
+                //update exercise pane
             },
 
             error: (jqXhr, textStatus, errorMessage) => {
                 hide_loader();
-                //console.log(jqXhr);
-                //console.log(jqXhr['responseJSON']['message']);
-                $('#loginerror').text( jqXhr['responseJSON']['message'] );
-                $('#loginerror').show();
+                showerror(jqXhr['responseJSON']['message'], $('#addexerciseerror'))
             }
-    });
+    }); */
 }
