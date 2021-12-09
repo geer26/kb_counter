@@ -1,6 +1,7 @@
 $(document).ready(function(){
     $('.fixed-action-btn').floatingActionButton();
     $('select').formSelect();
+    userid = parseInt($('#userident').text());
 });
 
 
@@ -85,12 +86,12 @@ function add_exercise(){
         return;
     }
 
-    var userid;
-    userid = parseInt($('#userident').text());
+    var uid;
+    uid = userid;
 
     //compose data to post
     var d;
-    d = {name: name, short_name: short_name, link: link, type: type, max_rep:max_rep, duration:duration, userid:userid};
+    d = {name: name, short_name: short_name, link: link, type: type, max_rep:max_rep, duration:duration, userid:uid};
 
     show_loader();
     //send ajax POST request
