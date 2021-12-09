@@ -2,6 +2,7 @@
 :root {
   --main-bg-color: brown;
   --navbar-bg: rgba(132, 132, 232,.4);
+  --chunk-bg: rgba(238, 240, 161, .5);
 }
 
 
@@ -139,4 +140,19 @@
     //justify-content: center;
     align-items: center;
     flex-direction: column;
+}
+
+
+.fragment-chunk{
+    border: 1px solid black;
+    border-radius: 2px;
+    background-color: var(--chunk-bg);
+    width: 95%;
+    margin-bottom: 5px;
+    text-align: center;
+}
+
+
+.fragment-chunk p{
+    margin: 2px;
 }
