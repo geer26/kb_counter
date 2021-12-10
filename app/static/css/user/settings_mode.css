@@ -164,6 +164,7 @@
     //top:0;
     //right: 0;
     height: 100%;
+    margin: 0;
     padding: 2px;
     display: flex;
     justify-content: right;
@@ -179,4 +180,7 @@
     border-radius: 50%;
     padding: 2px;
     margin: 0;
+    padding: 0;
+    width: 25px;
+    height: 25px;
 }
