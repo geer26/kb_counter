@@ -9,22 +9,22 @@
         </p>
 
         <div class="input-field">
-          <input id="name" type="text" class="validate" onkeypress="hide_error()">
-          <label for="name">Gyakorlat neve</label>
+          <input id="exer_name" type="text" class="validate" onkeypress="hide_error()">
+          <label for="exer_name">Gyakorlat neve</label>
         </div>
 
         <div class="input-field">
-          <input id="sname" type="text" class="validate" onkeypress="hide_error()">
-          <label for="sname">Rövid név</label>
+          <input id="exer_sname" type="text" class="validate" onkeypress="hide_error()">
+          <label for="exer_sname">Rövid név</label>
         </div>
 
         <div class="input-field">
-          <input id="link" type="text" class="validate" onkeypress="hide_error()">
-          <label for="link">Link</label>
+          <input id="exer_link" type="text" class="validate" onkeypress="hide_error()">
+          <label for="exer_link">Link</label>
         </div>
 
         <div class="input-field">
-          <select id="type">
+          <select id="exer_type">
             <option value="" disabled selected>Válasszon típust!</option>
             <option value="rest">Pihenő</option>
             <option value="warmup">Felkészülés</option>
@@ -34,16 +34,16 @@
         </div>
 
         <div class="input-field">
-          <input id="maxrep" type="number" class="validate" onkeypress="hide_error()">
-          <label for="maxrep">Maximum számolt ismétlés</label>
+          <input id="exer_maxrep" type="number" class="validate" onkeypress="hide_error()">
+          <label for="exer_maxrep">Maximum számolt ismétlés</label>
         </div>
 
         <div class="input-field">
-          <input id="duration" type="number" class="validate" onkeypress="hide_error()">
-          <label for="duration">Mért idő másodpercben</label>
+          <input id="exer_duration" type="number" class="validate" onkeypress="hide_error()">
+          <label for="exer_duration">Mért idő másodpercben</label>
         </div>
 
-        <span><button class="btn btn-large butt" onclick="add_exercise()">Hozzáadás</button></span>
+        <span><button class="btn btn-large butt" onclick="add_exercise()" id="add_e">Hozzáadás</button></span>
 
     </div>
 

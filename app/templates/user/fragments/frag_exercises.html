@@ -8,7 +8,9 @@
     <div class="fragment-chunk">
         <p>{{e.short_name}}
         <span class="chunkbutton-holder-right">
-            <i class="material-icons btn chunkbutton grey darken-3">edit</i>
+            <i class="material-icons btn chunkbutton grey darken-3"
+               onclick="edit_exercise()"
+            >edit</i>
             <i class="material-icons btn chunkbutton red" onclick="del_exercise({{e.id}})">delete_outline</i>
         </span>
         </p>

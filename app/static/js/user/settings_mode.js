@@ -33,6 +33,23 @@ function openmodal(modal){
 }
 
 
+function edit_exercise(exercise){
+    //fill data
+    console.log(JSON.stringify(exercise));
+    //$('#exer_name').val();
+    //$('#exer_sname').val();
+    //$('#exer_link').val();
+    //$('#exer_type').val();
+    //$('#exer_maxrep').val();
+    //$('#exer_duration').val();
+
+    //$('#addexercise_modalback').show();
+    //$('#add_e').text('módosítás');
+    //$('#add_e').click(function{});
+    return true;
+}
+
+
 function hide_error(){
     $('.errormessage').hide();
 }
@@ -41,46 +58,46 @@ function hide_error(){
 function add_exercise(){
     //extract data from modal
     var name;
-    if ($('#name').val()){
-        name = $('#name').val()
+    if ($('#exer_name').val()){
+        name = $('#exer_name').val()
     } else{
         showerror('Adjon nevet a gyakorlatnak!', $('#addexerciseerror'));
         return;
     }
 
     var short_name;
-    if ($('#sname').val()){
-        short_name = $('#sname').val()
+    if ($('#exer_sname').val()){
+        short_name = $('#exer_sname').val()
     } else{
         showerror('Határozza meg a megjelenítendő nevet!', $('#addexerciseerror'));
         return;
     }
 
-    var link = $('#link').val();
-    if ($('#link').val()){
-        link = $('#link').val();
+    var link = $('#exer_link').val();
+    if ($('#exer_link').val()){
+        link = $('#exer_link').val();
     } else{
         link = null
     }
 
     var type;
-    if ($('#type').val()){
-        type = $('#type').val();
+    if ($('#exer_type').val()){
+        type = $('#exer_type').val();
     } else{
         showerror('Határozza meg a gyakorlat típusát!', $('#addexerciseerror'));
         return;
     }
 
     var max_rep;
-    if ($('#maxrep').val()){
-        max_rep = $('#maxrep').val();
+    if ($('#exer_maxrep').val()){
+        max_rep = $('#exer_maxrep').val();
     } else{
         max_rep = null
     }
 
     var duration;
-    if ($('#duration').val()){
-        duration = $('#duration').val();
+    if ($('#exer_duration').val()){
+        duration = $('#exer_duration').val();
     } else{
         showerror('Határozza meg a gyakorlat időtartamát!', $('#addexerciseerror'));
         return;
