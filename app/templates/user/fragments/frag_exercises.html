@@ -6,10 +6,12 @@
     {% for e in data['exercises'] %}
 
     <div class="fragment-chunk">
-        <p>{{e.short_name}}</p>
-        <div class="chunkbutton-holder-right">
-            <i class="material-icons btn chunkbutton red">add</i>
-        </div>
+        <p>{{e.short_name}}
+        <span class="chunkbutton-holder-right">
+            <i class="material-icons btn chunkbutton grey darken-3">edit</i>
+            <i class="material-icons btn chunkbutton red">delete_outline</i>
+        </span>
+        </p>
     </div>
 
     {% endfor %}

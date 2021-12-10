@@ -160,27 +160,36 @@
 
 
 .chunkbutton-holder-right{
-    //position: absolute;
-    //top:0;
-    //right: 0;
+    position: absolute;
+    top:0;
+    right: 0;
     height: 100%;
     margin: 0;
-    padding: 2px;
+    padding: 0px;
     display: flex;
     justify-content: right;
     align-items: center;
-    flex-direction: right
+    flex-direction: row;
     //border-radius: 50%;
     float: right;
-    border: 1px solid black;
 }
 
 
 .chunkbutton{
     border-radius: 50%;
     padding: 2px;
-    margin: 0;
+    margin-left: 3px;
     padding: 0;
-    width: 25px;
-    height: 25px;
+    width: 20px;
+    height: 20px;
+    font-size: 1.1em;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: .2s;
+}
+
+.chunkbutton:hover{
+    width: 22px;
+    height: 22px;
 }
