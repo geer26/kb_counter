@@ -117,3 +117,40 @@ function add_exercise(){
             }
     });
 }
+
+
+function del_exercise(id){
+    //extract data from modal
+    var id;
+    id = id;
+
+    //compose data to post
+    var d;
+    d = {id:id, userid:userid};
+
+    show_loader();
+    //send ajax POST request
+    $.ajax({
+
+            url: '/API/delexercise',
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify(d),
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                //closemodal($('#addexercise_modalback'));
+                $('#etc2_content').empty();
+                $('#etc2_content').append(result['fragment']);
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                closemodal($('#addexercise_modalback'));
+                showerror(jqXhr['responseJSON']['message'], $('#addexerciseerror'))
+            }
+
+    });
+}
