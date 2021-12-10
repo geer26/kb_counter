@@ -154,5 +154,29 @@
 
 
 .fragment-chunk p{
+    position: relative;
     margin: 2px;
+}
+
+
+.chunkbutton-holder-right{
+    //position: absolute;
+    //top:0;
+    //right: 0;
+    height: 100%;
+    padding: 2px;
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    flex-direction: right
+    //border-radius: 50%;
+    float: right;
+    border: 1px solid black;
+}
+
+
+.chunkbutton{
+    border-radius: 50%;
+    padding: 2px;
+    margin: 0;
 }
