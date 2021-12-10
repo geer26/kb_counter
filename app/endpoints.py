@@ -7,7 +7,7 @@ from flask import request, render_template, send_from_directory, session, Respon
 from app import api, db
 from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, add_exercise,\
     del_exercise, get_user_exercises
-from app.models import User
+from app.models import User, Exercise
 
 
 
@@ -148,6 +148,17 @@ class Del_exercise(Resource):
             return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
 
 
+class Get_exercise(Resource):
+    def post(self):
+        # get data from posted json
+        json_data = request.get_json(force=True)
+        # call worker that deletes record
+        if not 'exid' in json_data:
+            return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+        data = Exercise.query.get(int(json_data['exid'])).get_self_json()
+        return data , 200
+
+
 
 
 api.add_resource(AddUser, '/API/adduser')
@@ -156,3 +167,4 @@ api.add_resource(DeleteUser, '/API/deluser')
 api.add_resource(Login, '/API/login')
 api.add_resource(Add_exercise, '/API/addexercise')
 api.add_resource(Del_exercise, '/API/delexercise')
+api.add_resource(Get_exercise, '/API/getexercise')

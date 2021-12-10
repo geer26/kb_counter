@@ -34,18 +34,44 @@ function openmodal(modal){
 
 
 function edit_exercise(exercise){
-    //fill data
-    console.log(JSON.stringify(exercise));
-    //$('#exer_name').val();
-    //$('#exer_sname').val();
-    //$('#exer_link').val();
-    //$('#exer_type').val();
-    //$('#exer_maxrep').val();
-    //$('#exer_duration').val();
+    $.ajax({
+            url: '/API/getexercise',
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify({exid:exercise}),
+            contentType: "application/json; charset=utf-8",
 
-    //$('#addexercise_modalback').show();
-    //$('#add_e').text('módosítás');
+            success: result => {
+                hide_loader();
+                ed_ex(result);
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+            }
+    });
+    return true;
+}
+
+
+function ed_ex(data){
+    //console.log(data);
+
+    $('#exer_name').val(data['name']);
+    $('#exer_sname').val(data['short_name']);
+    $('#exer_link').val(data['link']);
+    var t = '#exer_type option[value=' + data['type'] + ']';
+    $(t).attr('selected', true);
+    $('#exer_maxrep').val(data['max_rep']);
+    $('#exer_duration').val(data['duration']);
+
+    $('select').formSelect();
+
+    $('#addexercise_modalback').show();
+    $('#add_e').text('módosítás');
     //$('#add_e').click(function{});
+
     return true;
 }
 
