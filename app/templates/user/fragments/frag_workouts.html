@@ -1,0 +1,19 @@
+
+{% if data['workouts']|length < 1 %}
+    <p> - Nincsenek versenyszámok! - </p>
+
+{% else %}
+
+    {% for w in data['workouts'] %}
+
+    <div class="fragment-chunk">
+        <p>{{w.short_name}}
+        <span class="chunkbutton-holder-right">
+            <i class="material-icons btn chunkbutton grey darken-3">edit</i>
+            <i class="material-icons btn chunkbutton red">delete_outline</i>
+        </span>
+        </p>
+    </div>
+
+    {% endfor %}
+{% endif %}

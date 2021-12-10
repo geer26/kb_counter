@@ -30,22 +30,26 @@
 
   <div id="etc1" class="etc1">
 
+    <div class="window-fader" id="wo_fader" style="display: none;"></div>
+
     <div class="title teal lighten-2">
       <p id="etc1_title">VERSENYSZÁMOK</p>
-      <i class="material-icons btn btn-small addbtn blue">add</i>
+      <i class="material-icons btn btn-small addbtn blue" id="etc1_button">add</i>
     </div>
 
-    <div class="window-content">
-      <p>WORKOUTS HERE!</p>
+    <div class="window-content" id="etc1_content">
+      {% include 'user/fragments/frag_workouts.html' %}
     </div>
 
   </div>
 
   <div id="etc2" class="etc2">
 
+    <div class="window-fader" id="ex_fader" style="display: none;"></div>
+
     <div class="title teal lighten-2">
       <p id="etc2_title">GYAKORLATOK</p>
-      <i class="material-icons btn btn-small addbtn blue" onclick="openmodal($('#addexercise_modalback'))">add</i>
+      <i class="material-icons btn btn-small addbtn blue" onclick="openmodal($('#addexercise_modalback'))" id="etc2_button">add</i>
     </div>
 
     <div class="window-content" id="etc2_content">
