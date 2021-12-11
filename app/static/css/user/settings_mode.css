@@ -189,7 +189,7 @@
 
 .grabber-holder-left{
     position: absolute;
-    top:0;
+    top 0%;
     left: 0;
     height: 100%;
     width: 10%;
@@ -234,4 +234,56 @@
 
 .interact-modal input{
     width: 40%;
+}
+
+
+.window-class{
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+
+.manipulate-workout-container{
+    display: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 9fr 1fr;
+    gap: 10px 10px;
+    grid-template-areas:
+        "stringdata dnd_data"
+        "buttonarea buttonarea";
+}
+
+
+.man-wo-stringdata{
+    grid-area: stringdata;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border: 1px solid blue;
+}
+
+
+.man-wo-dnddata{
+    grid-area: dnd_data;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border: 1px solid blue;
+}
+
+
+.man-wo-buttonarea{
+    grid-area: buttonarea;
+    position: relative;
+    height: 100%;
+    width: 100%;
+    border: 1px solid blue;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: row;
 }

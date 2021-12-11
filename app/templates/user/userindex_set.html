@@ -25,7 +25,8 @@
     </div>
 
     <div class="window-content">
-      {% include 'user/fragments/frag_events.html' %}
+      <div id="event_window" style="display: none;">{% include 'user/fragments/frag_events.html' %}</div>
+      <div id="workout_window" class="window-class" >{% include 'user/fragments/frag_manipulate_workouts.html' %}</div>
     </div>
 
   </div>
