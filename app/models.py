@@ -107,7 +107,11 @@ class Workout(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     short_name = db.Column(db.String(32), unique=True, nullable=False, default='No name')
     description = db.Column(db.String(256), default=None)
+    exercises = db.Column(db.String(), default='')
     '''
+    
+    eg.
+    [4,56,23,76,2,42, ... ] -> ID of Exercise
     
     eg.
     [{'time': 600(time in secs), 'type': 'warmup'(warmup/time/rest), 'max': 120(maximum reps) , 'add': 'KÉSZÜLJ!(plain text)'},{...}]
@@ -136,17 +140,15 @@ class Workout(db.Model):
         return f'id: {self.id}, user: {self.user}, workout: {self.workout}'
 
 
-    def get_workout(self):
-        return json.dumps(self.workout)
-
-
     def get_self_json(self):
         return {
             'id': self.id,
             'name': self.short_name,
             'description': self.description,
+            'exercises': self.exercises,
             'created_at': self.created_at.strftime("%m/%d/%Y, %H:%M:%S")
         }
+
 
 
 

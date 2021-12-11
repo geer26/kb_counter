@@ -156,6 +156,7 @@
 
 
 .fragment-chunk{
+    position: relative;
     border: 1px solid black;
     border-radius: 2px;
     background-color: var(--chunk-bg);
@@ -182,8 +183,21 @@
     justify-content: right;
     align-items: center;
     flex-direction: row;
-    //border-radius: 50%;
     float: right;
+}
+
+
+.grabber-holder-left{
+    position: absolute;
+    top:0;
+    left: 0;
+    height: 100%;
+    width: 10%;
+    margin: 0;
+    padding: 0px;
+    background-image: url('/static/img/grabber.png');
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
 
