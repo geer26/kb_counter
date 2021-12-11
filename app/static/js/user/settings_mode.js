@@ -68,16 +68,110 @@ function ed_ex(data){
 
     $('select').formSelect();
 
+    $('#ex_idholder').text(data['id']);
+
     $('#addexercise_modalback').show();
-    $('#add_e').text('módosítás');
-    //$('#add_e').click(function{});
+    $('#add_e').hide();
+    $('#mod_e').show();
 
     return true;
 }
 
 
+function mod_exercise(){
+    //extract data from modal
+    var name;
+    if ($('#exer_name').val()){
+        name = $('#exer_name').val()
+    } else{
+        showerror('Adjon nevet a gyakorlatnak!', $('#addexerciseerror'));
+        return;
+    }
+
+    var short_name;
+    if ($('#exer_sname').val()){
+        short_name = $('#exer_sname').val()
+    } else{
+        showerror('Határozza meg a megjelenítendő nevet!', $('#addexerciseerror'));
+        return;
+    }
+
+    var link = $('#exer_link').val();
+    if ($('#exer_link').val()){
+        link = $('#exer_link').val();
+    } else{
+        link = null
+    }
+
+    var type;
+    if ($('#exer_type').val()){
+        type = $('#exer_type').val();
+    } else{
+        showerror('Határozza meg a gyakorlat típusát!', $('#addexerciseerror'));
+        return;
+    }
+
+    var max_rep;
+    if ($('#exer_maxrep').val()){
+        max_rep = $('#exer_maxrep').val();
+    } else{
+        max_rep = null
+    }
+
+    var duration;
+    if ($('#exer_duration').val()){
+        duration = $('#exer_duration').val();
+    } else{
+        showerror('Határozza meg a gyakorlat időtartamát!', $('#addexerciseerror'));
+        return;
+    }
+
+    var uid;
+    uid = userid;
+
+    var id;
+    id = $('#ex_idholder').text();
+
+    //compose data to post
+    var d;
+    d = {id: id, name: name, short_name: short_name, link: link, type: type, max_rep:max_rep, duration:duration, user:uid};
+
+    show_loader();
+    //send ajax POST request
+    $.ajax({
+            url: '/API/modifyexercise',
+            type: 'POST',
+            dataType: "json",
+            data: JSON.stringify(d),
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                closemodal($('#addexercise_modalback'));
+                $('#etc2_content').empty();
+                $('#etc2_content').append(result['fragment']);
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                closemodal($('#addexercise_modalback'));
+                showerror(jqXhr['responseJSON']['message'], $('#addexerciseerror'))
+            }
+    });
+}
+
+
 function hide_error(){
     $('.errormessage').hide();
+    return true;
+}
+
+
+function adde(modal){
+    $('#add_e').show();
+    $('#mod_e').hide();
+    openmodal(modal);
 }
 
 

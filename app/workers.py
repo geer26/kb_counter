@@ -136,3 +136,23 @@ def del_exercise(data):
         return True
     except:
         return False
+
+
+def check_exercise_belonging(id):
+    return Exercise.query.get(int(id)).user == current_user.id
+
+
+def mod_exercise(data):
+    # DATA contains: {'id': 5, 'name': 'test2', 'short_name': 't2', 'link': 'frgefg', 'type': 'warmup', 'max_rep': 234, 'duration': 456, 'user': 2}
+    try:
+        exercise = Exercise.query.get(int(data['id']))
+        exercise.name = data['name']
+        exercise.short_name = data['short_name']
+        exercise.link = data['link']
+        exercise.type = data['type']
+        exercise.max_rep = data['max_rep']
+        exercise.duration = data['duration']
+        db.session.commit()
+    except:
+        return False
+    return True

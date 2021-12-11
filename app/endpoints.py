@@ -6,7 +6,7 @@ from flask_login import current_user, login_user, logout_user
 from flask import request, render_template, send_from_directory, session, Response
 from app import api, db
 from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, add_exercise,\
-    del_exercise, get_user_exercises
+    del_exercise, get_user_exercises, check_exercise_belonging, mod_exercise
 from app.models import User, Exercise
 
 
@@ -43,6 +43,8 @@ class AddUser(Resource):
 #Done!
 class GetAllData(Resource):
     def get(self):
+        if not current_user.is_authenticated or not current_user.is_superuser:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
         return get_all_data(), 200
 
 
@@ -50,6 +52,9 @@ class GetAllData(Resource):
 #Done!
 class DeleteUser(Resource):
     def post(self):
+
+        if not current_user.is_authenticated or not current_user.is_superuser:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
 
         #get data from posted json
         json_data = request.get_json(force=True)
@@ -68,14 +73,13 @@ class Login(Resource):
 
     def post(self):
 
+        if current_user.is_authenticated:
+            return {'status': 1, 'message': 'Ön már be van jelentkezve!'}, 400
+
         # get data from posted json
         json_data = request.get_json(force=True)
 
         #print(f'POSTED DATA: {json_data}')
-
-        #Drop request if already logged in
-        if current_user.is_authenticated:
-            return {'status': 2, 'message': 'Már be van lépve!'}, 400
 
         #Drop request if there is no payload
         if not json_data:
@@ -114,9 +118,11 @@ class Login(Resource):
         return {"status": 0, 'message': f'User {user.username} logged in!'}, 200
 
 
-
+#Done!
 class Add_exercise(Resource):
     def post(self):
+        if not current_user.is_authenticated:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
         # get data from posted json
         json_data = request.get_json(force=True)
         # call worker that adds record
@@ -131,9 +137,11 @@ class Add_exercise(Resource):
             return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
 
 
-
+#Done!
 class Del_exercise(Resource):
     def post(self):
+        if not current_user.is_authenticated:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
         # get data from posted json
         json_data = request.get_json(force=True)
         # call worker that deletes record
@@ -148,8 +156,11 @@ class Del_exercise(Resource):
             return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
 
 
+#Done!
 class Get_exercise(Resource):
     def post(self):
+        if not current_user.is_authenticated:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
         # get data from posted json
         json_data = request.get_json(force=True)
         # call worker that deletes record
@@ -157,6 +168,30 @@ class Get_exercise(Resource):
             return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
         data = Exercise.query.get(int(json_data['exid'])).get_self_json()
         return data , 200
+
+
+#Done! - Document it!
+class Modify_exercise(Resource):
+    def post(self):
+        if not current_user.is_authenticated:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
+        # get data from posted json
+        json_data = request.get_json(force=True)
+        # DATA contains: {'id': 5, 'name': 'test2', 'short_name': 't2', 'link': 'frgefg', 'type': 'warmup', 'max_rep': 234, 'duration': 456, 'user': 2}
+        # check if record belongs to user
+        if not check_exercise_belonging(int(json_data['id'])):
+            return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 401
+        # call worker that modifies record
+        if mod_exercise(json_data):
+            # compose fragment to replace old
+            data = get_user_exercises(json_data['user'])
+            fragment = render_template('user/fragments/frag_exercises.html', data=data)
+            # return the rendered fragment
+            return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': fragment}, 200
+        else:
+            # something - somewhere went wrong!
+            return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+
 
 
 
@@ -168,3 +203,4 @@ api.add_resource(Login, '/API/login')
 api.add_resource(Add_exercise, '/API/addexercise')
 api.add_resource(Del_exercise, '/API/delexercise')
 api.add_resource(Get_exercise, '/API/getexercise')
+api.add_resource(Modify_exercise, '/API/modifyexercise')

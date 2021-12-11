@@ -85,8 +85,6 @@ function login(){
 
             error: (jqXhr, textStatus, errorMessage) => {
                 hide_loader();
-                //console.log(jqXhr);
-                //console.log(jqXhr['responseJSON']['message']);
                 $('#loginerror').text( jqXhr['responseJSON']['message'] );
                 $('#loginerror').show();
             }
