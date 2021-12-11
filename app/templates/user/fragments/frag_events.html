@@ -1,0 +1,18 @@
+{% if data['events']|length < 1 %}
+    <p> - Nincsenek események! - </p>
+
+{% else %}
+
+    {% for e in data['events'] %}
+
+    <div class="fragment-chunk">
+        <p>{{e.short_name}}
+        <span class="chunkbutton-holder-right">
+            <i class="material-icons btn chunkbutton grey darken-3" onclick="">edit</i>
+            <i class="material-icons btn chunkbutton red" onclick="">delete_outline</i>
+        </span>
+        </p>
+    </div>
+
+    {% endfor %}
+{% endif %}

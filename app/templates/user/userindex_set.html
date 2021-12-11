@@ -19,13 +19,13 @@
 
     <div class="window-fader" id="active_fader" style="display: none;"></div>
 
-    <div class="title teal lighten-2">
+    <div class="title teal lighten-2" >
       <p id="active_title">ESEMÉNYEK</p>
-      <i class="material-icons btn btn-small addbtn blue">add</i>
+      <i class="material-icons btn btn-small addbtn blue" id="active_button">add</i>
     </div>
 
     <div class="window-content">
-      <p>EVENTS HERE!</p>
+      {% include 'user/fragments/frag_events.html' %}
     </div>
 
   </div>
