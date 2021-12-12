@@ -4,6 +4,8 @@ $(document).ready(function(){
     userid = parseInt($('#userident').text());
 
 
+    var list_of_exercises;
+
     new Sortable(dnd_ex_in, {
         group: {
             name: 'shared',
@@ -14,9 +16,20 @@ $(document).ready(function(){
         onAdd: function (evt) {
 		    var buttons_to_hide = evt.item.getElementsByClassName("chunkbutton-holder-right");
 		    $(buttons_to_hide).hide();
+		    //list_of_exercises = document.getElementById('dnd_ex_in').getElementsByClassName('fragment-chunk')
+		    //console.log(list_of_exercises);
 	    },
 
-
+	    onSort: function (/**Event*/evt) {
+	        list_of_exercises = [];
+		    var l_o_e = document.getElementById('dnd_ex_in').getElementsByClassName('fragment-chunk');
+		    for (var e of l_o_e){list_of_exercises.push(e.getAttribute('data-exid'));};
+		    if(l_o_e.length != 0){
+		        $('#dnd-instruction').hide();
+		    } else {
+		        $('#dnd-instruction').show();
+		    }
+	    },
 
     });
 
@@ -321,4 +334,25 @@ function del_exercise(id){
             }
 
     });
+}
+
+
+function show_addworkout(){
+    //hide event chunk holder
+    $('.event-holder').hide();
+    //fade workout plain
+    $('#wo_fader').show();
+    //display workout dashboard
+    $('.manipulate-workout-container').show();
+}
+
+
+function hide_addworkout(){
+    //show event chunk holder
+    $('.event-holder').show();
+    //unfade workout plain
+    $('#wo_fader').hide();
+    //hide workout dashboard
+    $('.manipulate-workout-container').hide();
+    //TODO zeroize!!!
 }
