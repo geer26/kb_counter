@@ -5,7 +5,7 @@
 
     {% for e in data['exercises'] %}
 
-    <div class="fragment-chunk">
+    <div class="fragment-chunk" data-exid="{{e.id}}">
         <span class="grabber-holder-left"></span>
         <p>{{e.short_name}}
         <span class="chunkbutton-holder-right">
@@ -16,4 +16,5 @@
     </div>
 
     {% endfor %}
+
 {% endif %}

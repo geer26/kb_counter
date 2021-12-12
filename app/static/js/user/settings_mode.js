@@ -2,6 +2,37 @@ $(document).ready(function(){
     $('.fixed-action-btn').floatingActionButton();
     $('select').formSelect();
     userid = parseInt($('#userident').text());
+
+
+    new Sortable(dnd_ex_in, {
+        group: {
+            name: 'shared',
+            //pull: 'clone' // To clone: set pull to 'clone'
+        },
+        animation: 150,
+
+        onAdd: function (evt) {
+		    var buttons_to_hide = evt.item.getElementsByClassName("chunkbutton-holder-right");
+		    $(buttons_to_hide).hide();
+	    },
+
+
+
+    });
+
+    new Sortable(etc2_content, {
+        group: {
+            name: 'shared',
+            pull: 'clone'
+        },
+        animation: 150,
+
+        onAdd: function (evt) {
+		    $(evt.item).remove();
+	    },
+
+    });
+
 });
 
 
