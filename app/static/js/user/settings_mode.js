@@ -337,11 +337,14 @@ function del_exercise(id){
 }
 
 
-function show_addworkout(){
+function show_addworkout(title='ÚJ VERSENYSZÁM'){
     //hide event chunk holder
     $('.event-holder').hide();
     //fade workout plain
     $('#wo_fader').show();
+    //change title and hide button
+    $('#active_title').text(title);
+    $('#active_button').hide();
     //display workout dashboard
     $('.manipulate-workout-container').show();
 }
@@ -352,6 +355,9 @@ function hide_addworkout(){
     $('.event-holder').show();
     //unfade workout plain
     $('#wo_fader').hide();
+    //change title and hide button
+    $('#active_title').text('ESEMÉNYEK');
+    $('#active_button').show();
     //hide workout dashboard
     $('.manipulate-workout-container').hide();
     //TODO zeroize!!!

@@ -1,7 +1,25 @@
 <div class="manipulate-workout-container" style="display: none;">
 
     <div class="man-wo-stringdata">
-        STRINGDATA
+
+        <p id="addexerciseerror" style="display: none; width: 100%; padding-left: 10px; padding-right: 10px;" class="errormessage">
+          HIBA!
+        </p>
+
+        <div class="input-field wo-manipulate-sizer">
+          <input id="wo_sname" type="text" class="validate" onkeypress="hide_error()">
+          <label for="wo_sname">Versenyszám neve</label>
+        </div>
+
+        <div class="input-field col s12">
+          <textarea id="wo_description" class="materialize-textarea"></textarea>
+          <label for="wo_description">Leírás</label>
+        </div>
+
+        <div class="compholder" id="compholder">
+            Versenyzők
+        </div>
+
     </div>
 
     <div class="man-wo-dnddata" id="dnd_ex_in">
@@ -10,7 +28,7 @@
 
     <div class="man-wo-buttonarea">
         <span><button class="btn btn-small butt red" onclick="hide_addworkout()" id="man_wo_cancel" onclick="">mégse</button></span>
-        <span><button class="btn btn-small butt" onclick="" id="man_wo_add">Hozzáadás</button></span>
+        <span><button class="btn btn-small butt" onclick="" id="man_wo_add">mentés</button></span>
         <span><button class="btn btn-small butt" onclick="" id="man_wo_mod">módosítás</button></span>
     </div>
 
