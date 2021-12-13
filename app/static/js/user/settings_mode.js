@@ -358,6 +358,7 @@ function add_workout(){
     uid = userid;
 
     //compose json
+    console.log(list_of_exercises);
     var data = JSON.stringify({ short_name: name, description: description, exercises: list_of_exercises, user: uid });
 
     //post AJAX request
@@ -395,7 +396,6 @@ function del_workout(id){
     //compose data to post
     var d;
     d = JSON.stringify({id:id, userid:userid});
-    console.log(d);
 
     show_loader();
     //send ajax POST request
@@ -437,12 +437,14 @@ function edit_workout(workout){
 
     list_of_exercises = [];
     workout['exercises'].forEach(exercise => {
-        var chunk = $('*[data-exid=' + exercise.toString() + ']').clone();
+        var chunk = $('#etc2_content [data-exid=' + exercise.toString() + ']').clone();
         $('#dnd_ex_in').append(chunk);
         var buttons_to_hide = document.getElementById('dnd_ex_in').getElementsByClassName("chunkbutton-holder-right");
 		$(buttons_to_hide).hide();
 		list_of_exercises.push(exercise);
     });
+    console.log('AFTER SHOWING EX LIST: ', list_of_exercises);
+    console.log('LEN OF EXERCISES: ', list_of_exercises.length);
 
     //change onclick target to update workout
     $('#man_wo_add').attr('onClick','update_workout('+ woid.toString() + ')');
@@ -457,7 +459,6 @@ function update_workout(woid){
     var name = $('#wo_sname').val();
     var description = $('#wo_description').val();
     var data = JSON.stringify({ woid: woid, short_name: name, description: description, exercises: list_of_exercises, user: userid });
-    //console.log(data);
 
     //POST ajax request
     $.ajax({
