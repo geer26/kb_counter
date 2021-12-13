@@ -314,3 +314,17 @@
     margin-top: 10px;
     self-align: center;
 }
+
+
+.manipulate-event-container{
+    display: relative;
+    width: 100%;
+    height: 100%;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    //grid-template-rows: 9fr 1fr;
+    gap: 10px 10px;
+    grid-template-areas:
+        "stringdata dnd_data";
+        //"buttonarea buttonarea"
+}

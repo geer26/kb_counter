@@ -443,8 +443,6 @@ function edit_workout(workout){
 		$(buttons_to_hide).hide();
 		list_of_exercises.push(exercise);
     });
-    console.log('AFTER SHOWING EX LIST: ', list_of_exercises);
-    console.log('LEN OF EXERCISES: ', list_of_exercises.length);
 
     //change onclick target to update workout
     $('#man_wo_add').attr('onClick','update_workout('+ woid.toString() + ')');
@@ -504,4 +502,22 @@ function hide_addworkout(){
     $('#dnd_ex_in').append('<p id="dnd-instruction">Húzza ide a gyakorlatokat!</p>');
     //TODO restore onclick attribute!
     $('#man_wo_add').attr('onClick','add_workout()')
+}
+
+
+function show_addevent(title='ÚJ ESEMÉNY'){
+    //hide event chunk holder
+    $('.event-holder').hide();
+    //fade exercises plain
+    $('#ex_fader').show();
+    //change title and hide button
+    $('#active_title').text(title);
+    $('#active_button').hide();
+    //display workout dashboard
+    $('.manipulate-event-container').show();
+}
+
+
+function hide_addevent(){
+
 }

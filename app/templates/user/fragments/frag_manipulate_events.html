@@ -1,0 +1,30 @@
+<div class="manipulate-event-container" style="display: none;">
+
+    <div class="man-wo-stringdata">
+
+        <p id="addeventerror" style="display: none; width: 100%; padding-left: 10px; padding-right: 10px;" class="errormessage">
+          HIBA!
+        </p>
+
+        <div class="input-field wo-manipulate-sizer">
+          <input id="ev_sname" type="text" class="validate" onkeypress="hide_error()">
+          <label for="ev_sname">Versenyszám neve</label>
+        </div>
+
+        <div class="input-field col s12">
+          <textarea id="ev_description" class="materialize-textarea"></textarea>
+          <label for="ev_description">Leírás</label>
+        </div>
+
+        <div class="man-wo-buttonarea">
+            <span><button class="btn btn-small butt red" onclick="" id="man_ev_cancel" onclick="">mégse</button></span>
+            <span><button class="btn btn-small butt" onclick="" id="man_ev_add">mentés</button></span>
+        </div>
+
+    </div>
+
+    <div class="man-wo-dnddata" id="dnd_ev_in">
+        <p id="dnd-instruction_ev">Húzza ide a versenyszámokat!</p>
+    </div>
+
+</div>
