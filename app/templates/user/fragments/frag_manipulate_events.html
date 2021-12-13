@@ -8,7 +8,7 @@
 
         <div class="input-field wo-manipulate-sizer">
           <input id="ev_sname" type="text" class="validate" onkeypress="hide_error()">
-          <label for="ev_sname">Versenyszám neve</label>
+          <label for="ev_sname">Esemény neve</label>
         </div>
 
         <div class="input-field col s12">
@@ -16,8 +16,10 @@
           <label for="ev_description">Leírás</label>
         </div>
 
+        <p> IDENT: </p>
+
         <div class="man-wo-buttonarea">
-            <span><button class="btn btn-small butt red" onclick="" id="man_ev_cancel" onclick="">mégse</button></span>
+            <span><button class="btn btn-small butt red" onclick="" id="man_ev_cancel" onclick="hide_addevent()">mégse</button></span>
             <span><button class="btn btn-small butt" onclick="" id="man_ev_add">mentés</button></span>
         </div>
 

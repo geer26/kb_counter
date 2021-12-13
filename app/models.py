@@ -151,7 +151,6 @@ class Workout(db.Model):
 
 
 
-
 class Competitor(db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     cname = db.Column(db.String(64))

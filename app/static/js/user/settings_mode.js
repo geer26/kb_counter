@@ -519,5 +519,22 @@ function show_addevent(title='ÚJ ESEMÉNY'){
 
 
 function hide_addevent(){
-
+    //show event chunk holder
+    $('.event-holder').show();
+    //unfade workout plain
+    $('#ex_fader').hide();
+    //change title and hide button
+    $('#active_title').text('ESEMÉNYEK');
+    $('#active_button').show();
+    //hide workout dashboard
+    $('.manipulate-event-container').hide();
+    //clear inputs
+    //$('#addexerciseerror').hide();
+    //$('#wo_sname').val('');
+    //$('#wo_description').val('');
+    //$('#dnd_ex_in').empty();
+    //list_of_exercises = [];
+    //$('#dnd_ex_in').append('<p id="dnd-instruction">Húzza ide a gyakorlatokat!</p>');
+    //TODO restore onclick attribute!
+    //$('#man_wo_add').attr('onClick','add_workout()')
 }
