@@ -427,6 +427,10 @@ function del_workout(id){
 
 function edit_workout(id){
     console.log(id);
+    //download data
+    //fill inputs
+    //show modal
+    show_addworkout('VERSENYSZÁM SZERKESZTÉSE');
 }
 
 
@@ -440,6 +444,7 @@ function hide_addworkout(){
     $('#active_button').show();
     //hide workout dashboard
     $('.manipulate-workout-container').hide();
+    //clear inputs
     $('#addexerciseerror').hide();
     $('#wo_sname').val('');
     $('#wo_description').val('');
