@@ -425,12 +425,62 @@ function del_workout(id){
 }
 
 
-function edit_workout(id){
-    console.log(id);
-    //download data
-    //fill inputs
+function edit_workout(workout){
+
+    var woid = workout['id'];
+    $('#wo_sname').val(workout['name']);
+    $('#wo_description').val(workout['description']);
+
+    if (workout['exercises'].length > 0) {
+        $('#dnd-instruction').hide();
+    }
+
+    list_of_exercises = [];
+    workout['exercises'].forEach(exercise => {
+        var chunk = $('*[data-exid=' + exercise.toString() + ']').clone();
+        $('#dnd_ex_in').append(chunk);
+        var buttons_to_hide = document.getElementById('dnd_ex_in').getElementsByClassName("chunkbutton-holder-right");
+		$(buttons_to_hide).hide();
+		list_of_exercises.push(exercise);
+    });
+
+    //change onclick target to update workout
+    $('#man_wo_add').attr('onClick','update_workout('+ woid.toString() + ')');
+
     //show modal
     show_addworkout('VERSENYSZÁM SZERKESZTÉSE');
+}
+
+
+function update_workout(woid){
+    //collect data and compose POST data
+    var name = $('#wo_sname').val();
+    var description = $('#wo_description').val();
+    var data = JSON.stringify({ woid: woid, short_name: name, description: description, exercises: list_of_exercises, user: userid });
+    //console.log(data);
+
+    //POST ajax request
+    $.ajax({
+            url: '/API/updateworkout',
+            type: 'POST',
+            dataType: "json",
+            data: data,
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                hide_addworkout();
+                $('#etc1_content').empty();
+                $('#etc1_content').append(result['fragment']);
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                closemodal($('#addexercise_modalback'));
+                showerror(jqXhr['responseJSON']['message'], $('#addexerciseerror'))
+            }
+    });
 }
 
 
@@ -449,5 +499,8 @@ function hide_addworkout(){
     $('#wo_sname').val('');
     $('#wo_description').val('');
     $('#dnd_ex_in').empty();
+    list_of_exercises = [];
     $('#dnd_ex_in').append('<p id="dnd-instruction">Húzza ide a gyakorlatokat!</p>');
+    //TODO restore onclick attribute!
+    $('#man_wo_add').attr('onClick','add_workout()')
 }

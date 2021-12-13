@@ -191,5 +191,17 @@ def del_workout(data):
         return False
 
 
+def edit_workout(data):
+    try:
+        workout = Workout.query.get(int(data['woid']))
+        workout.short_name = str(data['short_name'])
+        workout.description = str(data['description'])
+        workout.exercises = json.dumps(data['exercises'])
+        db.session.commit()
+        return True
+    except:
+        return False
+
+
 
 #TODO implement nullpointer safety on delete!!!
