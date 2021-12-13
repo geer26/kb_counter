@@ -1,10 +1,9 @@
+var list_of_exercises;
+
 $(document).ready(function(){
     $('.fixed-action-btn').floatingActionButton();
     $('select').formSelect();
     userid = parseInt($('#userident').text());
-
-
-    var list_of_exercises;
 
     new Sortable(dnd_ex_in, {
         group: {
@@ -350,6 +349,87 @@ function show_addworkout(title='ÚJ VERSENYSZÁM'){
 }
 
 
+function add_workout(){
+
+    //extract data from form
+    var name = $('#wo_sname').val();
+    var description = $('#wo_description').val();
+    var uid;
+    uid = userid;
+
+    //compose json
+    var data = JSON.stringify({ short_name: name, description: description, exercises: list_of_exercises, user: uid });
+
+    //post AJAX request
+    $.ajax({
+            url: '/API/addworkout',
+            type: 'POST',
+            dataType: "json",
+            data: data,
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                hide_addworkout();
+                $('#etc1_content').empty();
+                $('#etc1_content').append(result['fragment']);
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                closemodal($('#addexercise_modalback'));
+                showerror(jqXhr['responseJSON']['message'], $('#addexerciseerror'))
+            }
+    });
+
+}
+
+
+function del_workout(id){
+
+    //extract data from modal
+    var id;
+    id = id;
+
+    //compose data to post
+    var d;
+    d = JSON.stringify({id:id, userid:userid});
+    console.log(d);
+
+    show_loader();
+    //send ajax POST request
+    $.ajax({
+
+            url: '/API/delworkout',
+            type: 'POST',
+            dataType: "json",
+            data: (d),
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                $('#etc1_content').empty();
+                $('#etc1_content').append(result['fragment']);
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                closemodal($('#addexercise_modalback'));
+                showerror(jqXhr['responseJSON']['message'], $('#addexerciseerror'))
+            }
+
+    });
+
+}
+
+
+function edit_workout(id){
+    console.log(id);
+}
+
+
 function hide_addworkout(){
     //show event chunk holder
     $('.event-holder').show();
@@ -360,5 +440,9 @@ function hide_addworkout(){
     $('#active_button').show();
     //hide workout dashboard
     $('.manipulate-workout-container').hide();
-    //TODO zeroize!!!
+    $('#addexerciseerror').hide();
+    $('#wo_sname').val('');
+    $('#wo_description').val('');
+    $('#dnd_ex_in').empty();
+    $('#dnd_ex_in').append('<p id="dnd-instruction">Húzza ide a gyakorlatokat!</p>');
 }

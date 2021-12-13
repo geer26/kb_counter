@@ -137,7 +137,7 @@ class Workout(db.Model):
 
 
     def __repr__(self):
-        return f'id: {self.id}, user: {self.user}, workout: {self.workout}'
+        return f'id: {self.id}, name: {self.short_name}, user: {self.user}, exercises: {self.exercises}'
 
 
     def get_self_json(self):
@@ -145,7 +145,7 @@ class Workout(db.Model):
             'id': self.id,
             'name': self.short_name,
             'description': self.description,
-            'exercises': self.exercises,
+            'exercises': json.loads(self.exercises),
             'created_at': self.created_at.strftime("%m/%d/%Y, %H:%M:%S")
         }
 

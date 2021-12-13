@@ -28,6 +28,24 @@ content-type: application/json
 }
 
 
+### Login user
+# Endpoint: /API/login
+# Method: POST
+# Type: application/json
+# JSON payload: {"username": <str>, "password": <str>, "mode": <str>}
+# MODE: SET / SIN / EXC / COO
+# Returns: 200 or 400, 401, 500 with message
+POST http://127.0.0.1:5001/API/login HTTP/1.1
+content-type: application/json
+
+{
+    "username": "admin",
+    "password": 123456,
+    "mode": "SET"
+}
+
+
+
 ### Add new exercise
 # Endpoint: /API/addexercise
 # Method: POST
@@ -53,7 +71,7 @@ content-type: application/json
 # Endpoint: /API/delexercise
 # Method: POST
 # Type: application/json
-# JSON payload: {id:<int>, userid:<int>}
+# JSON payload: {id:<int>, id:<int>}
 # Returns: 200 or 500 with message
 POST http://127.0.0.1:5001/API/delexercise HTTP/1.1
 content-type: application/json
@@ -63,6 +81,21 @@ content-type: application/json
     "userid": 2
 }
 
+
+
+### Delete exercise
+# Endpoint: /API/delexercise
+# Method: POST
+# Type: application/json
+# JSON payload: {id:<int>, userid:<int>}
+# Returns: 200 or 500 with message
+POST http://127.0.0.1:5001/API/delexercise HTTP/1.1
+content-type: application/json
+
+{
+    "id": 7,
+    "userid": 2
+}
 
 
 

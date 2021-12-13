@@ -110,6 +110,15 @@ def get_user_exercises(userid):
     return data
 
 
+def get_user_workouts(userid):
+    userid = int(userid)
+    data = {}
+    data['workouts'] = []
+    for workout in Workout.query.filter_by(user=userid).all():
+        data['workouts'].append(workout.get_self_json())
+    return data
+
+
 def add_exercise(data):
     #{name: name, short_name: short_name, link: link, type: type, max_rep:max_rep, duration:duration, userid:userid}
     try:
@@ -156,3 +165,31 @@ def mod_exercise(data):
     except:
         return False
     return True
+
+
+def add_workout(data):
+    try:
+        workout = Workout()
+        workout.short_name = data['short_name']
+        workout.description = data['description']
+        workout.exercises = json.dumps(data['exercises'])
+        workout.user = data['user']
+        db.session.add(workout)
+        db.session.commit()
+        return True
+    except:
+        return False
+
+
+def del_workout(data):
+    try:
+        id = int(data['id'])
+        db.session.delete(Workout.query.get(id))
+        db.session.commit()
+        return True
+    except:
+        return False
+
+
+
+#TODO implement nullpointer safety on delete!!!

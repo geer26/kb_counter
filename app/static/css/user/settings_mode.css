@@ -250,11 +250,11 @@
     height: 100%;
     display: grid;
     grid-template-columns: 2fr 1fr;
-    grid-template-rows: 9fr 1fr;
+    //grid-template-rows: 9fr 1fr;
     gap: 10px 10px;
     grid-template-areas:
-        "stringdata dnd_data"
-        "buttonarea buttonarea";
+        "stringdata dnd_data";
+        //"buttonarea buttonarea"
 }
 
 
@@ -270,7 +270,7 @@
     padding-bottom: 20px;
     padding-left: 10px;
     padding-right: 10px;
-    overflow: auto
+    overflow: auto;
     display: flex;
     //justify-content: space-around;
     align-items: center;
@@ -296,7 +296,7 @@
 
 
 .man-wo-buttonarea{
-    grid-area: buttonarea;
+    //grid-area: buttonarea;
     position: relative;
     height: 100%;
     width: 100%;
@@ -309,17 +309,8 @@
 
 
 .wo-manipulate-sizer{
-    width: 40%;
+    //width: 40%;
     margin: 2px;
     margin-top: 10px;
     self-align: center;
-}
-
-
-.compholder{
-    width: 100%;
-    position: relative;
-    border: 2px solid black;
-    border-radius: 5px;
-    overflow: auto;
 }
