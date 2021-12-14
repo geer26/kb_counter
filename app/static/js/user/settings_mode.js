@@ -601,12 +601,47 @@ function hide_addevent(){
     $('#dnd_wo_in').empty();
     list_of_workouts = [];
     $('#dnd_wo_in').append('<p id="dnd-instruction-wo">Húzza ide a versenyszámokat!</p>');
-    //TODO restore onclick attribute!
-    //$('#man_wo_add').attr('onClick','add_event()')
+    //restore SAVE button event
+    $('#man_ev_add').attr('onClick','add_event()')
 }
 
 
 function add_event(){
     console.log('ADD EVENT!');
     console.log('WOQRKOUTS: ',list_of_workouts);
+
+
+    //extract data from form
+    var name = $('#ev_sname').val();
+    var description = $('#ev_description').val();
+    var uid;
+    uid = userid;
+
+    //compose json
+    var data = JSON.stringify({ short_name: name, description: description, workouts: list_of_workouts, user: uid });
+    console.log(data);
+
+    //post AJAX request
+    $.ajax({
+            url: '/API/addevent',
+            type: 'POST',
+            dataType: "json",
+            data: data,
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                hide_addevent();
+                $('#event_window').empty();
+                $('#event_window').append(result['fragment']);
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                //closemodal($('#addexercise_modalback'));
+                showerror(jqXhr['responseJSON']['message'], $('#addeventerror'))
+            }
+    });
+
 }

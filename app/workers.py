@@ -119,6 +119,15 @@ def get_user_workouts(userid):
     return data
 
 
+def get_user_events(userid):
+    userid = int(userid)
+    data = {}
+    data['events'] = []
+    for event in Event.query.filter_by(user=userid).all():
+        data['events'].append(event.get_self_json())
+    return data
+
+
 def add_exercise(data):
     #{name: name, short_name: short_name, link: link, type: type, max_rep:max_rep, duration:duration, userid:userid}
     try:
@@ -197,6 +206,21 @@ def edit_workout(data):
         workout.short_name = str(data['short_name'])
         workout.description = str(data['description'])
         workout.exercises = json.dumps(data['exercises'])
+        db.session.commit()
+        return True
+    except:
+        return False
+
+
+def add_event(data):
+    try:
+        event = Event()
+        event.short_name = data['short_name']
+        event.description = data['description']
+        event.workouts = json.dumps(data['workouts'])
+        event.user = data['user']
+        event.gen_ident()
+        db.session.add(event)
         db.session.commit()
         return True
     except:

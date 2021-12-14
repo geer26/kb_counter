@@ -64,6 +64,7 @@ class Event(db.Model):
     description = db.Column(db.String(256), default='No description')
     short_name = db.Column(db.String(32), default='No name')
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
+    workouts = db.Column(db.String(), default='')
     ident = db.Column(db.String(6), nullable=False)
 
     # -------- Connections
@@ -85,6 +86,7 @@ class Event(db.Model):
         uid = str(uuid.uuid1()).split('-')[3]
         ts = str(datetime.now().timestamp()).encode()
         ts_hash= bcrypt.hashpw(ts, bcrypt.gensalt()).decode()[51:53]
+        self.ident = uid + ts_hash
         return str(uid + ts_hash)
 
 
