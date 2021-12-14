@@ -124,8 +124,8 @@ def get_user_events(userid):
     data = {}
     data['events'] = []
     for event in Event.query.filter_by(user=userid).all():
-        #data['events'].append(event.get_self_json())
-        data['events'].append(event)
+        data['events'].append(event.get_self_json())
+        #data['events'].append(event)
     return data
 
 
