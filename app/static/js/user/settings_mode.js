@@ -1,4 +1,5 @@
 var list_of_exercises;
+var list_of_workouts;
 
 $(document).ready(function(){
     $('.fixed-action-btn').floatingActionButton();
@@ -35,6 +36,45 @@ $(document).ready(function(){
     new Sortable(etc2_content, {
         group: {
             name: 'shared',
+            pull: 'clone'
+        },
+        animation: 150,
+
+        onAdd: function (evt) {
+		    $(evt.item).remove();
+	    },
+
+    });
+
+    new Sortable(dnd_wo_in, {
+        group: {
+            name: 'shared2',
+            //pull: 'clone' // To clone: set pull to 'clone'
+        },
+        animation: 150,
+
+        onAdd: function (evt) {
+		    var buttons_to_hide = evt.item.getElementsByClassName("chunkbutton-holder-right");
+		    $(buttons_to_hide).hide();
+		    list_of_exercises = document.getElementById('dnd_wo_in').getElementsByClassName('fragment-chunk')
+	    },
+
+	    onSort: function (/**Event*/evt) {
+	        list_of_workouts = [];
+		    var l_o_w = document.getElementById('dnd_wo_in').getElementsByClassName('fragment-chunk');
+		    for (var e of l_o_w){list_of_workouts.push(e.getAttribute('data-woid'));};
+		    if(l_o_w.length != 0){
+		        $('#dnd-instruction-wo').hide();
+		    } else {
+		        $('#dnd-instruction-wo').show();
+		    }
+	    },
+
+    });
+
+    new Sortable(etc1_content, {
+        group: {
+            name: 'shared2',
             pull: 'clone'
         },
         animation: 150,
@@ -344,6 +384,14 @@ function show_addworkout(title='ÚJ VERSENYSZÁM'){
     //change title and hide button
     $('#active_title').text(title);
     $('#active_button').hide();
+    //hide add exercise button
+    $('#etc2_button').hide();
+    //hide exercises manipulate buttons
+    $('#etc2_content .chunkbutton-holder-right').hide();
+
+    M.updateTextFields();
+    M.textareaAutoResize($('.materialize-textarea'));
+
     //display workout dashboard
     $('.manipulate-workout-container').show();
 }
@@ -493,6 +541,10 @@ function hide_addworkout(){
     $('#active_button').show();
     //hide workout dashboard
     $('.manipulate-workout-container').hide();
+    //unhide add exercise button
+    $('#etc2_button').show();
+    //unhide exercises manipulate buttons
+    $('#etc2_content .chunkbutton-holder-right').show();
     //clear inputs
     $('#addexerciseerror').hide();
     $('#wo_sname').val('');
@@ -508,11 +560,21 @@ function hide_addworkout(){
 function show_addevent(title='ÚJ ESEMÉNY'){
     //hide event chunk holder
     $('.event-holder').hide();
+    //hide add workout button
+    $('#etc1_button').hide();
+    //hide add workout manipulate buttons
+    $('#etc1_content .chunkbutton-holder-right').hide();
     //fade exercises plain
     $('#ex_fader').show();
     //change title and hide button
     $('#active_title').text(title);
     $('#active_button').hide();
+    //init inputs
+    $('select').formSelect();
+
+    M.updateTextFields();
+    M.textareaAutoResize($('.materialize-textarea'));
+
     //display workout dashboard
     $('.manipulate-event-container').show();
 }
@@ -521,7 +583,11 @@ function show_addevent(title='ÚJ ESEMÉNY'){
 function hide_addevent(){
     //show event chunk holder
     $('.event-holder').show();
-    //unfade workout plain
+    //unhide add workout button
+    $('#etc1_button').show();
+    //unhide add workout manipulate buttons
+    $('#etc1_content .chunkbutton-holder-right').show();
+    //unfade exercises plain
     $('#ex_fader').hide();
     //change title and hide button
     $('#active_title').text('ESEMÉNYEK');
@@ -529,12 +595,18 @@ function hide_addevent(){
     //hide workout dashboard
     $('.manipulate-event-container').hide();
     //clear inputs
-    //$('#addexerciseerror').hide();
-    //$('#wo_sname').val('');
-    //$('#wo_description').val('');
-    //$('#dnd_ex_in').empty();
-    //list_of_exercises = [];
-    //$('#dnd_ex_in').append('<p id="dnd-instruction">Húzza ide a gyakorlatokat!</p>');
+    $('#addeventerror').hide();
+    $('#ev_sname').val('');
+    $('#ev_description').val('');
+    $('#dnd_wo_in').empty();
+    list_of_workouts = [];
+    $('#dnd_wo_in').append('<p id="dnd-instruction-wo">Húzza ide a versenyszámokat!</p>');
     //TODO restore onclick attribute!
-    //$('#man_wo_add').attr('onClick','add_workout()')
+    //$('#man_wo_add').attr('onClick','add_event()')
+}
+
+
+function add_event(){
+    console.log('ADD EVENT!');
+    console.log('WOQRKOUTS: ',list_of_workouts);
 }

@@ -11,22 +11,22 @@
           <label for="ev_sname">Esemény neve</label>
         </div>
 
-        <div class="input-field col s12">
+        <div class="input-field wo-manipulate-sizer-textarea">
           <textarea id="ev_description" class="materialize-textarea"></textarea>
           <label for="ev_description">Leírás</label>
         </div>
 
-        <p> IDENT: </p>
+        <p> IDENT: Automatikusan kerül létrehozásra!</p>
 
         <div class="man-wo-buttonarea">
-            <span><button class="btn btn-small butt red" onclick="" id="man_ev_cancel" onclick="hide_addevent()">mégse</button></span>
-            <span><button class="btn btn-small butt" onclick="" id="man_ev_add">mentés</button></span>
+            <span><button class="btn btn-small butt red" id="man_ev_cancel" onclick="hide_addevent();">mégse</button></span>
+            <span><button class="btn btn-small butt" onclick="add_event()" id="man_ev_add">mentés</button></span>
         </div>
 
     </div>
 
-    <div class="man-wo-dnddata" id="dnd_ev_in">
-        <p id="dnd-instruction_ev">Húzza ide a versenyszámokat!</p>
+    <div class="man-wo-dnddata" id="dnd_wo_in">
+        <p id="dnd-instruction-wo">Húzza ide a versenyszámokat!</p>
     </div>
 
 </div>

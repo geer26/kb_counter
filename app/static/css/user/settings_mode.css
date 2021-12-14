@@ -128,6 +128,20 @@
 }
 
 
+.input-field label {
+    color: #000;
+}
+   /* label focus color */
+.input-field input[type=text]:focus + label {
+    color: #000;
+}
+   /* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #000;
+    box-shadow: 0 1px 0 0 #000;
+}
+
+
 .window-content{
     position: relative;
     overflow: auto;
@@ -255,6 +269,8 @@
     grid-template-columns: 2fr 1fr;
     //grid-template-rows: 9fr 1fr;
     gap: 10px 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     grid-template-areas:
         "stringdata dnd_data";
         //"buttonarea buttonarea"
@@ -301,12 +317,10 @@
 
 
 .man-wo-buttonarea{
-    //grid-area: buttonarea;
     position: relative;
+    margin-top: 20px;
     z-index: 2;
-    height: 100%;
-    width: 100%;
-    //border: 1px solid blue;
+    width: 50%;
     display: flex;
     justify-content: space-around;
     align-items: center;
@@ -315,7 +329,15 @@
 
 
 .wo-manipulate-sizer{
-    //width: 40%;
+    width: 40%;
+    margin: 2px;
+    margin-top: 10px;
+    self-align: center;
+}
+
+
+.wo-manipulate-sizer-textarea{
+    width: 80%;
     margin: 2px;
     margin-top: 10px;
     self-align: center;
@@ -331,6 +353,8 @@
     grid-template-columns: 2fr 1fr;
     //grid-template-rows: 9fr 1fr;
     gap: 10px 10px;
+    padding-left: 10px;
+    padding-right: 10px;
     grid-template-areas:
         "stringdata dnd_data";
         //"buttonarea buttonarea"
