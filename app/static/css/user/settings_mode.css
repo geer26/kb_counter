@@ -359,3 +359,13 @@
         "stringdata dnd_data";
         //"buttonarea buttonarea"
 }
+
+
+.event-holder{
+    position: relative;
+    width: 90%;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-direction: column;
+}
