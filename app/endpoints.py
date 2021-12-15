@@ -332,6 +332,7 @@ class Swap_enabled(Resource):
             return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
 
 
+
 #Done - Document it!
 class Get_eventdata(Resource):
     def post(self):
@@ -352,6 +353,7 @@ class Get_eventdata(Resource):
 
 
 
+#TODO finish!
 class Edit_event(Resource):
     def post(self):
         pass

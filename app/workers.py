@@ -257,11 +257,8 @@ def swap_event_enable(data):
     try:
         id = int(data['id'])
         event = Event.query.get(id)
-        #print(f'BEFORE SWAP: {event.closed}')
         event.closed = not event.closed
-        #print(f'AFTER SWAP: {event.closed}')
         db.session.commit()
-        #print(f'CLOSED STATUS: {event.closed}')
         return True
     except:
         return False

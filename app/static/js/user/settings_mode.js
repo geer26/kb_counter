@@ -685,6 +685,7 @@ function del_event(id){
 
 
 function swap_enable(id){
+    console.log('change lock icon');
     //compose data to post
     var id;
     id = id;
@@ -742,8 +743,15 @@ function edit_event(event){
                 $('#ev_description').val(result['data']['ev_description']);
                 $('#ev_ident').text('IDENT: ' + result['data']['ev_ident']);
                 $('#dnd_wo_in').empty();
-                list_of_workouts = result['data']['workouts'];
-                //TODO update list of workout chunks
+                list_of_workouts = [];
+                //add workout chunks
+                result['data']['ev_workouts'].forEach(workout => {
+                    var chunk = $('#etc1_content [data-woid=' + workout.toString() + ']').clone();
+                    $('#dnd_wo_in').append(chunk);
+                    var buttons_to_hide = document.getElementById('dnd_wo_in').getElementsByClassName("chunkbutton-holder-right");
+		            $(buttons_to_hide).hide();
+		            list_of_workouts.push(workout);
+                });
 
                 $('#man_ev_add').attr('onClick','mod_event()');
                 show_addevent('ESEMÉNY SZERKESZTÉSE');
