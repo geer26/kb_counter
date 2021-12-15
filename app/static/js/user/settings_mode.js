@@ -498,6 +498,7 @@ function edit_workout(workout){
 
     //show modal
     show_addworkout('VERSENYSZÁM SZERKESZTÉSE');
+    return;
 }
 
 
@@ -608,9 +609,6 @@ function hide_addevent(){
 
 
 function add_event(){
-    console.log('ADD EVENT!');
-    console.log('WOQRKOUTS: ',list_of_workouts);
-
 
     //extract data from form
     var name = $('#ev_sname').val();
@@ -648,6 +646,11 @@ function add_event(){
 }
 
 
+function mod_event(){
+    console.log('MODIFY EVENT!');
+}
+
+
 function del_event(id){
     //compose data to post
     var id;
@@ -673,8 +676,40 @@ function del_event(id){
 
             error: (jqXhr, textStatus, errorMessage) => {
                 hide_loader();
-                closemodal($('#addexercise_modalback'));
-                showerror(jqXhr['responseJSON']['message'], $('#addexerciseerror'))
+                showerror(jqXhr['responseJSON']['message'], $('#eventerror'))
+            }
+
+    });
+
+}
+
+
+function swap_enable(id){
+    //compose data to post
+    var id;
+    id = id;
+    var d;
+    d = JSON.stringify({id:id, userid:userid});
+    show_loader();
+    //send ajax POST request
+    $.ajax({
+
+            url: '/API/swapenable',
+            type: 'POST',
+            dataType: "json",
+            data: (d),
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                $('#event_window').empty();
+                $('#event_window').append(result['fragment']);
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                showerror(jqXhr['responseJSON']['message'], $('#eventerror'))
             }
 
     });
@@ -682,8 +717,46 @@ function del_event(id){
 
 
 function edit_event(event){
-    console.log('EDIT EVENT!');
-    console.log(event);
+    // collect data and compose json to post
+    var id;
+    id = event;
+    var d;
+    d = JSON.stringify({id:id, userid:userid});
+    show_loader();
+
+    //send ajax POST request
+    $.ajax({
+
+            url: '/API/geteventdata',
+            type: 'POST',
+            dataType: "json",
+            data: (d),
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+
+                //fill inputs
+                $('#addeventerror').hide();
+                $('#ev_sname').val(result['data']['ev_sname']);
+                $('#ev_description').val(result['data']['ev_description']);
+                $('#ev_ident').text('IDENT: ' + result['data']['ev_ident']);
+                $('#dnd_wo_in').empty();
+                list_of_workouts = result['data']['workouts'];
+                //TODO update list of workout chunks
+
+                $('#man_ev_add').attr('onClick','mod_event()');
+                show_addevent('ESEMÉNY SZERKESZTÉSE');
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                showerror(jqXhr['responseJSON']['message'], $('#eventerror'))
+            }
+
+    });
+
 }
 
 

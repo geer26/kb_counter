@@ -102,8 +102,8 @@ class Event(db.Model):
             'description': self.description,
             'workouts': self.workouts,
             'created_at': self.created_at.strftime("%m/%d/%Y, %H:%M:%S"),
-            'ident': self.ident,
-            'closed': self.closed
+            # 'closed': self.closed,
+            'ident': self.ident
         }
 
 

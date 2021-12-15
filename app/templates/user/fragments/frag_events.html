@@ -5,14 +5,19 @@
 
     {% for e in data['events'] %}
 
-    <div class="fragment-chunk" style="z-index: 2;">
+    <div class="fragment-chunk" style="z-index: 2;" onclick="$('#eventerror').hide();">
         <span class="event-plusinfo-holder">
-            <i class="material-icons" style="margin-right: 5px;">groups</i> {{e['competitors']|length}}
+            <i class="material-icons tooltipped" style="margin-right: 5px;" data-tooltip="Versenyzők száma">groups</i> {{e['competitors']|length}}
+            {% if e['closed']%}
+            <i class="material-icons tooltipped" onclick="swap_enable({{e.id}})" style="margin-left: 5px; color: red; cursor: pointer;" data-tooltip="Lezárva">lock</i>
+            {% else %}
+            <i class="material-icons tooltipped" onclick="swap_enable({{e.id}})" style="margin-left: 5px; color: green; cursor: pointer;" data-tooltip="Nyitva">lock_open</i>
+            {% endif %}
         </span>
         <p>{{e.name}}
         <span class="chunkbutton-holder-right">
             <i class="material-icons btn chunkbutton blue tooltipped" onclick="edit_competitors()" data-tooltip="Versenyzők">people</i>
-            <i class="material-icons btn chunkbutton amber tooltipped" onclick="edit_event({{e}})" data-tooltip="Szerkesztés">edit</i>
+            <i class="material-icons btn chunkbutton amber tooltipped" onclick="edit_event({{e.id}});" data-tooltip="Szerkesztés">edit</i>
             <i class="material-icons btn chunkbutton red tooltipped" onclick="del_event({{e.id}})" data-tooltip="Törlés">delete_outline</i>
         </span>
         </p>

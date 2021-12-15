@@ -130,6 +130,18 @@ def get_user_events(userid):
     return data
 
 
+def get_single_event(id):
+    id = int(id)
+    event = Event.query.get(id)
+    data = {
+        'ev_sname': event.short_name,
+        'ev_description': event.description,
+        'ev_ident': event.ident,
+        'ev_workouts': json.loads(event.workouts)
+    }
+    return data
+
+
 def add_exercise(data):
     #{name: name, short_name: short_name, link: link, type: type, max_rep:max_rep, duration:duration, userid:userid}
     try:
@@ -232,8 +244,24 @@ def add_event(data):
 def del_event(data):
     try:
         id = int(data['id'])
-        db.session.delete(Event.query.get(id))
+        e = Event.query.get(id)
+        if e.closed: return False
+        db.session.delete(e)
         db.session.commit()
+        return True
+    except:
+        return False
+
+
+def swap_event_enable(data):
+    try:
+        id = int(data['id'])
+        event = Event.query.get(id)
+        #print(f'BEFORE SWAP: {event.closed}')
+        event.closed = not event.closed
+        #print(f'AFTER SWAP: {event.closed}')
+        db.session.commit()
+        #print(f'CLOSED STATUS: {event.closed}')
         return True
     except:
         return False

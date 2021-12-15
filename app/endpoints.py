@@ -5,11 +5,13 @@ from flask_restful import Resource
 from flask_login import current_user, login_user, logout_user
 from flask import request, render_template, send_from_directory, session, Response
 from app import api, db
+
 from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, add_exercise,\
     del_exercise, get_user_exercises, check_exercise_belonging, mod_exercise, add_workout, \
-    get_user_workouts, del_workout, edit_workout, add_event, get_user_events, del_event \
+    get_user_workouts, del_workout, edit_workout, add_event, get_user_events, del_event, \
+    swap_event_enable, get_single_event
 
-from app.models import User, Exercise
+from app.models import User, Exercise, Event
 
 
 
@@ -293,6 +295,9 @@ class Del_event(Resource):
         json_data = request.get_json(force=True)
         if current_user.id != int(json_data['userid']) and not current_user.is_superuser:
             return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
+        # check if event is closed
+        e = Event.query.get(int(json_data['id']))
+        if e.closed: return {'status': 1, 'message': 'Lezárt eseményt nem törölhet!'}, 403
         # call worker that deletes record
         if del_event(json_data):
             # compose fragment to replace old
@@ -303,6 +308,53 @@ class Del_event(Resource):
         else:
             # something - somewhere went wrong!
             return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+
+
+
+#Done!
+class Swap_enabled(Resource):
+    def post(self):
+        if not current_user.is_authenticated:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
+        # get data from posted json
+        json_data = request.get_json(force=True)
+        if current_user.id != int(json_data['userid']) and not current_user.is_superuser:
+            return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
+        # call worker that deletes record
+        if swap_event_enable(json_data):
+            # compose fragment to replace old
+            data = get_user_events(json_data['userid'])
+            fragment = render_template('user/fragments/frag_events.html', data=data)
+            # return the rendered fragment
+            return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': fragment}, 200
+        else:
+            # something - somewhere went wrong!
+            return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+
+
+#Done - Document it!
+class Get_eventdata(Resource):
+    def post(self):
+        if not current_user.is_authenticated:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
+        # get data from posted json
+        json_data = request.get_json(force=True)
+        if current_user.id != int(json_data['userid']) and not current_user.is_superuser:
+            return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
+        # check if event is closed
+        e = Event.query.get(int(json_data['id']))
+        if e.closed: return {'status': 1, 'message': 'Lezárt eseményt nem módosíthat!'}, 403
+        # call worker that reads the event record
+        try:
+            return { 'status': 0, 'message': 'Sikeres művelet!', 'data': get_single_event(json_data['id']) }, 200
+        except:
+            return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+
+
+
+class Edit_event(Resource):
+    def post(self):
+        pass
 
 
 
@@ -320,3 +372,6 @@ api.add_resource(Del_workout, '/API/delworkout')
 api.add_resource(Update_workout, '/API/updateworkout')
 api.add_resource(Add_event, '/API/addevent')
 api.add_resource(Del_event, '/API/delevent')
+api.add_resource(Swap_enabled, '/API/swapenable')
+api.add_resource(Edit_event, '/API/editevent')
+api.add_resource(Get_eventdata, '/API/geteventdata')
