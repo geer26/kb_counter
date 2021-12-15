@@ -6,6 +6,9 @@
     {% for e in data['events'] %}
 
     <div class="fragment-chunk" style="z-index: 2;">
+        <span class="event-plusinfo-holder">
+            <i class="material-icons" style="margin-right: 5px;">groups</i> {{e['competitors']|length}}
+        </span>
         <p>{{e.name}}
         <span class="chunkbutton-holder-right">
             <i class="material-icons btn chunkbutton blue tooltipped" onclick="edit_competitors()" data-tooltip="Versenyzők">people</i>
