@@ -66,6 +66,7 @@ class Event(db.Model):
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
     workouts = db.Column(db.String(), default='')
     ident = db.Column(db.String(6), nullable=False)
+    closed = db.Column(db.Boolean, default=False)
 
     # -------- Connections
     # -------- FK
@@ -101,7 +102,8 @@ class Event(db.Model):
             'description': self.description,
             'workouts': self.workouts,
             'created_at': self.created_at.strftime("%m/%d/%Y, %H:%M:%S"),
-            'ident': self.ident
+            'ident': self.ident,
+            'closed': self.closed
         }
 
 
@@ -167,7 +169,6 @@ class Competitor(db.Model):
     # -------- Connections
     # -------- FK
     event = db.Column(db.Integer, db.ForeignKey('event.id'))
-    workout = db.Column(db.Integer, db.ForeignKey('workout.id'))
 
 
     def __repr__(self):
@@ -236,7 +237,8 @@ class Competitor(db.Model):
             'y_o_b': self.y_o_b,
             'gender': self.gender,
             'result': self.result,
-            'category': self.category
+            'category': self.category,
+            'event': self.event
         }
 
 
