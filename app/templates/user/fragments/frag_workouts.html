@@ -1,6 +1,6 @@
 {% if data['workouts']|length < 1 %}
 
-    <p> - Nincsenek versenyszámok! - </p>
+    <p class="comment-for-ident"> - Nincsenek versenyszámok! - </p>
 
 {% else %}
 
@@ -10,8 +10,8 @@
         <span class="grabber-holder-left"></span>
         <p>{{w.name}}
         <span class="chunkbutton-holder-right">
-            <i class="material-icons btn chunkbutton grey darken-3" onclick="edit_workout({{w}})">edit</i>
-            <i class="material-icons btn chunkbutton red" onclick="del_workout({{w.id}})">delete_outline</i>
+            <i class="material-icons btn chunkbutton amber tooltipped" onclick="edit_workout({{w}})" data-tooltip="Szerkesztés">edit</i>
+            <i class="material-icons btn chunkbutton red tooltipped" onclick="del_workout({{w.id}})" data-tooltip="Törlés">delete_outline</i>
         </span>
         </p>
     </div>

@@ -1,16 +1,16 @@
 {% if data['events']|length < 1 %}
-    <p> - Nincsenek események! - </p>
+    <p class="comment-for-ident"> - Nincsenek események! - </p>
 
 {% else %}
 
     {% for e in data['events'] %}
 
-    <div class="fragment-chunk">
+    <div class="fragment-chunk" style="z-index: 2;">
         <p>{{e.name}}
         <span class="chunkbutton-holder-right">
-            <i class="material-icons btn chunkbutton blue" onclick="">people</i>
-            <i class="material-icons btn chunkbutton grey darken-3" onclick="">edit</i>
-            <i class="material-icons btn chunkbutton red" onclick="">delete_outline</i>
+            <i class="material-icons btn chunkbutton blue tooltipped" onclick="edit_competitors()" data-tooltip="Versenyzők">people</i>
+            <i class="material-icons btn chunkbutton amber tooltipped" onclick="edit_event({{e}})" data-tooltip="Szerkesztés">edit</i>
+            <i class="material-icons btn chunkbutton red tooltipped" onclick="del_event({{e.id}})" data-tooltip="Törlés">delete_outline</i>
         </span>
         </p>
     </div>

@@ -1,6 +1,6 @@
 {% if data['exercises']|length < 1 %}
 
-    <p> - Nincsenek gyakorlatok! - </p>
+    <p class="comment-for-ident"> - Nincsenek gyakorlatok! - </p>
 
 {% else %}
 
@@ -10,8 +10,8 @@
         <span class="grabber-holder-left"></span>
         <p>{{e.short_name}}
         <span class="chunkbutton-holder-right">
-            <i class="material-icons btn chunkbutton grey darken-3" onclick="edit_exercise({{e.id}})">edit</i>
-            <i class="material-icons btn chunkbutton red" onclick="del_exercise({{e.id}})">delete_outline</i>
+            <i class="material-icons btn chunkbutton amber tooltipped" onclick="edit_exercise({{e.id}})" data-tooltip="Szerkesztés">edit</i>
+            <i class="material-icons btn chunkbutton red tooltipped" onclick="del_exercise({{e.id}})" data-tooltip="Törlés">delete_outline</i>
         </span>
         </p>
     </div>

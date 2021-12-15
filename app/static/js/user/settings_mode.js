@@ -4,6 +4,7 @@ var list_of_workouts;
 $(document).ready(function(){
     $('.fixed-action-btn').floatingActionButton();
     $('select').formSelect();
+    $('.tooltipped').tooltip();
     userid = parseInt($('#userident').text());
 
     new Sortable(dnd_ex_in, {
@@ -644,4 +645,19 @@ function add_event(){
             }
     });
 
+}
+
+
+function del_event(id){
+    Console.log('DELETE EVENT!');
+}
+
+
+function edit_event(event){
+    Console.log('EDIT EVENT!');
+}
+
+
+function edit_competitors(){
+    Console.log('EDIT COMPETITORS');
 }

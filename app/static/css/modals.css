@@ -56,6 +56,30 @@
 }
 
 
+.input-field label {
+    color: #fff;
+}
+
+input, select, radio, textarea{
+    color: #fff;
+}
+
+   /* label focus color */
+.input-field input[type=text]:focus + label {
+    color: #fff;
+}
+   /* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #fff;
+    box-shadow: 0 1px 0 0 #fff;
+}
+
+
+.lradio{
+    color: white;
+}
+
+
 @media only screen and (max-width: 600px) {
     .loginmodal{
         width: 90vw;
