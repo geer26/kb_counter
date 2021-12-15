@@ -228,5 +228,15 @@ def add_event(data):
         return False
 
 
+def del_event(data):
+    try:
+        id = int(data['id'])
+        db.session.delete(Event.query.get(id))
+        db.session.commit()
+        return True
+    except:
+        return False
+
+
 
 #TODO implement nullpointer safety on delete!!!

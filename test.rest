@@ -71,7 +71,7 @@ content-type: application/json
 # Endpoint: /API/delexercise
 # Method: POST
 # Type: application/json
-# JSON payload: {id:<int>, id:<int>}
+# JSON payload: {id:<int>, userid:<int>}
 # Returns: 200 or 500 with message
 POST http://127.0.0.1:5001/API/delexercise HTTP/1.1
 content-type: application/json
@@ -83,18 +83,33 @@ content-type: application/json
 
 
 
-### Delete exercise
-# Endpoint: /API/delexercise
+### Delete workout
+# Endpoint: /API/delworkout
 # Method: POST
 # Type: application/json
 # JSON payload: {id:<int>, userid:<int>}
 # Returns: 200 or 500 with message
-POST http://127.0.0.1:5001/API/delexercise HTTP/1.1
+POST http://127.0.0.1:5001/API/delworkout HTTP/1.1
 content-type: application/json
 
 {
-    "id": 7,
+    "id": 8,
     "userid": 2
+}
+
+
+### Delete event
+# Endpoint: /API/delevent
+# Method: POST
+# Type: application/json
+# JSON payload: {id:<int>, user:<int>}
+# Returns: 200 or 500 with message
+POST http://127.0.0.1:5001/API/delevent HTTP/1.1
+content-type: application/json
+
+{
+    "id": 2,
+    "user": 2
 }
 
 

@@ -7,7 +7,8 @@ from flask import request, render_template, send_from_directory, session, Respon
 from app import api, db
 from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, add_exercise,\
     del_exercise, get_user_exercises, check_exercise_belonging, mod_exercise, add_workout, \
-    get_user_workouts, del_workout, edit_workout, add_event, get_user_events
+    get_user_workouts, del_workout, edit_workout, add_event, get_user_events, del_event \
+
 from app.models import User, Exercise
 
 
@@ -263,6 +264,7 @@ class Update_workout(Resource):
 
 
 
+#Done - Document it!
 class Add_event(Resource):
     def post(self):
         if not current_user.is_authenticated:
@@ -282,6 +284,27 @@ class Add_event(Resource):
 
 
 
+#Done!
+class Del_event(Resource):
+    def post(self):
+        if not current_user.is_authenticated:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
+        # get data from posted json
+        json_data = request.get_json(force=True)
+        if current_user.id != int(json_data['userid']) and not current_user.is_superuser:
+            return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
+        # call worker that deletes record
+        if del_event(json_data):
+            # compose fragment to replace old
+            data = get_user_events(json_data['userid'])
+            fragment = render_template('user/fragments/frag_events.html', data=data)
+            # return the rendered fragment
+            return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': fragment}, 200
+        else:
+            # something - somewhere went wrong!
+            return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+
+
 
 
 api.add_resource(AddUser, '/API/adduser')
@@ -296,3 +319,4 @@ api.add_resource(Add_workout, '/API/addworkout')
 api.add_resource(Del_workout, '/API/delworkout')
 api.add_resource(Update_workout, '/API/updateworkout')
 api.add_resource(Add_event, '/API/addevent')
+api.add_resource(Del_event, '/API/delevent')

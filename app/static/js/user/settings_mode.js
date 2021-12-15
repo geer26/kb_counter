@@ -649,12 +649,41 @@ function add_event(){
 
 
 function del_event(id){
-    console.log('DELETE EVENT!');
+    //compose data to post
+    var id;
+    id = id;
+    var d;
+    d = JSON.stringify({id:id, userid:userid});
+    show_loader();
+    //send ajax POST request
+    $.ajax({
+
+            url: '/API/delevent',
+            type: 'POST',
+            dataType: "json",
+            data: (d),
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                $('#event_window').empty();
+                $('#event_window').append(result['fragment']);
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                closemodal($('#addexercise_modalback'));
+                showerror(jqXhr['responseJSON']['message'], $('#addexerciseerror'))
+            }
+
+    });
 }
 
 
 function edit_event(event){
     console.log('EDIT EVENT!');
+    console.log(event);
 }
 
 

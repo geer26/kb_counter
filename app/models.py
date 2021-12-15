@@ -99,6 +99,7 @@ class Event(db.Model):
             'id': self.id,
             'name': self.short_name,
             'description': self.description,
+            'workouts': self.workouts,
             'created_at': self.created_at.strftime("%m/%d/%Y, %H:%M:%S"),
             'ident': self.ident
         }
