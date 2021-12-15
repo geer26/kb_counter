@@ -2,7 +2,8 @@
 :root {
   --main-bg-color: brown;
   --navbar-bg: rgba(0, 0, 0,.7);
-  --chunk-bg: rgba(238, 240, 161, .8);
+  //--chunk-bg: rgba(238, 240, 161, .8);
+  --chunk-bg: rgba(251, 252, 149, .6);
   --title-bg: rgba(0,0,0,.5);
 }
 

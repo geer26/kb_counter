@@ -649,15 +649,15 @@ function add_event(){
 
 
 function del_event(id){
-    Console.log('DELETE EVENT!');
+    console.log('DELETE EVENT!');
 }
 
 
 function edit_event(event){
-    Console.log('EDIT EVENT!');
+    console.log('EDIT EVENT!');
 }
 
 
 function edit_competitors(){
-    Console.log('EDIT COMPETITORS');
+    console.log('EDIT COMPETITORS');
 }
