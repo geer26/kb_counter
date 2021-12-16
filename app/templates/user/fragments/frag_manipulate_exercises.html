@@ -1,0 +1,63 @@
+<div class="manipulate-exercises-container">
+
+    <div class="man-ex-stringdata">
+
+        <p id="addexerror" style="display: none; width: 100%; padding-left: 10px; padding-right: 10px;" class="errormessage">
+          HIBA!
+        </p>
+
+        <div class="input-field wo-manipulate-sizer">
+          <input id="exer_name" type="text" class="validate" onkeypress="hide_error()">
+          <label for="exer_name">Gyakorlat neve</label>
+        </div>
+
+        <div class="input-field wo-manipulate-sizer">
+          <input id="exer_sname" type="text" class="validate" onkeypress="hide_error()">
+          <label for="exer_sname">Rövid név</label>
+        </div>
+
+        <div class="input-field wo-manipulate-sizer">
+          <input id="exer_link" type="text" class="validate" onkeypress="hide_error()">
+          <label for="exer_link">Link</label>
+        </div>
+
+        <div class="input-field wo-manipulate-sizer">
+          <select id="exer_type">
+            <option value="" disabled selected>Válasszon típust!</option>
+            <option value="rest">Pihenő</option>
+            <option value="warmup">Felkészülés</option>
+            <option value="workout">Munka</option>
+          </select>
+          <label>Típus</label>
+        </div>
+
+        <div class="input-field wo-manipulate-sizer">
+          <input id="exer_maxrep" type="number" class="validate" onkeypress="hide_error()">
+          <label for="exer_maxrep">Maximum számolt ismétlés</label>
+        </div>
+
+        <div class="input-field wo-manipulate-sizer">
+          <input id="exer_duration" type="number" class="validate" onkeypress="hide_error()">
+          <label for="exer_duration">Mért idő másodpercben</label>
+        </div>
+
+        <!--
+        <div class="input-field wo-manipulate-sizer">
+          <input id="wo_sname" type="text" class="validate" onkeypress="hide_error()">
+          <label for="wo_sname">Versenyszám neve</label>
+        </div>
+
+        <div class="input-field wo-manipulate-sizer-textarea">
+          <textarea id="wo_description" class="materialize-textarea"></textarea>
+          <label for="wo_description">Leírás</label>
+        </div>
+        -->
+
+        <div class="man-wo-buttonarea">
+            <span><button class="btn btn-small butt red" onclick="" id="man_wo_cancel" onclick="">mégse</button></span>
+            <span><button class="btn btn-small butt" onclick="" id="man_wo_add">mentés</button></span>
+        </div>
+
+    </div>
+
+</div>
