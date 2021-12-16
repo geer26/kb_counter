@@ -10,8 +10,10 @@
             <i class="material-icons tooltipped" style="margin-right: 5px;" data-tooltip="Versenyzők száma">groups</i> {{e['competitors']|length}}
             {% if e['closed']%}
             <i class="material-icons tooltipped" onclick="swap_enable({{e.id}})" style="margin-left: 5px; color: red; cursor: pointer;" data-tooltip="Lezárva">lock</i>
+            <i class="material-icons tooltipped" onclick="" style="margin-left: 5px; color: green; cursor: pointer;" data-tooltip="Eredmények nyomtatása">print</i>
             {% else %}
             <i class="material-icons tooltipped" onclick="swap_enable({{e.id}})" style="margin-left: 5px; color: green; cursor: pointer;" data-tooltip="Nyitva">lock_open</i>
+            <i class="material-icons tooltipped" onclick="" style="margin-left: 5px; color: red; cursor: pointer;" data-tooltip="Eredmények nyomtatása">print</i>
             {% endif %}
         </span>
         <p>{{e.name}}

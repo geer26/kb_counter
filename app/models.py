@@ -165,6 +165,7 @@ class Competitor(db.Model):
     gender = db.Column(db.Integer, nullable=False, default=1)  # 1 - male, 2 - female
     result = db.Column(db.Integer, default=0)
     category = db.Column(db.String(32), default='')
+    finished = db.Column(db.Integer, default=0)
 
     # -------- Connections
     # -------- FK
@@ -238,6 +239,7 @@ class Competitor(db.Model):
             'gender': self.gender,
             'result': self.result,
             'category': self.category,
+            'finished': self.finished,
             'event': self.event
         }
 

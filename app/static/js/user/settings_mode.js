@@ -736,6 +736,7 @@ function swap_enable(id){
                 hide_loader();
                 $('#event_window').empty();
                 $('#event_window').append(result['fragment']);
+                $('.tooltipped').tooltip();
                 return;
             },
 
