@@ -136,29 +136,30 @@ function edit_exercise(exercise){
             }
     });
     return true;
+
 }
 
 
 function ed_ex(data){
-    //console.log(data);
-
+    //fill inputs
+    $('#addexerror').hide();
     $('#exer_name').val(data['name']);
     $('#exer_sname').val(data['short_name']);
     $('#exer_link').val(data['link']);
-    var t = '#exer_type option[value=' + data['type'] + ']';
-    $(t).attr('selected', true);
     $('#exer_maxrep').val(data['max_rep']);
     $('#exer_duration').val(data['duration']);
-
+    $('#exer_type').val(data['type']);
+    $("#ex_idholder").text(data['id']);
+    //init inputs
+    $('.tooltipped').tooltip();
     $('select').formSelect();
-
-    $('#ex_idholder').text(data['id']);
-
-    $('#addexercise_modalback').show();
-    $('#add_e').hide();
-    $('#mod_e').show();
-
-    return true;
+    M.updateTextFields();
+    M.textareaAutoResize($('.materialize-textarea'));
+    // modify button function and label
+    //$('#man_ex_add').text('');
+    $('#man_ex_add').attr('onClick','mod_exercise()');
+    //show modal
+    show_addexercise('ESEMÉNY SZERKESZTÉSE');
 }
 
 
@@ -168,7 +169,7 @@ function mod_exercise(){
     if ($('#exer_name').val()){
         name = $('#exer_name').val()
     } else{
-        showerror('Adjon nevet a gyakorlatnak!', $('#addexerciseerror'));
+        showerror('Adjon nevet a gyakorlatnak!', $('#addexerror'));
         return;
     }
 
@@ -176,7 +177,7 @@ function mod_exercise(){
     if ($('#exer_sname').val()){
         short_name = $('#exer_sname').val()
     } else{
-        showerror('Határozza meg a megjelenítendő nevet!', $('#addexerciseerror'));
+        showerror('Határozza meg a megjelenítendő nevet!', $('#addexerror'));
         return;
     }
 
@@ -191,7 +192,7 @@ function mod_exercise(){
     if ($('#exer_type').val()){
         type = $('#exer_type').val();
     } else{
-        showerror('Határozza meg a gyakorlat típusát!', $('#addexerciseerror'));
+        showerror('Határozza meg a gyakorlat típusát!', $('#addexerror'));
         return;
     }
 
@@ -206,7 +207,7 @@ function mod_exercise(){
     if ($('#exer_duration').val()){
         duration = $('#exer_duration').val();
     } else{
-        showerror('Határozza meg a gyakorlat időtartamát!', $('#addexerciseerror'));
+        showerror('Határozza meg a gyakorlat időtartamát!', $('#addexerror'));
         return;
     }
 
@@ -231,7 +232,7 @@ function mod_exercise(){
 
             success: result => {
                 hide_loader();
-                closemodal($('#addexercise_modalback'));
+                hide_addexercise();
                 $('#etc2_content').empty();
                 $('#etc2_content').append(result['fragment']);
                 return;
@@ -239,8 +240,8 @@ function mod_exercise(){
 
             error: (jqXhr, textStatus, errorMessage) => {
                 hide_loader();
-                closemodal($('#addexercise_modalback'));
-                showerror(jqXhr['responseJSON']['message'], $('#addexerciseerror'))
+                showerror(jqXhr['responseJSON']['message'], $('#addexerror'));
+                return;
             }
     });
 }
@@ -251,21 +252,21 @@ function hide_error(){
     return true;
 }
 
-
+/*
 function adde(modal){
     $('#add_e').show();
     $('#mod_e').hide();
     openmodal(modal);
 }
-
+*/
 
 function add_exercise(){
     //extract data from modal
     var name;
     if ($('#exer_name').val()){
-        name = $('#exer_name').val()
+        name = $('#exer_name').val();
     } else{
-        showerror('Adjon nevet a gyakorlatnak!', $('#addexerciseerror'));
+        showerror('Adjon nevet a gyakorlatnak!', $('#addexerror'));
         return;
     }
 
@@ -273,7 +274,7 @@ function add_exercise(){
     if ($('#exer_sname').val()){
         short_name = $('#exer_sname').val()
     } else{
-        showerror('Határozza meg a megjelenítendő nevet!', $('#addexerciseerror'));
+        showerror('Határozza meg a megjelenítendő nevet!', $('#addexerror'));
         return;
     }
 
@@ -288,7 +289,7 @@ function add_exercise(){
     if ($('#exer_type').val()){
         type = $('#exer_type').val();
     } else{
-        showerror('Határozza meg a gyakorlat típusát!', $('#addexerciseerror'));
+        showerror('Határozza meg a gyakorlat típusát!', $('#addexerror'));
         return;
     }
 
@@ -303,7 +304,7 @@ function add_exercise(){
     if ($('#exer_duration').val()){
         duration = $('#exer_duration').val();
     } else{
-        showerror('Határozza meg a gyakorlat időtartamát!', $('#addexerciseerror'));
+        showerror('Határozza meg a gyakorlat időtartamát!', $('#addexerror'));
         return;
     }
 
@@ -314,10 +315,8 @@ function add_exercise(){
     var d;
     d = {name: name, short_name: short_name, link: link, type: type, max_rep:max_rep, duration:duration, userid:uid};
 
-    console.log(d);
-    //show_loader();
+    show_loader();
     //send ajax POST request
-    /*
     $.ajax({
             url: '/API/addexercise',
             type: 'POST',
@@ -327,7 +326,7 @@ function add_exercise(){
 
             success: result => {
                 hide_loader();
-                closemodal($('#addexercise_modalback'));
+                hide_addexercise();
                 $('#etc2_content').empty();
                 $('#etc2_content').append(result['fragment']);
                 return;
@@ -335,11 +334,11 @@ function add_exercise(){
 
             error: (jqXhr, textStatus, errorMessage) => {
                 hide_loader();
-                closemodal($('#addexercise_modalback'));
-                showerror(jqXhr['responseJSON']['message'], $('#addexerciseerror'))
+                showerror(jqXhr['responseJSON']['message'], $('#addexerror'));
+                return;
             }
     });
-    */
+
 }
 
 
@@ -580,17 +579,14 @@ function show_addevent(title='ÚJ ESEMÉNY'){
     $('#active_button').hide();
     //init inputs
     $('select').formSelect();
-
     M.updateTextFields();
     M.textareaAutoResize($('.materialize-textarea'));
-
     //display workout dashboard
     $('.manipulate-event-container').show();
 }
 
 
 function show_addexercise(title='ÚJ GYAKORLAT'){
-    //TODO finish this
     //hide event chunk holder
     $('.event-holder').hide();
     //hide add workout button
@@ -637,7 +633,6 @@ function hide_addevent(){
 
 
 function hide_addexercise(){
-    console.log('HIDE!');
     //unhide event chunk holder
     $('.event-holder').show();
     //unhide add workout button
@@ -657,6 +652,7 @@ function hide_addexercise(){
     $('#exer_maxrep').val('');
     $('#exer_duration').val('');
     $('#exer_type').val('');
+    $("#ex_idholder").text('');
     $('.tooltipped').tooltip();
     //restore SAVE button event
     $('#man_ex_add').attr('onClick','add_exercise()')
