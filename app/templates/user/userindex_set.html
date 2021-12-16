@@ -29,7 +29,7 @@
       <p id="eventerror" style="display: none; width: 100%; text-align: center; padding-left: 10px; padding-right: 10px;" class="errormessage">
           HIBA!
       </p>
-      <!--<div id="event_window" class="event-holder">{% include 'user/fragments/frag_events.html' %}</div>-->
+      <div id="event_window" class="event-holder">{% include 'user/fragments/frag_events.html' %}</div>
       <div id="workout_window" class="window-class" >{% include 'user/fragments/frag_manipulate_workouts.html' %}</div>
       <div id="ev_window" class="window-class" >{% include 'user/fragments/frag_manipulate_events.html' %}</div>
       <div id="ex_window" class="window-class" >{% include 'user/fragments/frag_manipulate_exercises.html' %}</div>
@@ -58,7 +58,8 @@
 
     <div class="title">
       <p id="etc2_title">GYAKORLATOK</p>
-      <i class="material-icons btn btn-small addbtn blue tooltipped" data-tooltip="Új gyakorlat" onclick="adde($('#addexercise_modalback'))" id="etc2_button">add</i>
+      <!-- <i class="material-icons btn btn-small addbtn blue tooltipped" data-tooltip="Új gyakorlat" onclick="adde($('#addexercise_modalback'))" id="etc2_button">add</i> -->
+      <i class="material-icons btn btn-small addbtn blue tooltipped" data-tooltip="Új gyakorlat" onclick="show_addexercise()" id="etc2_button">add</i>
     </div>
 
     <div class="window-content" id="etc2_content">

@@ -314,8 +314,10 @@ function add_exercise(){
     var d;
     d = {name: name, short_name: short_name, link: link, type: type, max_rep:max_rep, duration:duration, userid:uid};
 
-    show_loader();
+    console.log(d);
+    //show_loader();
     //send ajax POST request
+    /*
     $.ajax({
             url: '/API/addexercise',
             type: 'POST',
@@ -337,6 +339,7 @@ function add_exercise(){
                 showerror(jqXhr['responseJSON']['message'], $('#addexerciseerror'))
             }
     });
+    */
 }
 
 
@@ -586,6 +589,26 @@ function show_addevent(title='ÚJ ESEMÉNY'){
 }
 
 
+function show_addexercise(title='ÚJ GYAKORLAT'){
+    //TODO finish this
+    //hide event chunk holder
+    $('.event-holder').hide();
+    //hide add workout button
+    $('#active_button').hide();
+    //fade unused chunks
+    $('#ex_fader').show();
+    $('#wo_fader').show();
+    //change title
+    $('#active_title').text(title);
+    //init inputs
+    $('select').formSelect();
+    M.updateTextFields();
+    M.textareaAutoResize($('.materialize-textarea'));
+    //display workout dashboard
+    $('.manipulate-exercises-container').show();
+}
+
+
 function hide_addevent(){
     //show event chunk holder
     $('.event-holder').show();
@@ -610,6 +633,33 @@ function hide_addevent(){
     $('#dnd_wo_in').append('<p id="dnd-instruction-wo">Húzza ide a versenyszámokat!</p>');
     //restore SAVE button event
     $('#man_ev_add').attr('onClick','add_event()')
+}
+
+
+function hide_addexercise(){
+    console.log('HIDE!');
+    //unhide event chunk holder
+    $('.event-holder').show();
+    //unhide add workout button
+    $('#active_button').show();
+     //unfade unused chunks
+    $('#ex_fader').hide();
+    $('#wo_fader').hide();
+    //change title
+    $('#active_title').text('ESEMÉNYEK');
+    //hide workout dashboard
+    $('.manipulate-exercises-container').hide();
+    //clear inputs
+    $('#addexerror').hide();
+    $('#exer_name').val('');
+    $('#exer_sname').val('');
+    $('#exer_link').val('');
+    $('#exer_maxrep').val('');
+    $('#exer_duration').val('');
+    $('#exer_type').val('');
+    $('.tooltipped').tooltip();
+    //restore SAVE button event
+    $('#man_ex_add').attr('onClick','add_exercise()')
 }
 
 
