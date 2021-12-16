@@ -95,28 +95,6 @@ function showerror(message,errorplace){
 }
 
 
-function closemodal(modal){
-    var inputs = modal.find("input");
-    inputs.each(function(){
-        $(this).val('');
-    });
-    hide_error();
-    modal.hide();
-    return true;
-}
-
-
-function openmodal(modal){
-    var inputs = modal.find("input");
-    inputs.each(function(){
-        $(this).val('');
-    });
-    hide_error();
-    modal.show();
-    return true;
-}
-
-
 function edit_exercise(exercise){
     $.ajax({
             url: '/API/getexercise',
@@ -252,13 +230,6 @@ function hide_error(){
     return true;
 }
 
-/*
-function adde(modal){
-    $('#add_e').show();
-    $('#mod_e').hide();
-    openmodal(modal);
-}
-*/
 
 function add_exercise(){
     //extract data from modal
