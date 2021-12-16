@@ -93,6 +93,7 @@ def get_settingsmode_data():
         data['workouts'].append(workout.get_self_json())
 
     data['exercises'] = []
+
     for exercise in Exercise.query.filter_by(user=userid).all():
         data['exercises'].append(exercise)
 
@@ -164,11 +165,35 @@ def add_exercise(data):
 def del_exercise(data):
     try:
         id = int(data['id'])
-        db.session.delete(Exercise.query.get(id))
+        exercise = Exercise.query.get(id)
+        #get to workouts and delete from exercise list
+        del_ex_from_w_list(id)
+        db.session.delete(exercise)
         db.session.commit()
         return True
     except:
         return False
+
+
+def del_ex_from_w_list(id):
+
+    id = str(id)
+
+    for workout in Workout.query.all():
+        list = json.loads(workout.exercises)
+        if id not in list:
+            continue
+
+        while id in list: list.remove(id)
+        if len(list) < 1:
+            del_workout({'id': workout.id})
+            db.session.commit()
+            continue
+
+        workout.exercises = json.dumps(list)
+        db.session.commit()
+
+    return True
 
 
 def check_exercise_belonging(id):
@@ -208,11 +233,35 @@ def add_workout(data):
 def del_workout(data):
     try:
         id = int(data['id'])
-        db.session.delete(Workout.query.get(id))
+        workout = Workout.query.get(id)
+        # get to events and delete from workouts list
+        del_w_from_ev_list(id)
+        db.session.delete(workout)
         db.session.commit()
         return True
     except:
         return False
+
+
+def del_w_from_ev_list(id):
+
+    id = str(id)
+
+    for event in Event.query.all():
+        list = json.loads(event.workouts)
+        if id not in list:
+            continue
+
+        while id in list: list.remove(id)
+        if len(list) < 1:
+            del_event({'id': event.id})
+            db.session.commit()
+            continue
+
+        event.workouts = json.dumps(list)
+        db.session.commit()
+
+    return True
 
 
 def edit_workout(data):
@@ -256,7 +305,6 @@ def del_event(data):
 
 def mod_event(data):
     try:
-        print(data)
         event = Event.query.get(int(data['id']))
         event.short_name = data['short_name']
         event.description = data['description']
@@ -276,7 +324,3 @@ def swap_event_enable(data):
         return True
     except:
         return False
-
-
-
-#TODO implement nullpointer safety on delete!!!

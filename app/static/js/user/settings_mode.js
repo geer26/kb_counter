@@ -362,8 +362,9 @@ function del_exercise(id){
             success: result => {
                 hide_loader();
                 //closemodal($('#addexercise_modalback'));
-                $('#etc2_content').empty();
-                $('#etc2_content').append(result['fragment']);
+                //$('#etc2_content').empty();
+                //$('#etc2_content').append(result['fragment']);
+                location.reload();
                 return;
             },
 
@@ -423,6 +424,7 @@ function add_workout(){
                 hide_addworkout();
                 $('#etc1_content').empty();
                 $('#etc1_content').append(result['fragment']);
+                $('.tooltipped').tooltip();
                 return;
             },
 
@@ -458,8 +460,9 @@ function del_workout(id){
 
             success: result => {
                 hide_loader();
-                $('#etc1_content').empty();
-                $('#etc1_content').append(result['fragment']);
+                //$('#etc1_content').empty();
+                //$('#etc1_content').append(result['fragment']);
+                location.reload();
                 return;
             },
 
@@ -553,6 +556,7 @@ function hide_addworkout(){
     $('#wo_description').val('');
     $('#dnd_ex_in').empty();
     list_of_exercises = [];
+    $('.tooltipped').tooltip();
     $('#dnd_ex_in').append('<p id="dnd-instruction">Húzza ide a gyakorlatokat!</p>');
     //TODO restore onclick attribute!
     $('#man_wo_add').attr('onClick','add_workout()')
@@ -602,6 +606,7 @@ function hide_addevent(){
     $('#ev_description').val('');
     $('#dnd_wo_in').empty();
     list_of_workouts = [];
+    $('.tooltipped').tooltip();
     $('#dnd_wo_in').append('<p id="dnd-instruction-wo">Húzza ide a versenyszámokat!</p>');
     //restore SAVE button event
     $('#man_ev_add').attr('onClick','add_event()')
@@ -633,6 +638,7 @@ function add_event(){
                 hide_addevent();
                 $('#event_window').empty();
                 $('#event_window').append(result['fragment']);
+                $('.tooltipped').tooltip();
                 return;
             },
 
@@ -661,9 +667,10 @@ function mod_event(id){
 
             success: result => {
                 hide_loader();
+                hide_addevent();
                 $('#event_window').empty();
                 $('#event_window').append(result['fragment']);
-                hide_addevent();
+                $('.tooltipped').tooltip();
                 return;
             },
 
@@ -779,6 +786,7 @@ function edit_event(event){
                 var temp = 'mod_event(' + result['data']['ev_id'] + ')';
                 $('#man_ev_add').attr('onClick',temp);
                 show_addevent('ESEMÉNY SZERKESZTÉSE');
+
                 return;
             },
 

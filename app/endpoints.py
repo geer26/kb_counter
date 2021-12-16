@@ -3,15 +3,21 @@ import os
 from datetime import datetime
 from flask_restful import Resource
 from flask_login import current_user, login_user, logout_user
-from flask import request, render_template, send_from_directory, session, Response
+from flask import request, render_template, send_from_directory, session, Response, redirect
 from app import api, db
 
 from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, add_exercise,\
     del_exercise, get_user_exercises, check_exercise_belonging, mod_exercise, add_workout, \
     get_user_workouts, del_workout, edit_workout, add_event, get_user_events, del_event, \
-    swap_event_enable, get_single_event, mod_event
+    swap_event_enable, get_single_event, mod_event, get_settingsmode_data
 
 from app.models import User, Exercise, Event
+
+
+
+def render_whole_userindex_set(userid):
+    data = get_settingsmode_data()
+    return render_template('user/userindex_set.html', data=data, title='Beállítások'), 200
 
 
 
@@ -132,11 +138,13 @@ class Add_exercise(Resource):
         json_data = request.get_json(force=True)
         # call worker that adds record
         if add_exercise(json_data):
+
             # compose fragment to replace old
             data = get_user_exercises(json_data['userid'])
             fragment = render_template('user/fragments/frag_exercises.html', data=data)
             # return the rendered fragment
             return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': fragment}, 200
+
         else:
             # something - somewhere went wrong!
             return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
@@ -152,11 +160,14 @@ class Del_exercise(Resource):
         json_data = request.get_json(force=True)
         # call worker that deletes record
         if del_exercise(json_data):
+
             # compose fragment to replace old
             data = get_user_exercises(json_data['userid'])
             fragment = render_template('user/fragments/frag_exercises.html', data=data)
             # return the rendered fragment
-            return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': fragment}, 200
+            #return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': fragment}, 200
+            return '', 200
+
         else:
             # something - somewhere went wrong!
             return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
@@ -237,7 +248,8 @@ class Del_workout(Resource):
             data = get_user_workouts(json_data['userid'])
             fragment = render_template('user/fragments/frag_workouts.html', data=data)
             # return the rendered fragment
-            return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': fragment}, 200
+            #return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': fragment}, 200
+            return '',200
         else:
             # something - somewhere went wrong!
             return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
