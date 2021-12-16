@@ -9,7 +9,7 @@ from app import api, db
 from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, add_exercise,\
     del_exercise, get_user_exercises, check_exercise_belonging, mod_exercise, add_workout, \
     get_user_workouts, del_workout, edit_workout, add_event, get_user_events, del_event, \
-    swap_event_enable, get_single_event
+    swap_event_enable, get_single_event, mod_event
 
 from app.models import User, Exercise, Event
 
@@ -356,8 +356,25 @@ class Get_eventdata(Resource):
 #TODO finish!
 class Edit_event(Resource):
     def post(self):
-        pass
-
+        if not current_user.is_authenticated:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
+        # get data from posted json
+        json_data = request.get_json(force=True)
+        if current_user.id != int(json_data['userid']) and not current_user.is_superuser:
+            return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
+        # check if event is closed
+        e = Event.query.get(int(json_data['id']))
+        if e.closed: return {'status': 1, 'message': 'Lezárt eseményt nem módosíthat!'}, 403
+        # call worker that reads the event record
+        if mod_event(json_data):
+            # compose fragment to replace old
+            data = get_user_events(json_data['userid'])
+            fragment = render_template('user/fragments/frag_events.html', data=data)
+            # return the rendered fragment
+            return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': fragment}, 200
+        else:
+            # something - somewhere went wrong!
+            return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
 
 
 

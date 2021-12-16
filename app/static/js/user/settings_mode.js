@@ -646,8 +646,33 @@ function add_event(){
 }
 
 
-function mod_event(){
-    console.log('MODIFY EVENT!');
+function mod_event(id){
+    // collect data and compose json to post
+    var short_name = $('#ev_sname').val();
+    var description = $('#ev_description').val();
+    var d = JSON.stringify({short_name: short_name, description: description, list_of_workouts: list_of_workouts, userid: userid, id: id});
+    //console.log(d);
+    $.ajax({
+        url: '/API/editevent',
+        type: 'POST',
+        dataType: "json",
+        data: (d),
+        contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                $('#event_window').empty();
+                $('#event_window').append(result['fragment']);
+                hide_addevent();
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                showerror(jqXhr['responseJSON']['message'], $('#eventerror'))
+            }
+
+    });
 }
 
 
@@ -685,7 +710,6 @@ function del_event(id){
 
 
 function swap_enable(id){
-    console.log('change lock icon');
     //compose data to post
     var id;
     id = id;
@@ -752,8 +776,8 @@ function edit_event(event){
 		            $(buttons_to_hide).hide();
 		            list_of_workouts.push(workout);
                 });
-
-                $('#man_ev_add').attr('onClick','mod_event()');
+                var temp = 'mod_event(' + result['data']['ev_id'] + ')';
+                $('#man_ev_add').attr('onClick',temp);
                 show_addevent('ESEMÉNY SZERKESZTÉSE');
                 return;
             },

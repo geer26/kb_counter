@@ -134,6 +134,7 @@ def get_single_event(id):
     id = int(id)
     event = Event.query.get(id)
     data = {
+        'ev_id': id,
         'ev_sname': event.short_name,
         'ev_description': event.description,
         'ev_ident': event.ident,
@@ -247,6 +248,19 @@ def del_event(data):
         e = Event.query.get(id)
         if e.closed: return False
         db.session.delete(e)
+        db.session.commit()
+        return True
+    except:
+        return False
+
+
+def mod_event(data):
+    try:
+        print(data)
+        event = Event.query.get(int(data['id']))
+        event.short_name = data['short_name']
+        event.description = data['description']
+        event.workouts = json.dumps(data['list_of_workouts'])
         db.session.commit()
         return True
     except:
