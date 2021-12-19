@@ -818,6 +818,45 @@ function edit_event(event){
 }
 
 
-function edit_competitors(){
-    console.log('EDIT COMPETITORS');
+//TODO work on this!!!
+function edit_competitors(eid){
+    console.log('EDIT COMPETITORS: ', eid);
+    d = JSON.stringify({id:eid, userid:userid});
+
+    $.ajax({
+
+            url: '/API/getcompfragment',
+            type: 'POST',
+            dataType: "json",
+            data: (d),
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                //hide all other
+                hide_all();
+                //append result fragment to page
+                $('#event_window').append(result['fragment']);
+                $('#comps_window').show();
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                showerror(jqXhr['responseJSON']['message'], $('#eventerror'))
+            }
+
+    });
+
+}
+
+
+function hide_all(){
+    hide_addevent();
+    hide_addexercise();
+    hide_addworkout();
+    $('#event_window').hide();
+    $('#ex_fader').show();
+    $('#wo_fader').show();
+    $('#active_button').hide();
 }

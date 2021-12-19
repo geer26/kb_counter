@@ -18,7 +18,7 @@
         </span>
         <p>{{e.name}}
         <span class="chunkbutton-holder-right">
-            <i class="material-icons btn chunkbutton blue tooltipped" onclick="edit_competitors()" data-tooltip="Versenyzők">people</i>
+            <i class="material-icons btn chunkbutton blue tooltipped" onclick="edit_competitors({{e.id}})" data-tooltip="Versenyzők">people</i>
             <i class="material-icons btn chunkbutton amber tooltipped" onclick="edit_event({{e.id}});" data-tooltip="Szerkesztés">edit</i>
             <i class="material-icons btn chunkbutton red tooltipped" onclick="del_event({{e.id}})" data-tooltip="Törlés">delete_outline</i>
         </span>

@@ -365,7 +365,7 @@ class Get_eventdata(Resource):
 
 
 
-#TODO finish!
+#Done
 class Edit_event(Resource):
     def post(self):
         if not current_user.is_authenticated:
@@ -390,6 +390,27 @@ class Edit_event(Resource):
 
 
 
+#TODO work on this!!!
+class Get_comps_fragment(Resource):
+    def post(self):
+        if not current_user.is_authenticated:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
+            # get data from posted json
+        json_data = request.get_json(force=True)
+        if current_user.id != int(json_data['userid']) and not current_user.is_superuser:
+            return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
+        # check if event is closed
+        e = Event.query.get(int(json_data['id']))
+        if e.closed: return {'status': 1, 'message': 'Lezárt eseményt nem módosíthat!'}, 403
+        #Just for test purpose:
+        data = {}
+        response = render_template('user/fragments/frag_manipulate_comps.html', data=data)
+        return {'status': 0, 'message': 'Sikeres művelet', 'fragment': response}, 200
+
+
+
+
+
 api.add_resource(AddUser, '/API/adduser')
 api.add_resource(GetAllData, '/API/query')
 api.add_resource(DeleteUser, '/API/deluser')
@@ -406,3 +427,4 @@ api.add_resource(Del_event, '/API/delevent')
 api.add_resource(Swap_enabled, '/API/swapenable')
 api.add_resource(Edit_event, '/API/editevent')
 api.add_resource(Get_eventdata, '/API/geteventdata')
+api.add_resource(Get_comps_fragment, '/API/getcompfragment')

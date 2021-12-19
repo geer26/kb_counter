@@ -1,0 +1,30 @@
+<div class="manipulate-workout-container" id="comps_window">
+
+    <div class="man-wo-stringdata">
+
+        <p id="addcomperror" style="display: none; width: 100%; padding-left: 10px; padding-right: 10px;" class="errormessage">
+          HIBA!
+        </p>
+
+        <div class="input-field wo-manipulate-sizer">
+          <input id="co_sname" type="text" class="validate" onkeypress="hide_error()">
+          <label for="co_sname">versenyző1</label>
+        </div>
+
+        <div class="input-field wo-manipulate-sizer-textarea">
+          <textarea id="co_description" class="materialize-textarea"></textarea>
+          <label for="co_description">versenyző2</label>
+        </div>
+
+        <div class="man-wo-buttonarea">
+            <span><button class="btn btn-small butt red" onclick="" id="man_co_cancel">mégse</button></span>
+            <span><button class="btn btn-small butt" onclick="" id="man_co_add">mentés</button></span>
+        </div>
+
+    </div>
+
+    <div class="man-wo-dnddata" id="dnd_co_in">
+        <p id="dnd_instruction_co" class="comment-for-ident">Húzza ide a belét!!</p>
+    </div>
+
+</div>
