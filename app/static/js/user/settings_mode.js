@@ -595,6 +595,7 @@ function hide_addevent(){
     $('#ev_sname').val('');
     $('#ev_description').val('');
     $('#dnd_wo_in').empty();
+    //$('#ev_named').prop('checked', 'false');
     list_of_workouts = [];
     $('.tooltipped').tooltip();
     $('#dnd_wo_in').append('<p id="dnd-instruction-wo">Húzza ide a versenyszámokat!</p>');
@@ -637,12 +638,14 @@ function add_event(){
     var description = $('#ev_description').val();
     var uid;
     uid = userid;
+    var named;
+    $('#ev_named').prop('checked') ? named = 1 : named = 0
 
     //compose json
-    var data = JSON.stringify({ short_name: name, description: description, workouts: list_of_workouts, user: uid });
-    console.log(data);
+    var data = JSON.stringify({ short_name: name, description: description, named: named, workouts: list_of_workouts, user: uid });
 
     //post AJAX request
+
     $.ajax({
             url: '/API/addevent',
             type: 'POST',
@@ -673,6 +676,7 @@ function mod_event(id){
     // collect data and compose json to post
     var short_name = $('#ev_sname').val();
     var description = $('#ev_description').val();
+
     var d = JSON.stringify({short_name: short_name, description: description, list_of_workouts: list_of_workouts, userid: userid, id: id});
     //console.log(d);
     $.ajax({
@@ -791,6 +795,8 @@ function edit_event(event){
                 $('#ev_sname').val(result['data']['ev_sname']);
                 $('#ev_description').val(result['data']['ev_description']);
                 $('#ev_ident').text('IDENT: ' + result['data']['ev_ident']);
+                //TODO set switch state
+                //result['data']['ev_named']
                 $('#dnd_wo_in').empty();
                 list_of_workouts = [];
                 //add workout chunks

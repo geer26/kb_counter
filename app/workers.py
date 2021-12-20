@@ -139,7 +139,8 @@ def get_single_event(id):
         'ev_sname': event.short_name,
         'ev_description': event.description,
         'ev_ident': event.ident,
-        'ev_workouts': json.loads(event.workouts)
+        'ev_workouts': json.loads(event.workouts),
+        'ev_named': event.named
     }
     return data
 
@@ -283,6 +284,7 @@ def add_event(data):
         event.description = data['description']
         event.workouts = json.dumps(data['workouts'])
         event.user = data['user']
+        event.named = data['named']
         event.gen_ident()
         db.session.add(event)
         db.session.commit()
@@ -308,6 +310,7 @@ def mod_event(data):
         event = Event.query.get(int(data['id']))
         event.short_name = data['short_name']
         event.description = data['description']
+        event.named = data['named']
         event.workouts = json.dumps(data['list_of_workouts'])
         db.session.commit()
         return True

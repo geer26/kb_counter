@@ -67,6 +67,7 @@ class Event(db.Model):
     workouts = db.Column(db.String(), default='')
     ident = db.Column(db.String(6), nullable=False)
     closed = db.Column(db.Boolean, default=False)
+    named = db.Column(db.Integer, default=0)
 
     # -------- Connections
     # -------- FK
@@ -103,7 +104,8 @@ class Event(db.Model):
             'workouts': self.workouts,
             'created_at': self.created_at.strftime("%m/%d/%Y, %H:%M:%S"),
             'closed': self.closed,
-            'ident': self.ident
+            'ident': self.ident,
+            'named': self.named
         }
 
 
