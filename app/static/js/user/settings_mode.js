@@ -676,8 +676,10 @@ function mod_event(id){
     // collect data and compose json to post
     var short_name = $('#ev_sname').val();
     var description = $('#ev_description').val();
+    var named;
+    $('#ev_named').prop('checked') ? named = 1 : named = 0
 
-    var d = JSON.stringify({short_name: short_name, description: description, list_of_workouts: list_of_workouts, userid: userid, id: id});
+    var d = JSON.stringify({short_name: short_name, description: description, named: named, list_of_workouts: list_of_workouts, userid: userid, id: id});
     //console.log(d);
     $.ajax({
         url: '/API/editevent',
@@ -797,6 +799,8 @@ function edit_event(event){
                 $('#ev_ident').text('IDENT: ' + result['data']['ev_ident']);
                 //TODO set switch state
                 //result['data']['ev_named']
+                result['data']['ev_named'] ? $("#ev_named").prop( "checked", true ) : $("#ev_named").prop( "checked", false )
+
                 $('#dnd_wo_in').empty();
                 list_of_workouts = [];
                 //add workout chunks
@@ -826,7 +830,7 @@ function edit_event(event){
 
 //TODO work on this!!!
 function edit_competitors(eid){
-    console.log('EDIT COMPETITORS: ', eid);
+    //console.log('EDIT COMPETITORS: ', eid);
     d = JSON.stringify({id:eid, userid:userid});
 
     $.ajax({
@@ -842,8 +846,8 @@ function edit_competitors(eid){
                 //hide all other
                 hide_all();
                 //append result fragment to page
-                $('#event_window').append(result['fragment']);
-                $('#comps_window').show();
+                console.log(result['fragment']);
+                $('#content').append(result['fragment']);
                 return;
             },
 
@@ -858,11 +862,10 @@ function edit_competitors(eid){
 
 
 function hide_all(){
-    hide_addevent();
-    hide_addexercise();
-    hide_addworkout();
-    $('#event_window').hide();
-    $('#ex_fader').show();
-    $('#wo_fader').show();
-    $('#active_button').hide();
+    $('#maincontent').hide();
+}
+
+
+function show_all(){
+    $('#maincontent').show();
 }
