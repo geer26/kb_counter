@@ -846,7 +846,6 @@ function edit_competitors(eid){
                 //hide all other
                 hide_all();
                 //append result fragment to page
-                console.log(result['fragment']);
                 $('#content').append(result['fragment']);
                 return;
             },
@@ -858,6 +857,12 @@ function edit_competitors(eid){
 
     });
 
+}
+
+
+function hide_comp(){
+    $('.man-competitors-maincontainer').remove();
+    show_all();
 }
 
 
