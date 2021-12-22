@@ -2,7 +2,11 @@
 
     <div id="addcomp-title" class="comp-title">
         <div class="title" >
-            <p id="active_title">Versenyzők</p>
+            {% if data['eventname'] %}
+                <p id="active_title">{{data['eventname']}}</p>
+            {% else %}
+                <p id="active_title">MISSING DATA['EVENTNAME']</p>
+            {% endif %}
         </div>
     </div>
 
@@ -10,38 +14,43 @@
         <div class="title">
             <p id="compnames_new">ÚJ</p>
         </div>
+
+        <p id="addcomperror" style="display: none; width: 100%; padding-left: 10px; padding-right: 10px;" class="errormessage">
+          HIBA!
+        </p>
+
         <div class="new_competitor" style="color:white;">
 
-            <div class="input-field wo-manipulate-sizer">
+            <div class="input-field wo-manipulate-sizer comp-input">
                 <input id="comp_name" type="text" class="validate" onkeypress="hide_error()">
                 <label for="comp_name">Versenyző neve</label>
             </div>
 
-            <div class="input-field wo-manipulate-sizer">
+            <div class="input-field wo-manipulate-sizer comp-input">
                 <input id="comp_assoc" type="text" class="validate" onkeypress="hide_error()">
                 <label for="comp_assoc">Szövetség</label>
             </div>
 
-            <div class="input-field wo-manipulate-sizer">
+            <div class="input-field wo-manipulate-sizer comp-input">
                 <input id="comp_weight" type="number" class="validate" onkeypress="hide_error()">
                 <label for="comp_weight">Testsúly</label>
             </div>
 
-            <div class="input-field wo-manipulate-sizer">
+            <div class="input-field wo-manipulate-sizer comp-input">
                 <input id="comp_yob" type="number" class="validate" onkeypress="hide_error()">
                 <label for="comp_yob">Születés éve</label>
             </div>
 
             <div class="switch gender">
                 <label>
-                    <span><img src="/static/img/genders_m.png" class="genderimage"></span>
+                    <span><img src="/static/img/genders_m.png" class="genderimage">
                     <input type="checkbox" id="comp_gender">
                     <span class="lever"></span>
-                    <span><img src="/static/img/genders_w.png" class="genderimage"></span>
+                    <img src="/static/img/genders_w.png" class="genderimage"></span>
                 </label>
             </div>
 
-            <div class="input-field wo-manipulate-sizer">
+            <div class="input-field wo-manipulate-sizer comp-input">
                 <select id="comp_workout">
                     <option value="" disabled selected>Válasszon versenyszámot!</option>
                     <option value="rest">Pihenő</option>
@@ -50,6 +59,8 @@
                 </select>
                 <!-- <label>Versenyszám</label> -->
             </div>
+
+            <span><button class="btn btn-small butt" onclick="" id="comp_add">regisztráció</button></span>
 
         </div>
 
