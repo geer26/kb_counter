@@ -102,14 +102,46 @@ content-type: application/json
 # Endpoint: /API/delevent
 # Method: POST
 # Type: application/json
-# JSON payload: {id:<int>, user:<int>}
+# JSON payload: {id:<int>, userid:<int>}
 # Returns: 200 or 500 with message
 POST http://127.0.0.1:5001/API/delevent HTTP/1.1
 content-type: application/json
 
 {
     "id": 2,
-    "user": 2
+    "userid": 2
+}
+
+
+
+### Swap event enable
+# Endpoint: /API/swapenable
+# Method: POST
+# Type: application/json
+# JSON payload: {id:<int>, userid:<int>}
+# Returns: 200 or 500 with message
+POST http://127.0.0.1:5001/API/swapenable HTTP/1.1
+content-type: application/json
+
+{
+    "id": 2,
+    "userid": 2
+}
+
+
+
+### Add competitor
+# Endpoint: /API/addcompetitor
+# Method: POST
+# Type: application/json
+# JSON payload: {userid:<int>, eventid:<int>, }
+# Returns: 200 or 500 with message
+POST http://127.0.0.1:5001/API/addcompetitor HTTP/1.1
+content-type: application/json
+
+{
+    "userid": 2,
+    "eventid": 2
 }
 
 

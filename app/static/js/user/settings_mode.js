@@ -867,6 +867,25 @@ function hide_comp(){
 }
 
 
+function add_competitor(eid){
+    console.log('ADD COMPETITOR CODE HERE!', eid);
+    //TODO check if filled all
+    if ( !$('#comp_name').val() || !$('#comp_weight').val() || !$('#comp_yob').val() || !$('#comp_workout').val() ){
+        showerror('Hiányos kitöltés!', $('#addcomperror'));
+        return;
+    }
+
+    d = JSON.stringify({
+                eventid: eid,
+                cname: $('#comp_name').val(),
+                association: $('#comp_assoc').val(),
+                weight: parseInt($('#comp_weight').val()),
+                y_o_b: parseInt($('#comp_yob').val()),
+                });
+
+}
+
+
 function hide_all(){
     $('#maincontent').hide();
 }

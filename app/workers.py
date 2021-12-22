@@ -335,6 +335,7 @@ def get_competitorsdata(data):
         event = Event.query.get(int(data['id']))
 
         d['eventname'] = event.short_name
+        d['eventid'] = event.id
 
         d['workout_names'] = []
         for workout in json.loads(event.workouts):
@@ -345,5 +346,13 @@ def get_competitorsdata(data):
             d['workout_names'].append(wdata)
 
         return d
+    except:
+        return False
+
+
+def addcompetitor(data):
+    try:
+        print(data)
+        return True
     except:
         return False

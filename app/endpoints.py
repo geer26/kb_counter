@@ -9,7 +9,8 @@ from app import api, db
 from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, add_exercise,\
     del_exercise, get_user_exercises, check_exercise_belonging, mod_exercise, add_workout, \
     get_user_workouts, del_workout, edit_workout, add_event, get_user_events, del_event, \
-    swap_event_enable, get_single_event, mod_event, get_settingsmode_data, get_competitorsdata
+    swap_event_enable, get_single_event, mod_event, get_settingsmode_data, get_competitorsdata, \
+    addcompetitor
 
 from app.models import User, Exercise, Event
 
@@ -413,6 +414,23 @@ class Get_comps_fragment(Resource):
 
 
 
+#TODO Get this!!!
+class Add_competitor(Resource):
+    def post(self):
+        if not current_user.is_authenticated:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
+            # get data from posted json
+        json_data = request.get_json(force=True)
+        if current_user.id != int(json_data['userid']) and not current_user.is_superuser:
+            return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
+        # check if event is closed
+        e = Event.query.get(int(json_data['eventid']))
+        if e.closed: return {'status': 1, 'message': 'Lezárt eseményt nem módosíthat!'}, 403
+        if addcompetitor(json_data):
+            return {'status': 0, 'message': 'Sikeres művelet'}, 200
+        else:
+            return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+
 
 
 api.add_resource(AddUser, '/API/adduser')
@@ -432,3 +450,4 @@ api.add_resource(Swap_enabled, '/API/swapenable')
 api.add_resource(Edit_event, '/API/editevent')
 api.add_resource(Get_eventdata, '/API/geteventdata')
 api.add_resource(Get_comps_fragment, '/API/getcompfragment')
+api.add_resource(Add_competitor, '/API/addcompetitor')
