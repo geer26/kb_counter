@@ -327,3 +327,26 @@ def swap_event_enable(data):
         return True
     except:
         return False
+
+
+def get_competitorsdata(data):
+    try:
+        d = {}
+        event = Event.query.get(int(data['id']))
+
+        d['eventname'] = event.short_name
+
+        d['workout_names'] = []
+        for workout in json.loads(event.workouts):
+            print(f'WORKOUT ID: {workout}')
+            wdata = {}
+            wo = Workout.query.get(int(workout))
+            print(f'WORKOUT NAME: {wo.short_name}')
+            wdata['id'] = workout
+            wdata['name'] = wo.short_name
+            print(f'COMPOSED DATA: {wdata}')
+            d['workout_names'].append(wdata)
+
+        return d
+    except:
+        return False

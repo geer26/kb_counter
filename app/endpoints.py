@@ -9,7 +9,7 @@ from app import api, db
 from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, add_exercise,\
     del_exercise, get_user_exercises, check_exercise_belonging, mod_exercise, add_workout, \
     get_user_workouts, del_workout, edit_workout, add_event, get_user_events, del_event, \
-    swap_event_enable, get_single_event, mod_event, get_settingsmode_data
+    swap_event_enable, get_single_event, mod_event, get_settingsmode_data, get_competitorsdata
 
 from app.models import User, Exercise, Event
 
@@ -403,9 +403,18 @@ class Get_comps_fragment(Resource):
         e = Event.query.get(int(json_data['id']))
         if e.closed: return {'status': 1, 'message': 'Lezárt eseményt nem módosíthat!'}, 403
         #Just for test purpose:
-        data = {}
-        response = render_template('user/fragments/frag_manipulate_comps.html', data=data)
-        return {'status': 0, 'message': 'Sikeres művelet', 'fragment': response}, 200
+        #data = {}
+        #response = render_template('user/fragments/frag_manipulate_comps.html', data=data)
+        #return {'status': 0, 'message': 'Sikeres művelet', 'fragment': response}, 200
+        try:
+            data = get_competitorsdata(json_data)
+            print(f'DATA AFTER FETCH DATA: {data}')
+            if not data:
+                return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+            response = render_template('user/fragments/frag_manipulate_comps.html', data=data)
+            return {'status': 0, 'message': 'Sikeres művelet', 'fragment': response}, 200
+        except:
+            return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
 
 
 

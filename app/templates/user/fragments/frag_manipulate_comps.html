@@ -3,9 +3,9 @@
     <div id="addcomp-title" class="comp-title">
         <div class="title" >
             {% if data['eventname'] %}
-                <p id="active_title">{{data['eventname']}}</p>
+                <p id="comp_title">{{data['eventname']}}</p>
             {% else %}
-                <p id="active_title">MISSING DATA['EVENTNAME']</p>
+                <p id="comp_title">MISSING DATA['EVENTNAME']</p>
             {% endif %}
         </div>
     </div>
@@ -53,9 +53,15 @@
             <div class="input-field wo-manipulate-sizer comp-input">
                 <select id="comp_workout">
                     <option value="" disabled selected>Válasszon versenyszámot!</option>
+                    {% if data['workout_names'] %}
+                    {% for workout_name in data['workout_names'] %}
+                    <option value={{workout_name['id']}}>{{workout_name['name']}}</option>
+                    {% endfor %}
+                    {% else %}
                     <option value="rest">Pihenő</option>
                     <option value="warmup">Felkészülés</option>
                     <option value="workout">Munka</option>
+                    {% endif %}
                 </select>
                 <!-- <label>Versenyszám</label> -->
             </div>
