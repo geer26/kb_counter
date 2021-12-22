@@ -847,6 +847,7 @@ function edit_competitors(eid){
                 hide_all();
                 //append result fragment to page
                 $('#content').append(result['fragment']);
+                $('select').formSelect();
                 return;
             },
 
