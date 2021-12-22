@@ -243,7 +243,8 @@ class Competitor(db.Model):
             'result': self.result,
             'category': self.category,
             'finished': self.finished,
-            'event': self.event
+            'event': self.event,
+            'workout': self.workout
         }
 
 

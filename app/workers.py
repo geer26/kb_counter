@@ -353,6 +353,8 @@ def get_competitorsdata(data):
 def addcompetitor(data):
     try:
         print(data)
+        #{'eventid': 1, 'userid': 2, 'cname': 'adr', 'association': '', 'weight': 343, 'y_o_b': 234, 'gender': 2, 'workout': '2'}
+        competitor = Competitor()
         return True
     except:
         return False

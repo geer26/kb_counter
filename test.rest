@@ -134,7 +134,16 @@ content-type: application/json
 # Endpoint: /API/addcompetitor
 # Method: POST
 # Type: application/json
-# JSON payload: {userid:<int>, eventid:<int>, }
+# JSON payload: {
+#               eventid: <int>,
+#               userid: <int>,
+#               cname: ,
+#               association: ,
+#               weight: <int>,
+#               y_o_b: <int>,
+#               gender: <int>,
+#               workout: <int>
+# }
 # Returns: 200 or 500 with message
 POST http://127.0.0.1:5001/API/addcompetitor HTTP/1.1
 content-type: application/json

@@ -868,20 +868,51 @@ function hide_comp(){
 
 
 function add_competitor(eid){
-    console.log('ADD COMPETITOR CODE HERE!', eid);
     //TODO check if filled all
     if ( !$('#comp_name').val() || !$('#comp_weight').val() || !$('#comp_yob').val() || !$('#comp_workout').val() ){
         showerror('Hiányos kitöltés!', $('#addcomperror'));
         return;
     }
 
+    var gender;
+    $('#comp_gender').prop('checked') ? gender = 2 : gender = 1
+
     d = JSON.stringify({
                 eventid: eid,
+                userid: userid,
                 cname: $('#comp_name').val(),
                 association: $('#comp_assoc').val(),
                 weight: parseInt($('#comp_weight').val()),
                 y_o_b: parseInt($('#comp_yob').val()),
+                gender: gender,
+                workout: $('#comp_workout').val()
                 });
+
+    console.log(d);
+    show_loader();
+
+    $.ajax({
+            url: '/API/addcompetitor',
+            type: 'POST',
+            dataType: "json",
+            data: (d),
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                //hide all other
+                //hide_all();
+                //append result fragment to page
+                //$('#content').append(result['fragment']);
+                //$('select').formSelect();
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                showerror(jqXhr['responseJSON']['message'], $('#eventerror'))
+            }
+    });
 
 }
 
