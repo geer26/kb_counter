@@ -172,6 +172,7 @@ class Competitor(db.Model):
     # -------- Connections
     # -------- FK
     event = db.Column(db.Integer, db.ForeignKey('event.id'))
+    workout = db.Column(db.Integer, db.ForeignKey('workout.id'))
 
 
     def __repr__(self):
