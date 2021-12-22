@@ -338,13 +338,10 @@ def get_competitorsdata(data):
 
         d['workout_names'] = []
         for workout in json.loads(event.workouts):
-            print(f'WORKOUT ID: {workout}')
             wdata = {}
             wo = Workout.query.get(int(workout))
-            print(f'WORKOUT NAME: {wo.short_name}')
             wdata['id'] = workout
             wdata['name'] = wo.short_name
-            print(f'COMPOSED DATA: {wdata}')
             d['workout_names'].append(wdata)
 
         return d

@@ -402,16 +402,11 @@ class Get_comps_fragment(Resource):
         # check if event is closed
         e = Event.query.get(int(json_data['id']))
         if e.closed: return {'status': 1, 'message': 'Lezárt eseményt nem módosíthat!'}, 403
-        #Just for test purpose:
-        #data = {}
-        #response = render_template('user/fragments/frag_manipulate_comps.html', data=data)
-        #return {'status': 0, 'message': 'Sikeres művelet', 'fragment': response}, 200
         try:
             data = get_competitorsdata(json_data)
-            print(f'DATA AFTER FETCH DATA: {data}')
             if not data:
                 return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
-            response = render_template('user/fragments/frag_manipulate_comps.html', data=data)
+            response = render_template('user/fragments/frag_manipulate_comps.html', cdata=data)
             return {'status': 0, 'message': 'Sikeres művelet', 'fragment': response}, 200
         except:
             return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
