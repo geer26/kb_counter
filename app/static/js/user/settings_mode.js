@@ -833,6 +833,8 @@ function edit_competitors(eid){
     //console.log('EDIT COMPETITORS: ', eid);
     d = JSON.stringify({id:eid, userid:userid});
 
+    show_loader();
+
     $.ajax({
 
             url: '/API/getcompfragment',
@@ -853,7 +855,7 @@ function edit_competitors(eid){
 
             error: (jqXhr, textStatus, errorMessage) => {
                 hide_loader();
-                showerror(jqXhr['responseJSON']['message'], $('#eventerror'))
+                showerror(jqXhr['responseJSON']['message'], $('#addcomperror'))
             }
 
     });
@@ -900,20 +902,32 @@ function add_competitor(eid){
 
             success: result => {
                 hide_loader();
+                //remove old
+                $('.man-competitors-maincontainer').remove();
                 //hide all other
-                //hide_all();
+                hide_all();
                 //append result fragment to page
-                //$('#content').append(result['fragment']);
-                //$('select').formSelect();
+                $('#content').append(result['fragment']);
+                $('select').formSelect();
                 return;
             },
 
             error: (jqXhr, textStatus, errorMessage) => {
                 hide_loader();
-                showerror(jqXhr['responseJSON']['message'], $('#eventerror'))
+                showerror(jqXhr['responseJSON']['message'], $('#addcomperror'))
             }
     });
 
+}
+
+
+function zeroize_addcomp(){
+    $('#comp_name').val('');
+    $('#comp_assoc').val('');
+    $('#comp_weight').val('');
+    $('#comp_yob').val('');
+    $('#comp_workout').val('');
+    $('select').formSelect();
 }
 
 

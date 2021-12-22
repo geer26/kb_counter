@@ -235,6 +235,10 @@ def del_workout(data):
     try:
         id = int(data['id'])
         workout = Workout.query.get(id)
+        # del competitors with the same workout
+        #for comp in Competitor.query.filter_by(workout=workout.id):
+        #    db.session.delete(comp)
+        #    db.session.commit()
         # get to events and delete from workouts list
         del_w_from_ev_list(id)
         db.session.delete(workout)
@@ -298,6 +302,10 @@ def del_event(data):
         id = int(data['id'])
         e = Event.query.get(id)
         if e.closed: return False
+        # delete connected competitors
+        for comp in Competitor.query.filter_by(event=e.id):
+            db.session.delete(comp)
+            db.session.commit()
         db.session.delete(e)
         db.session.commit()
         return True
@@ -355,6 +363,16 @@ def addcompetitor(data):
         print(data)
         #{'eventid': 1, 'userid': 2, 'cname': 'adr', 'association': '', 'weight': 343, 'y_o_b': 234, 'gender': 2, 'workout': '2'}
         competitor = Competitor()
+        competitor.cname = str(data['cname'])
+        competitor.association = str(data['association'])
+        competitor.weight = int(data['weight'])
+        competitor.y_o_b = int(data['y_o_b'])
+        competitor.gender = int(data['gender'])
+        competitor.workout = int(data['workout'])
+        competitor.event = int(data['eventid'])
+        competitor.generate_category()
+        db.session.add(competitor)
+        db.session.commit()
         return True
     except:
         return False

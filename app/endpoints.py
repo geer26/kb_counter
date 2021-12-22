@@ -12,7 +12,7 @@ from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, ad
     swap_event_enable, get_single_event, mod_event, get_settingsmode_data, get_competitorsdata, \
     addcompetitor
 
-from app.models import User, Exercise, Event
+from app.models import User, Exercise, Event, Competitor
 
 
 
@@ -324,7 +324,7 @@ class Del_event(Resource):
 
 
 
-#Done!
+#Done - document it!
 class Swap_enabled(Resource):
     def post(self):
         if not current_user.is_authenticated:
@@ -366,7 +366,7 @@ class Get_eventdata(Resource):
 
 
 
-#Done
+#Done - Document it!
 class Edit_event(Resource):
     def post(self):
         if not current_user.is_authenticated:
@@ -427,8 +427,38 @@ class Add_competitor(Resource):
         e = Event.query.get(int(json_data['eventid']))
         if e.closed: return {'status': 1, 'message': 'Lezárt eseményt nem módosíthat!'}, 403
         if addcompetitor(json_data):
-            return {'status': 0, 'message': 'Sikeres művelet'}, 200
-        else:
+            try:
+                data = get_competitorsdata({'id': json_data['eventid']})
+                if not data:
+                    return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+                response = render_template('user/fragments/frag_manipulate_comps.html', cdata=data)
+                return {'status': 0, 'message': 'Sikeres művelet', 'fragment': response}, 200
+            except:
+                return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+        return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+
+
+
+#Done!
+class Del_competitor(Resource):
+    def post(self):
+        if not current_user.is_authenticated:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
+            # get data from posted json
+        json_data = request.get_json(force=True)
+        if current_user.id != int(json_data['userid']) and not current_user.is_superuser:
+            return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
+        try:
+            competitor = Competitor.query.get(int(json_data['id']))
+            eventid = competitor.event
+            db.session.delete(competitor)
+            db.session.commit()
+            data = get_competitorsdata({'id': json_data['eventid']})
+            if not data:
+                return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+            response = render_template('user/fragments/frag_manipulate_comps.html', cdata=data)
+            return {'status': 0, 'message': 'Sikeres művelet', 'fragment': response}, 200
+        except:
             return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
 
 
@@ -451,3 +481,4 @@ api.add_resource(Edit_event, '/API/editevent')
 api.add_resource(Get_eventdata, '/API/geteventdata')
 api.add_resource(Get_comps_fragment, '/API/getcompfragment')
 api.add_resource(Add_competitor, '/API/addcompetitor')
+api.add_resource(Del_competitor, '/API/delcomp')
