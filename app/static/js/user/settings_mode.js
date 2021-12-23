@@ -897,10 +897,14 @@ function hide_comp(){
 
 
 function set_comp_sortable(){
-    new Sortable(repr_comps, {
-        animation: 150,
-        //ghostClass: 'blue-background-class'
-    });
+    var sortables = document.getElementsByClassName("sortable-container");
+    for (var elem of sortables){
+        var name = $(elem).attr('id');
+        var e = document.getElementById( name );
+        new Sortable( e , {
+            animation: 150,
+        });
+    }
 }
 
 

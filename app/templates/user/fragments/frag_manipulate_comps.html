@@ -77,7 +77,7 @@
             <p id="compnames_title">NEVEK</p>
         </div>
 
-        <div class="repr-comps" id="repr_comps">
+        <div class="repr-comps">
 
             {% for workout_name in cdata['workout_names'] %}
             <div class="fragment-chunk" style="z-index: 2;" onclick="">
@@ -86,10 +86,24 @@
                 </span>
                 <p>{{workout_name['name']}}
                     <span class="chunkbutton-holder-right">
-                    <i class="material-icons btn chunkbutton green tooltipped" onclick="" data-tooltip="Szerkesztés">expand_more</i>
+                    <i class="material-icons btn chunkbutton green tooltipped" onclick="" data-tooltip="Mutasd mind">expand_more</i>
                     </span>
                 </p>
             </div>
+
+            <div id="{{workout_name['name']}}-compcontainer" class="sortable-container">
+                {% for competitor in workout_name['competitors'] %}
+                <div class="fragment-chunk padded-by-left" style="z-index: 2;" onclick="">
+                    <p>{{competitor['name']}} - {{competitor['category']}}
+                        <span class="chunkbutton-holder-right">
+                        <i class="material-icons btn chunkbutton amber tooltipped" onclick="" data-tooltip="Szerkesztés">edit</i>
+                        <i class="material-icons btn chunkbutton red tooltipped" onclick="" data-tooltip="Törlés">delete_outline</i>
+                        </span>
+                    </p>
+                </div>
+                {% endfor %}
+            </div>
+
             {% endfor %}
 
         </div>
@@ -101,3 +115,7 @@
     </div>
 
 </div>
+
+<script>
+    set_comp_sortable();
+</script>
