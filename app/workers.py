@@ -351,6 +351,10 @@ def get_competitorsdata(data):
             wo = Workout.query.get(int(workout))
             wdata['id'] = workout
             wdata['name'] = wo.short_name
+            wdata['comps'] = 0
+            #get competitors number by workout
+            comps = Competitor.query.filter_by(workout=workout).all()
+            wdata['comps'] = len(comps)
             d['workout_names'].append(wdata)
 
         return d

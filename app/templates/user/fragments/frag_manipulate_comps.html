@@ -77,11 +77,22 @@
             <p id="compnames_title">NEVEK</p>
         </div>
 
-        {% if cdata['workouts'] %}
-            HELLO
-        {% else %}
-            <div>Nincsenek versenyzők</div>
-        {% endif %}
+        <div class="repr-comps" id="repr_comps">
+
+            {% for workout_name in cdata['workout_names'] %}
+            <div class="fragment-chunk" style="z-index: 2;" onclick="">
+                <span class="event-plusinfo-holder">
+                    <i class="material-icons tooltipped" style="margin-right: 5px;" data-tooltip="Versenyzők száma">groups</i> {{workout_name['comps']}}
+                </span>
+                <p>{{workout_name['name']}}
+                    <span class="chunkbutton-holder-right">
+                    <i class="material-icons btn chunkbutton green tooltipped" onclick="" data-tooltip="Szerkesztés">expand_more</i>
+                    </span>
+                </p>
+            </div>
+            {% endfor %}
+
+        </div>
 
     </div>
 

@@ -463,6 +463,8 @@ class Del_competitor(Resource):
 
 
 
+
+
 api.add_resource(AddUser, '/API/adduser')
 api.add_resource(GetAllData, '/API/query')
 api.add_resource(DeleteUser, '/API/deluser')

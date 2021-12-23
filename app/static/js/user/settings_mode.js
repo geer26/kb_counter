@@ -850,6 +850,7 @@ function edit_competitors(eid){
                 //append result fragment to page
                 $('#content').append(result['fragment']);
                 $('select').formSelect();
+                set_comp_sortable();
                 return;
             },
 
@@ -869,10 +870,18 @@ function hide_comp(){
 }
 
 
+function set_comp_sortable(){
+    new Sortable(repr_comps, {
+        animation: 150,
+        //ghostClass: 'blue-background-class'
+    });
+}
+
+
 function add_competitor(eid){
     //TODO check if filled all
     if ( !$('#comp_name').val() || !$('#comp_weight').val() || !$('#comp_yob').val() || !$('#comp_workout').val() ){
-        showerror('Hiányos kitöltés!', $('#addcomperror'));
+        showerror('A csillaggal megjelölt mezők kitültése kötelező!', $('#addcomperror'));
         return;
     }
 
@@ -909,6 +918,7 @@ function add_competitor(eid){
                 //append result fragment to page
                 $('#content').append(result['fragment']);
                 $('select').formSelect();
+                set_comp_sortable();
                 return;
             },
 
