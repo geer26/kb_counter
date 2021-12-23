@@ -391,6 +391,27 @@ class Edit_event(Resource):
 
 
 
+#Done - Document it!
+class Hide_comps_fragment(Resource):
+    def post(self):
+        if not current_user.is_authenticated:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
+            # get data from posted json
+        json_data = request.get_json(force=True)
+        if current_user.id != int(json_data['userid']) and not current_user.is_superuser:
+            return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
+        try:
+            # compose fragment to replace old
+            data = get_user_events(json_data['userid'])
+            fragment = render_template('user/fragments/frag_events.html', data=data)
+            # return the rendered fragment
+            return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': fragment}, 200
+        except:
+            # something - somewhere went wrong!
+            return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+
+
+
 #TODO work on this!!!
 class Get_comps_fragment(Resource):
     def post(self):
@@ -484,3 +505,4 @@ api.add_resource(Get_eventdata, '/API/geteventdata')
 api.add_resource(Get_comps_fragment, '/API/getcompfragment')
 api.add_resource(Add_competitor, '/API/addcompetitor')
 api.add_resource(Del_competitor, '/API/delcomp')
+api.add_resource(Hide_comps_fragment, '/API/hidecomp')

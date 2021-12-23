@@ -355,6 +355,11 @@ def get_competitorsdata(data):
             #get competitors number by workout
             comps = Competitor.query.filter_by(workout=workout).all()
             wdata['comps'] = len(comps)
+            #get relevant competitors
+            wdata['competitors'] = []
+            for competitor in Competitor.query.filter_by(event=event.id).filter_by(workout=workout).all():
+                #print(competitor.get_self_json())
+                wdata['competitors'].append(competitor.get_self_json())
             d['workout_names'].append(wdata)
 
         return d
@@ -364,9 +369,29 @@ def get_competitorsdata(data):
 
 def addcompetitor(data):
     try:
-        print(data)
+        #print(data)
         #{'eventid': 1, 'userid': 2, 'cname': 'adr', 'association': '', 'weight': 343, 'y_o_b': 234, 'gender': 2, 'workout': '2'}
         competitor = Competitor()
+        competitor.cname = str(data['cname'])
+        competitor.association = str(data['association'])
+        competitor.weight = int(data['weight'])
+        competitor.y_o_b = int(data['y_o_b'])
+        competitor.gender = int(data['gender'])
+        competitor.workout = int(data['workout'])
+        competitor.event = int(data['eventid'])
+        competitor.generate_category()
+        db.session.add(competitor)
+        db.session.commit()
+        return True
+    except:
+        return False
+
+
+def modcompetitor(data):
+    try:
+        #print(data)
+        #{'compid': 1, 'eventid': 1, 'userid': 2, 'cname': 'adr', 'association': '', 'weight': 343, 'y_o_b': 234, 'gender': 2, 'workout': '2'}
+        competitor = Competitor.query.get(int(data['compid']))
         competitor.cname = str(data['cname'])
         competitor.association = str(data['association'])
         competitor.weight = int(data['weight'])

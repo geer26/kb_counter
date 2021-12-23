@@ -865,8 +865,34 @@ function edit_competitors(eid){
 
 
 function hide_comp(){
-    $('.man-competitors-maincontainer').remove();
-    show_all();
+    //refresh event window
+    d = JSON.stringify({userid: userid});
+    show_loader();
+    $.ajax({
+            url: '/API/hidecomp',
+            type: 'POST',
+            dataType: "json",
+            data: (d),
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                $('#event_window').empty();
+                $('#event_window').append(result['fragment']);
+                $('.tooltipped').tooltip();
+                //remove competitors manipulate window
+                $('.man-competitors-maincontainer').remove();
+                //show original window
+                show_all();
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                showerror(jqXhr['responseJSON']['message'], $('#addcomperror'))
+            }
+    });
+
 }
 
 
@@ -899,7 +925,7 @@ function add_competitor(eid){
                 workout: $('#comp_workout').val()
                 });
 
-    console.log(d);
+    //console.log(d);
     show_loader();
 
     $.ajax({
