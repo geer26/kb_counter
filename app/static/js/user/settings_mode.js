@@ -851,6 +851,7 @@ function edit_competitors(eid){
                 $('#content').append(result['fragment']);
                 $('select').formSelect();
                 set_comp_sortable();
+                $('.tooltipped').tooltip();
                 return;
             },
 
@@ -949,6 +950,40 @@ function add_competitor(eid){
                 $('#content').append(result['fragment']);
                 $('select').formSelect();
                 set_comp_sortable();
+                $('.tooltipped').tooltip();
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                showerror(jqXhr['responseJSON']['message'], $('#addcomperror'))
+            }
+    });
+
+}
+
+
+function del_competitor(data){
+    d = JSON.stringify(data);
+    show_loader();
+    $.ajax({
+            url: '/API/delcomp',
+            type: 'POST',
+            dataType: "json",
+            data: (d),
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                //remove old
+                $('.man-competitors-maincontainer').remove();
+                //hide all other
+                hide_all();
+                //append result fragment to page
+                $('#content').append(result['fragment']);
+                $('select').formSelect();
+                set_comp_sortable();
+                $('.tooltipped').tooltip();
                 return;
             },
 

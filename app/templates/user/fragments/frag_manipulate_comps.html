@@ -97,7 +97,7 @@
                     <p>{{competitor['name']}} - {{competitor['category']}}
                         <span class="chunkbutton-holder-right">
                         <i class="material-icons btn chunkbutton amber tooltipped" onclick="" data-tooltip="Szerkesztés">edit</i>
-                        <i class="material-icons btn chunkbutton red tooltipped" onclick="" data-tooltip="Törlés">delete_outline</i>
+                        <i class="material-icons btn chunkbutton red tooltipped" onclick="del_competitor({ id:{{competitor['id']}}, userid: userid, eventid:{{cdata['eventid']}} })" data-tooltip="Törlés">delete_outline</i>
                         </span>
                     </p>
                 </div>
