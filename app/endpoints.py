@@ -280,6 +280,7 @@ class Update_workout(Resource):
 
 
 #Done - Document it!
+#TODO recreate with event.sequence!
 class Add_event(Resource):
     def post(self):
         if not current_user.is_authenticated:
@@ -300,6 +301,7 @@ class Add_event(Resource):
 
 
 #Done!
+#TODO recreate with event.sequence!
 class Del_event(Resource):
     def post(self):
         if not current_user.is_authenticated:
@@ -347,6 +349,7 @@ class Swap_enabled(Resource):
 
 
 #Done - Document it!
+#TODO recreate with event.sequence!
 class Get_eventdata(Resource):
     def post(self):
         if not current_user.is_authenticated:
@@ -367,6 +370,7 @@ class Get_eventdata(Resource):
 
 
 #Done - Document it!
+#TODO recreate with event.sequence!
 class Edit_event(Resource):
     def post(self):
         if not current_user.is_authenticated:
@@ -413,6 +417,7 @@ class Hide_comps_fragment(Resource):
 
 
 #TODO work on this!!!
+#TODO recreate with event.sequence!
 class Get_comps_fragment(Resource):
     def post(self):
         if not current_user.is_authenticated:
@@ -436,6 +441,7 @@ class Get_comps_fragment(Resource):
 
 
 #TODO Get this!!!
+#TODO recreate with event.sequence!
 class Add_competitor(Resource):
     def post(self):
         if not current_user.is_authenticated:
@@ -461,6 +467,7 @@ class Add_competitor(Resource):
 
 
 #Done!
+#TODO recreate with event.sequence!
 class Del_competitor(Resource):
     def post(self):
         if not current_user.is_authenticated:
