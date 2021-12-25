@@ -287,6 +287,10 @@ def add_event(data):
         event.short_name = data['short_name']
         event.description = data['description']
         event.workouts = json.dumps(data['workouts'])
+        seq = {}
+        for wo in data['workouts']:
+            seq[str(wo)] = []
+        event.sequence =json.dumps(seq)
         event.user = data['user']
         event.named = data['named']
         event.gen_ident()
@@ -381,6 +385,13 @@ def addcompetitor(data):
         competitor.event = int(data['eventid'])
         competitor.generate_category()
         db.session.add(competitor)
+        db.session.commit()
+
+        event = Event.query.get(int(data['eventid']))
+        seq = json.loads(event.sequence)
+        seq[str(data['workout'])].append(str(competitor.id))
+        event.sequence = json.dumps(seq)
+
         db.session.commit()
         return True
     except:

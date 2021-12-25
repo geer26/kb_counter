@@ -474,6 +474,7 @@ class Del_competitor(Resource):
             eventid = competitor.event
             db.session.delete(competitor)
             db.session.commit()
+            #TODO del comp from event.sequence
             data = get_competitorsdata({'id': json_data['eventid']})
             if not data:
                 return {'status': 1, 'message': 'Sikertelen művelet!'}, 500

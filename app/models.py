@@ -65,6 +65,7 @@ class Event(db.Model):
     short_name = db.Column(db.String(32), default='No name')
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
     workouts = db.Column(db.String(), default='')
+    sequence = db.Column(db.String(), default='')
     ident = db.Column(db.String(6), nullable=False)
     closed = db.Column(db.Boolean, default=False)
     named = db.Column(db.Integer, default=0)
@@ -102,6 +103,7 @@ class Event(db.Model):
             'name': self.short_name,
             'description': self.description,
             'workouts': self.workouts,
+            'sequence': self.sequence,
             'created_at': self.created_at.strftime("%m/%d/%Y, %H:%M:%S"),
             'closed': self.closed,
             'ident': self.ident,
