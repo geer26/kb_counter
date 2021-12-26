@@ -381,7 +381,7 @@ function add_workout(){
     uid = userid;
 
     //compose json
-    console.log(list_of_exercises);
+    //console.log(list_of_exercises);
     var data = JSON.stringify({ short_name: name, description: description, exercises: list_of_exercises, user: uid });
 
     //post AJAX request
@@ -820,7 +820,7 @@ function edit_event(event){
 
             error: (jqXhr, textStatus, errorMessage) => {
                 hide_loader();
-                showerror(jqXhr['responseJSON']['message'], $('#eventerror'))
+                showerror(jqXhr['responseJSON']['message'], $('#eventerror'));
             }
 
     });
@@ -857,7 +857,7 @@ function edit_competitors(eid){
 
             error: (jqXhr, textStatus, errorMessage) => {
                 hide_loader();
-                showerror(jqXhr['responseJSON']['message'], $('#addcomperror'))
+                showerror(jqXhr['responseJSON']['message'], $('#eventerror'));
             }
 
     });
@@ -866,6 +866,10 @@ function edit_competitors(eid){
 
 
 function hide_comp(){
+
+    //compose competitors list
+
+
     //refresh event window
     d = JSON.stringify({userid: userid});
     show_loader();

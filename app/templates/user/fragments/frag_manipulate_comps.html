@@ -84,14 +84,14 @@
                 <span class="event-plusinfo-holder">
                     <i class="material-icons tooltipped" style="margin-right: 5px;" data-tooltip="Versenyzők száma">groups</i> {{workout_name['comps']}}
                 </span>
-                <p>{{workout_name['name']}}
+                <p>{{workout_name['name']}} :: {{workout_name['id']}}
                     <span class="chunkbutton-holder-right">
                     <i class="material-icons btn chunkbutton green tooltipped" onclick="" data-tooltip="Mutasd mind">expand_more</i>
                     </span>
                 </p>
             </div>
 
-            <div id="{{workout_name['name']}}-compcontainer" class="sortable-container">
+            <div id="{{workout_name['name']}}-compcontainer" class="sortable-container workout-to-count" data-id="{{workout_name['id']}}">
                 {% for competitor in workout_name['competitors'] %}
                 <div class="fragment-chunk padded-by-left" style="z-index: 2;" onclick="">
                     <p>{{competitor['name']}} - {{competitor['category']}}

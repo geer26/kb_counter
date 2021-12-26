@@ -190,7 +190,7 @@ class Competitor(db.Model):
                 self.category = 'W-U18'
                 return True
             elif age >=50:
-                self.category = 'W-50+'
+                self.category = 'W-Sen50+'
                 return True
             else:
                 if self.weight < 70:
@@ -207,7 +207,7 @@ class Competitor(db.Model):
                 self.category = 'M-U18'
                 return True
             elif age >= 50:
-                self.category = 'M-50+'
+                self.category = 'M-Sen50+'
                 return True
             else:
                 if self.weight < 80:
