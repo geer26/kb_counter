@@ -10,7 +10,7 @@ from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, ad
     del_exercise, get_user_exercises, check_exercise_belonging, mod_exercise, add_workout, \
     get_user_workouts, del_workout, edit_workout, add_event, get_user_events, del_event, \
     swap_event_enable, get_single_event, mod_event, get_settingsmode_data, get_competitorsdata, \
-    addcompetitor
+    addcompetitor, update_sequence
 
 from app.models import User, Exercise, Event, Competitor
 
@@ -405,6 +405,8 @@ class Hide_comps_fragment(Resource):
         if current_user.id != int(json_data['userid']) and not current_user.is_superuser:
             return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
         try:
+            #update event sequence
+            update_sequence(json_data)
             # compose fragment to replace old
             data = get_user_events(json_data['userid'])
             fragment = render_template('user/fragments/frag_events.html', data=data)

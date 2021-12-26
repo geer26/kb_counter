@@ -281,7 +281,7 @@ def edit_workout(data):
         return False
 
 
-#TODO recreate with event.sequence!
+
 def add_event(data):
     try:
         event = Event()
@@ -302,7 +302,7 @@ def add_event(data):
         return False
 
 
-#TODO recreate with event.sequence!
+
 def del_event(data):
     try:
         id = int(data['id'])
@@ -319,7 +319,7 @@ def del_event(data):
         return False
 
 
-#TODO recreate with event.sequence!
+
 def mod_event(data):
     try:
         event = Event.query.get(int(data['id']))
@@ -327,6 +327,17 @@ def mod_event(data):
         event.description = data['description']
         event.named = data['named']
         event.workouts = json.dumps(data['list_of_workouts'])
+        db.session.commit()
+        return True
+    except:
+        return False
+
+
+
+def update_sequence(data):
+    try:
+        event = Event.query.get(int(data['eventid']))
+        event.sequence = json.dumps(data['sequence'])
         db.session.commit()
         return True
     except:
@@ -344,7 +355,7 @@ def swap_event_enable(data):
         return False
 
 
-#TODO recreate with event.sequence!
+
 def get_competitorsdata(data):
     try:
         d = {}
@@ -375,7 +386,7 @@ def get_competitorsdata(data):
         return False
 
 
-#TODO recreate with event.sequence!
+
 def addcompetitor(data):
     try:
         #print(data)
@@ -403,7 +414,7 @@ def addcompetitor(data):
         return False
 
 
-#TODO recreate with event.sequence!
+
 def modcompetitor(data):
     try:
         #print(data)

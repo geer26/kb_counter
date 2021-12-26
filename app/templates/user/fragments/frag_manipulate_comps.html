@@ -4,6 +4,7 @@
         <div class="title" >
             {% if cdata['eventname'] %}
                 <p id="comp_title">{{cdata['eventname']}}</p>
+                <p id="eventid" style="display: none;">{{cdata['eventid']}}</p>
             {% else %}
                 <p id="comp_title">MISSING DATA['EVENTNAME']</p>
             {% endif %}
