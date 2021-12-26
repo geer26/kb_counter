@@ -80,7 +80,7 @@
         <div class="repr-comps">
 
             {% for workout_name in cdata['workout_names'] %}
-            <div class="fragment-chunk" style="z-index: 2;" onclick="">
+            <div class="fragment-chunk" id="workout-{{workout_name['id']}}" style="z-index: 2;" onclick="">
                 <span class="event-plusinfo-holder">
                     <i class="material-icons tooltipped" style="margin-right: 5px;" data-tooltip="Versenyzők száma">groups</i> {{workout_name['comps']}}
                 </span>
@@ -93,7 +93,7 @@
 
             <div id="{{workout_name['name']}}-compcontainer" class="sortable-container workout-to-count" data-id="{{workout_name['id']}}">
                 {% for competitor in workout_name['competitors'] %}
-                <div class="fragment-chunk padded-by-left" style="z-index: 2;" onclick="">
+                <div class="fragment-chunk padded-by-left competitor-to-count" style="z-index: 2;" onclick="" id="competitor-{{competitor['id']}}" data-id="{{competitor['id']}}">
                     <p>{{competitor['name']}} - {{competitor['category']}}
                         <span class="chunkbutton-holder-right">
                         <i class="material-icons btn chunkbutton amber tooltipped" onclick="" data-tooltip="Szerkesztés">edit</i>

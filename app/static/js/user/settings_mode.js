@@ -868,7 +868,17 @@ function edit_competitors(eid){
 function hide_comp(){
 
     //compose competitors list
+    var list;
+    for (var holder of $('.workout-to-count')){
+        var compholder = holder.getAttribute('data-id');
+        console.log('COMPHOLDER: ', compholder);
+        //console.log(holder);
 
+        for (var child of holder.getElementsByClassName('competitor-to-count') ){
+            console.log('CHILD: ', child.getAttribute('data-id'));
+        }
+        //TODO ok so far!!!
+    }
 
     //refresh event window
     d = JSON.stringify({userid: userid});
