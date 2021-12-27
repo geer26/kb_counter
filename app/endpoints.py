@@ -476,14 +476,26 @@ class Del_competitor(Resource):
             return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
             # get data from posted json
         json_data = request.get_json(force=True)
+        #{'id': 1, 'userid': 2, 'eventid': 1}
         if current_user.id != int(json_data['userid']) and not current_user.is_superuser:
             return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
         try:
             competitor = Competitor.query.get(int(json_data['id']))
-            eventid = competitor.event
             db.session.delete(competitor)
             db.session.commit()
-            #TODO del comp from event.sequence
+
+            #-----------------------------------------------------------
+            #del comp from event.sequence
+            eventid = int(json_data['eventid'])
+            event = Event.query.get(eventid)
+            wo = str(competitor.workout)
+            cid = str(json_data['id'])
+            seq = json.loads(event.sequence)
+            seq[wo].remove(cid)
+            event.sequence = json.dumps(seq)
+            db.session.commit()
+            #------------------------------------------------------------
+
             data = get_competitorsdata({'id': json_data['eventid']})
             if not data:
                 return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
