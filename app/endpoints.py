@@ -246,8 +246,8 @@ class Del_workout(Resource):
         # call worker that deletes record
         if del_workout(json_data):
             # compose fragment to replace old
-            data = get_user_workouts(json_data['userid'])
-            fragment = render_template('user/fragments/frag_workouts.html', data=data)
+            #data = get_user_workouts(json_data['userid'])
+            #fragment = render_template('user/fragments/frag_workouts.html', data=data)
             # return the rendered fragment
             #return {'status': 0, 'message': 'Sikeres művelet!', 'fragment': fragment}, 200
             return '',200

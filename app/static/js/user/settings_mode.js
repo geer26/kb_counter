@@ -441,8 +441,8 @@ function del_workout(id){
 
             error: (jqXhr, textStatus, errorMessage) => {
                 hide_loader();
-                closemodal($('#addexercise_modalback'));
-                showerror(jqXhr['responseJSON']['message'], $('#addexerciseerror'))
+                //closemodal($('#addexercise_modalback'));
+                showerror(jqXhr['responseJSON']['message'], $('#eventerror'))
             }
 
     });

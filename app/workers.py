@@ -236,11 +236,11 @@ def del_workout(data):
         id = int(data['id'])
         workout = Workout.query.get(id)
         # del competitors with the same workout
-        #for comp in Competitor.query.filter_by(workout=workout.id):
-        #    db.session.delete(comp)
-        #    db.session.commit()
+        for comp in Competitor.query.filter_by(workout=workout.id):
+            db.session.delete(comp)
+            db.session.commit()
         # get to events and delete from workouts list
-        del_w_from_ev_list(id)
+        del_w_from_ev_list(str(id))
         db.session.delete(workout)
         db.session.commit()
         return True
@@ -250,8 +250,7 @@ def del_workout(data):
 
 def del_w_from_ev_list(id):
 
-    id = str(id)
-
+    print(f'IN del_w_fro_ev_list FUNCTION')
     for event in Event.query.all():
         list = json.loads(event.workouts)
         if id not in list:
@@ -262,6 +261,16 @@ def del_w_from_ev_list(id):
             del_event({'id': event.id})
             db.session.commit()
             continue
+
+        #del competitors from this workout
+        #int_id = int(id)
+        #for competitor in Competitor.query.filter_by(workout=int_id).all():
+        #    db.session.remove(competitor)
+        #    db.session.commit()
+
+        seq = json.loads(event.sequence)
+        seq.pop( id , None )
+        event.sequence = json.dumps(seq)
 
         event.workouts = json.dumps(list)
         db.session.commit()
