@@ -828,9 +828,9 @@ function edit_event(event){
 }
 
 
-//TODO work on this!!!
+
 function edit_competitors(eid){
-    console.log('EDIT COMPETITORS: ', eid);
+    //console.log('EDIT COMPETITORS: ', eid);
     d = JSON.stringify({id:eid, userid:userid});
 
     show_loader();
