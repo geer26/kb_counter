@@ -427,10 +427,25 @@ def addcompetitor(data):
 
 
 
-def modcompetitor(data):
+def get_competitordata(data):
     try:
         #print(data)
+        #{'cid': 2, 'userid': 2}
+        competitor = Competitor.query.get(int(data['cid']))
+        d = json.dumps(competitor.get_self_json())
+        return d
+    except:
+        return False
+
+
+
+def modcompetitor(data):
+    try:
+        print(data)
         #{'compid': 1, 'eventid': 1, 'userid': 2, 'cname': 'adr', 'association': '', 'weight': 343, 'y_o_b': 234, 'gender': 2, 'workout': '2'}
+        #TODO modify event.sequence also!!!
+
+        '''
         competitor = Competitor.query.get(int(data['compid']))
         competitor.cname = str(data['cname'])
         competitor.association = str(data['association'])
@@ -440,8 +455,8 @@ def modcompetitor(data):
         competitor.workout = int(data['workout'])
         competitor.event = int(data['eventid'])
         competitor.generate_category()
-        db.session.add(competitor)
         db.session.commit()
+        '''
         return True
     except:
         return False

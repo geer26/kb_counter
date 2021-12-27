@@ -865,10 +865,52 @@ function edit_competitors(eid){
 }
 
 
+//TODO finish this
 function edit_competitor(cid){
-    console.log('EDIT COMPETITOR: ', cid);
+    //console.log('EDIT COMPETITOR: ', cid);
     d = JSON.stringify({cid:cid, userid:userid});
     $('#comp_fader').show();
+    show_loader();
+    $.ajax({
+            url: '/API/editcomp',
+            type: 'POST',
+            dataType: "json",
+            data: (d),
+            contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                console.log(result['competitordata']);
+                /*
+                {"id": 2,
+                "name": "2/1",
+                "association": "hth",
+                "weight": 57,
+                "y_o_b": 1996,
+                "gender": 2,
+                "result": 0,
+                "category": "W-70-",
+                "finished": 0,
+                "event": 1,
+                "workout": 2}
+                */
+                // $('#comp_add') orig onclick: onclick="add_competitor({{cdata['eventid']}})"
+                // $('#comp_add') orig text: regisztráció
+                $('#comp_add').text('rendben');
+                $('#comp_add').attr('onclick', 'send_edited_competitor()');
+                return;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                showerror(jqXhr['responseJSON']['message'], $('#addcomperror'))
+            }
+    });
+}
+
+
+function send_edited_competitor(){
+    console.log('SEND EDITED!');
 }
 
 

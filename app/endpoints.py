@@ -10,7 +10,7 @@ from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, ad
     del_exercise, get_user_exercises, check_exercise_belonging, mod_exercise, add_workout, \
     get_user_workouts, del_workout, edit_workout, add_event, get_user_events, del_event, \
     swap_event_enable, get_single_event, mod_event, get_settingsmode_data, get_competitorsdata, \
-    addcompetitor, update_sequence
+    addcompetitor, update_sequence, get_competitordata
 
 from app.models import User, Exercise, Event, Competitor
 
@@ -469,7 +469,6 @@ class Add_competitor(Resource):
 
 
 #Done!
-#TODO recreate with event.sequence!
 class Del_competitor(Resource):
     def post(self):
         if not current_user.is_authenticated:
@@ -506,6 +505,28 @@ class Del_competitor(Resource):
 
 
 
+class Edit_competitor(Resource):
+    def post(self):
+        if not current_user.is_authenticated:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
+        json_data = request.get_json(force=True)
+        #{cid:cid, userid:userid}
+        if current_user.id != int(json_data['userid']) and not current_user.is_superuser:
+            return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
+        event = Competitor.query.get(int(json_data['cid'])).event
+        owner = Event.query.get(event).user
+        if current_user.id != owner and not current_user.is_superuser:
+            return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
+        d = get_competitordata(json_data)
+        if not d:
+            return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+        return {'status': 0, 'message': 'Sikeres művelet', 'competitordata': d}, 200
+
+
+
+
+
+
 
 
 api.add_resource(AddUser, '/API/adduser')
@@ -527,4 +548,5 @@ api.add_resource(Get_eventdata, '/API/geteventdata')
 api.add_resource(Get_comps_fragment, '/API/getcompfragment')
 api.add_resource(Add_competitor, '/API/addcompetitor')
 api.add_resource(Del_competitor, '/API/delcomp')
+api.add_resource(Edit_competitor, '/API/editcomp')
 api.add_resource(Hide_comps_fragment, '/API/hidecomp')
