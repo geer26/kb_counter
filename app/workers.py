@@ -353,6 +353,7 @@ def update_sequence(data):
         return False
 
 
+
 def swap_event_enable(data):
     try:
         id = int(data['id'])
@@ -369,27 +370,52 @@ def get_competitorsdata(data):
     try:
         d = {}
         event = Event.query.get(int(data['id']))
+        event_sequence = json.loads(event.sequence)
+        print(f'EVENT SEQUENCE: {event.sequence}')
 
         d['eventname'] = event.short_name
         d['eventid'] = event.id
 
         d['workout_names'] = []
+
+        for workout in event_sequence:
+            print(workout)
+
+        '''
         for workout in json.loads(event.workouts):
             wdata = {}
             wo = Workout.query.get(int(workout))
             wdata['id'] = workout
             wdata['name'] = wo.short_name
             wdata['comps'] = 0
+
             #get competitors number by workout
             comps = Competitor.query.filter_by(workout=workout).all()
             wdata['comps'] = len(comps)
+
             #get relevant competitors
             wdata['competitors'] = []
             for competitor in Competitor.query.filter_by(event=event.id).filter_by(workout=workout).all():
-                #print(competitor.get_self_json())
                 wdata['competitors'].append(competitor.get_self_json())
-            d['workout_names'].append(wdata)
 
+            # TODO get relevant competitors by event.sequence
+
+
+            d['workout_names'].append(wdata)
+        '''
+
+        #print(f'OUTPUT: {d}')
+        '''
+        OUTPUT: {'eventname': 'hrthr', 'eventid': 1, 'workout_names': [
+            {'id': '3', 'name': 'első', 'comps': 2, 'competitors': [
+                {'id': 4, 'name': 'egyeske', 'association': 'ghj', 'weight': 89, 
+                    'y_o_b': 1997, 'gender': 1, 'result': 0, 'category': 'M-95-', 'finished': 0, 'event': 1, 'workout': 3},
+                {'id': 5, 'name': 'ketteske', 'association': 'sfh', 'weight': 97, 
+                    'y_o_b': 1986, 'gender': 1, 'result': 0, 'category': 'M-95+', 'finished': 0, 'event': 1, 'workout': 3}]},
+            {'id': '2', 'name': 'második', 'comps': 1, 'competitors': [
+                {'id': 1, 'name': 'shrh', 'association': 'dfdfhg', 'weight': 87, 
+                    'y_o_b': 1985, 'gender': 2, 'result': 0, 'category': 'W-70+', 'finished': 0, 'event': 1, 'workout': 2}]}]}
+        '''
         return d
     except:
         return False
