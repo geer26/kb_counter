@@ -337,7 +337,7 @@ def mod_event(data):
         event.named = data['named']
         event.workouts = json.dumps(data['list_of_workouts'])
 
-        #db.session.commit()
+        db.session.commit()
         return True
     except:
         return False
@@ -346,10 +346,9 @@ def mod_event(data):
 
 def update_sequence(data):
     try:
-        print(f'DATA IN update_sequence (l347): {data}')
         event = Event.query.get(int(data['eventid']))
         event.sequence = json.dumps(data['sequence'])
-        #db.session.commit()
+        db.session.commit()
         return True
     except:
         return False
@@ -379,41 +378,21 @@ def get_competitorsdata(data):
 
         d['workout_names'] = []
 
-        print('BP 1')
-
         for workout in json.loads(event.workouts):
-            print(f'BP 2, workout: {workout}')
             wo = {}
             work = Workout.query.get(int(workout))
             wo['id'] = work.id
             wo['name'] = work.short_name
-            wo['comps'] = int(json.loads(event.sequence)[int(wo)])
-
-            print('BP 2')
+            wo['comps'] = len(json.loads(event.sequence)[str(work.id)])
 
             wo['competitors'] = []
-            for competitor in json.loads(event.workouts):
-                print(f'COMPETITOR: {competitor}')
-                pass
+            for competitor in json.loads(event.sequence)[str(work.id)]:
+                cid = int(competitor)
+                comp = Competitor.query.get(cid).get_self_json()
+                wo['competitors'].append(comp)
 
             d['workout_names'].append(wo)
 
-        '''
-        for workout in event_sequence:
-            wo = {}
-            wo['id'] = int(workout)
-            wo['name'] = Workout.query.get(int(workout)).short_name
-            wo['comps'] = len(event_sequence[workout])
-
-            wo['competitors'] = []
-
-            for competitor in event_sequence[workout]:
-                wo['competitors'].append(Competitor.query.get(int(competitor)).get_self_json())
-
-            d['workout_names'].append(wo)
-        '''
-
-        print(f'DATA in get_competitorsdata (l371): {d}')
         return d
     except:
         return False
