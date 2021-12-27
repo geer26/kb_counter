@@ -377,6 +377,16 @@ def get_competitorsdata(data):
 
         d['workout_names'] = []
 
+        '''
+        for w in json.loads(event.workouts):
+            print(w)
+            print(event_sequence)
+            #workout = Workout.query.get(int(w))
+            #wo = {}
+            #wo['id'] = int(w)
+        '''
+
+
         for workout in event_sequence:
             wo = {}
             wo['id'] = int(workout)
@@ -389,6 +399,7 @@ def get_competitorsdata(data):
                 wo['competitors'].append(Competitor.query.get(int(competitor)).get_self_json())
 
             d['workout_names'].append(wo)
+
 
         return d
     except:
