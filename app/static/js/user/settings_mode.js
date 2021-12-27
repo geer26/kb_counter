@@ -830,7 +830,7 @@ function edit_event(event){
 
 //TODO work on this!!!
 function edit_competitors(eid){
-    //console.log('EDIT COMPETITORS: ', eid);
+    console.log('EDIT COMPETITORS: ', eid);
     d = JSON.stringify({id:eid, userid:userid});
 
     show_loader();
@@ -862,6 +862,13 @@ function edit_competitors(eid){
 
     });
 
+}
+
+
+function edit_competitor(cid){
+    console.log('EDIT COMPETITOR: ', cid);
+    d = JSON.stringify({cid:cid, userid:userid});
+    $('#comp_fader').show();
 }
 
 

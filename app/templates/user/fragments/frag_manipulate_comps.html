@@ -74,6 +74,8 @@
 
     <div class="comp-namesarea">
 
+        <div class="window-fader" id="comp_fader" style="display: none;"></div>
+
         <div class="title namestitle">
             <p id="compnames_title">NEVEK</p>
         </div>
@@ -97,7 +99,7 @@
                 <div class="fragment-chunk padded-by-left competitor-to-count" style="z-index: 2;" onclick="" id="competitor-{{competitor['id']}}" data-id="{{competitor['id']}}">
                     <p>{{competitor['name']}} - {{competitor['category']}}
                         <span class="chunkbutton-holder-right">
-                        <i class="material-icons btn chunkbutton amber tooltipped" onclick="" data-tooltip="Szerkesztés">edit</i>
+                        <i class="material-icons btn chunkbutton amber tooltipped" onclick="edit_competitor({{competitor['id']}})" data-tooltip="Szerkesztés">edit</i>
                         <i class="material-icons btn chunkbutton red tooltipped" onclick="del_competitor({ id:{{competitor['id']}}, userid: userid, eventid:{{cdata['eventid']}} })" data-tooltip="Törlés">delete_outline</i>
                         </span>
                     </p>
