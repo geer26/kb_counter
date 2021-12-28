@@ -505,24 +505,6 @@ class Del_competitor(Resource):
 
 
 
-class Edit_competitor(Resource):
-    def post(self):
-        if not current_user.is_authenticated:
-            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 401
-        json_data = request.get_json(force=True)
-        #{cid:cid, userid:userid}
-        if current_user.id != int(json_data['userid']) and not current_user.is_superuser:
-            return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
-        event = Competitor.query.get(int(json_data['cid'])).event
-        owner = Event.query.get(event).user
-        if current_user.id != owner and not current_user.is_superuser:
-            return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
-        d = get_competitordata(json_data)
-        if not d:
-            return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
-        return {'status': 0, 'message': 'Sikeres művelet', 'competitordata': d}, 200
-
-
 
 
 
@@ -548,5 +530,4 @@ api.add_resource(Get_eventdata, '/API/geteventdata')
 api.add_resource(Get_comps_fragment, '/API/getcompfragment')
 api.add_resource(Add_competitor, '/API/addcompetitor')
 api.add_resource(Del_competitor, '/API/delcomp')
-api.add_resource(Edit_competitor, '/API/editcomp')
 api.add_resource(Hide_comps_fragment, '/API/hidecomp')

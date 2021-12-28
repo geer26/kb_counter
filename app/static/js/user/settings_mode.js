@@ -865,49 +865,6 @@ function edit_competitors(eid){
 }
 
 
-//TODO finish this
-function edit_competitor(cid){
-    //console.log('EDIT COMPETITOR: ', cid);
-    d = JSON.stringify({cid:cid, userid:userid});
-    $('#comp_fader').show();
-    show_loader();
-    $.ajax({
-            url: '/API/editcomp',
-            type: 'POST',
-            dataType: "json",
-            data: (d),
-            contentType: "application/json; charset=utf-8",
-
-            success: result => {
-                hide_loader();
-                console.log(result['competitordata']);
-                /*
-                {"id": 2,
-                "name": "2/1",
-                "association": "hth",
-                "weight": 57,
-                "y_o_b": 1996,
-                "gender": 2,
-                "result": 0,
-                "category": "W-70-",
-                "finished": 0,
-                "event": 1,
-                "workout": 2}
-                */
-                // $('#comp_add') orig onclick: onclick="add_competitor({{cdata['eventid']}})"
-                // $('#comp_add') orig text: regisztráció
-                $('#comp_add').text('rendben');
-                $('#comp_add').attr('onclick', 'send_edited_competitor()');
-                return;
-            },
-
-            error: (jqXhr, textStatus, errorMessage) => {
-                hide_loader();
-                showerror(jqXhr['responseJSON']['message'], $('#addcomperror'))
-            }
-    });
-}
-
 
 function send_edited_competitor(){
     console.log('SEND EDITED!');
@@ -960,19 +917,44 @@ function hide_comp(){
 
 
 function set_comp_sortable(){
+
     var sortables = document.getElementsByClassName("sortable-container");
     for (var elem of sortables){
+
+        //init number on list
+        var list_of_competitors = elem.getElementsByClassName('comp-sort');
+        var number = 1;
+	    for (var comp of list_of_competitors){
+	        $(comp).text(number.toString() + '.');
+		    number ++;
+	    }
+
         var name = $(elem).attr('id');
         var e = document.getElementById( name );
         new Sortable( e , {
             animation: 150,
+
+            onAdd: function (evt) {
+		        //var buttons_to_hide = evt.item.getElementsByClassName("chunkbutton-holder-right");
+		        //$(buttons_to_hide).hide();
+	        },
+
+	        onSort: function (/**Event*/evt) {
+		        var list_of_competitors = elem.getElementsByClassName('comp-sort');
+		        var number = 1;
+		        for (var comp of list_of_competitors){
+		            $(comp).text(number.toString() + '.');
+		            number ++;
+		            }
+	        },
+
         });
     }
 }
 
 
 function add_competitor(eid){
-    //TODO check if filled all
+    //check if filled all
     if ( !$('#comp_name').val() || !$('#comp_weight').val() || !$('#comp_yob').val() || !$('#comp_workout').val() ){
         showerror('A csillaggal megjelölt mezők kitültése kötelező!', $('#addcomperror'));
         return;

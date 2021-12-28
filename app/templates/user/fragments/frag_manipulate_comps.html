@@ -87,24 +87,30 @@
                 <span class="event-plusinfo-holder">
                     <i class="material-icons tooltipped" style="margin-right: 5px;" data-tooltip="Versenyzők száma">groups</i> {{workout_name['comps']}}
                 </span>
-                <p>{{workout_name['name']}} :: {{workout_name['id']}}
+                <p>{{workout_name['name']}}
                     <span class="chunkbutton-holder-right">
-                    <i class="material-icons btn chunkbutton green tooltipped" onclick="" data-tooltip="Mutasd mind">expand_more</i>
+                        <i class="material-icons btn chunkbutton green tooltipped" onclick="" data-tooltip="Mutasd mind">expand_more</i>
                     </span>
                 </p>
             </div>
 
             <div id="{{workout_name['name']}}-compcontainer" class="sortable-container workout-to-count" data-id="{{workout_name['id']}}">
+
                 {% for competitor in workout_name['competitors'] %}
                 <div class="fragment-chunk padded-by-left competitor-to-count" style="z-index: 2;" onclick="" id="competitor-{{competitor['id']}}" data-id="{{competitor['id']}}">
-                    <p>{{competitor['name']}} - {{competitor['category']}}
+                    <span class="event-plusinfo-holder ">
+                        <i class="material-icons tooltipped" style="margin-right: 5px;" data-tooltip="Sorszám">sort</i> <a class="comp-sort">sorsz</a>
+                    </span>
+                    <p>{{competitor['name']}}
                         <span class="chunkbutton-holder-right">
-                        <i class="material-icons btn chunkbutton amber tooltipped" onclick="edit_competitor({{competitor['id']}})" data-tooltip="Szerkesztés">edit</i>
+                            {{competitor['category']}}
+                        <!-- <i class="material-icons btn chunkbutton amber tooltipped" onclick="edit_competitor({{competitor['id']}})" data-tooltip="Szerkesztés">edit</i> -->
                         <i class="material-icons btn chunkbutton red tooltipped" onclick="del_competitor({ id:{{competitor['id']}}, userid: userid, eventid:{{cdata['eventid']}} })" data-tooltip="Törlés">delete_outline</i>
                         </span>
                     </p>
                 </div>
                 {% endfor %}
+
             </div>
 
             {% endfor %}
