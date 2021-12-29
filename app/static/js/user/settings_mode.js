@@ -920,7 +920,6 @@ function set_comp_sortable(){
 
     var sortables = document.getElementsByClassName("sortable-container");
     for (var elem of sortables){
-
         //init number on list
         var list_of_competitors = elem.getElementsByClassName('comp-sort');
         var number = 1;
