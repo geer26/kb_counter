@@ -345,13 +345,13 @@ def mod_event(data):
             if str(k) not in temp_sequence.keys(): temp_sequence[str(k)] = []
 
         #TODO does not work, fix here!!!
-        print(f'TYPE OF L_O_W: {type(data["list_of_workouts"])}')
+        print(f'ALL KEYS: {temp_sequence.keys()}')
         for key in temp_sequence.keys():
-            print(key, type(key))
-            print(f'L_O_W: {data["list_of_workouts"]}')
-            if key not in data['list_of_workouts']:
+            print(f'KEY: {key}, TYPE: {type(key)}')
+            if int(key) not in data['list_of_workouts']:
                 print('MISMATCH!')
                 #del temp_sequence[key]
+                #temp_sequence.pop(key,None)
 
         print(f'SEQUENCE AFTER: {temp_sequence}')
 
