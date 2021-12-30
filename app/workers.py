@@ -337,27 +337,18 @@ def mod_event(data):
         event.named = data['named']
         event.workouts = json.dumps(data['list_of_workouts'])
 
-        temp_sequence = json.loads(event.sequence)
-        print(f'SEQUENCE BEFORE: {temp_sequence}')
+        temp_sequence = {}
+        live_sequence = json.loads(event.sequence)
 
-        for k in data['list_of_workouts']:
-            #print(k, type(k))
-            if str(k) not in temp_sequence.keys(): temp_sequence[str(k)] = []
-
-        #TODO does not work, fix here!!!
-        print(f'ALL KEYS: {temp_sequence.keys()}')
-        for key in temp_sequence.keys():
-            print(f'KEY: {key}, TYPE: {type(key)}')
-            if int(key) not in data['list_of_workouts']:
-                print('MISMATCH!')
-                #del temp_sequence[key]
-                #temp_sequence.pop(key,None)
-
-        print(f'SEQUENCE AFTER: {temp_sequence}')
+        for workout in data['list_of_workouts']:
+            if workout in live_sequence.keys():
+                temp_sequence[workout] = live_sequence[workout]
+            else:
+                temp_sequence[workout] = []
 
         event.sequence = json.dumps(temp_sequence)
-
         db.session.commit()
+
         return True
     except:
         return False
