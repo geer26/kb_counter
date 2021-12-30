@@ -346,6 +346,11 @@ def mod_event(data):
             else:
                 temp_sequence[workout] = []
 
+        #TODO delete unnecssary competitors
+        for seq in live_sequence:
+            if seq not in temp_sequence:
+              print(seq)
+
         event.sequence = json.dumps(temp_sequence)
         db.session.commit()
 
