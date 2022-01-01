@@ -643,7 +643,7 @@ function add_event(){
 
     //compose json
     var data = JSON.stringify({ short_name: name, description: description, named: named, workouts: list_of_workouts, user: uid });
-
+    show_loader();
     //post AJAX request
 
     $.ajax({
