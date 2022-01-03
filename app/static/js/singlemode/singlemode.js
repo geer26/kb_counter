@@ -8,12 +8,47 @@ class MyElement extends LitElement {
   static properties = {
     version: {},
     clicked: {},
+    data: {},
   };
 
   constructor() {
     super();
     this.version = 'STARTING';
     this.clicked = 0;
+    this.data = this.fetch_Userevents();
+  }
+
+  fetch_Userevents(){
+    show_loader();
+
+    $.get('/API/fetchevents', function(data){
+        hide_loader();
+        console.log(data);
+        return data;
+    });
+
+    /*
+    $.ajax({
+            url: '/API/fetchevents',
+            type: 'GET',
+            //dataType: "json",
+            //data: (d),
+            //contentType: "application/json; charset=utf-8",
+
+            success: result => {
+                hide_loader();
+                console.log(result);
+                return result;
+            },
+
+            error: (jqXhr, textStatus, errorMessage) => {
+                hide_loader();
+                //showerror(jqXhr['responseJSON']['message'], $('#addcomperror'))
+                console.log( jqXhr['responseJSON']['message'] );
+            }
+    });
+    */
+
   }
 
   handleClick(event){

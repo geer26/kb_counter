@@ -477,3 +477,11 @@ def modcompetitor(data):
         return True
     except:
         return False
+
+
+def fetch_userevents(userid):
+    events = []
+    for event in Event.query.filter_by(user = int(userid)):
+        event.append({'eid': event.id, 'eventname': event.short_name})
+    print(events)
+    return events
