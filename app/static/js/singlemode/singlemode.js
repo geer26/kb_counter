@@ -1,10 +1,7 @@
+
+//const axios = require('axios');
+
 import {html, css, LitElement} from 'https://cdn.skypack.dev/pin/lit@v2.0.0-rc.2-TSkkpP2AxiJKOJvPcy1M/mode=imports,min/optimized/lit.js';
-//import {customElement, property, state} from 'https://cdn.skypack.dev/pin/lit@v2.0.0-rc.2-TSkkpP2AxiJKOJvPcy1M/mode=imports,min/optimized//decorators.js';
-
-//import {LitElement, html, css} from '../lit.min.js';
-//import {customElement, property, state} from '../lit/decorators.js';
-
-//import {LitElement, html} from 'lit';
 
 class MyElement extends LitElement {
 
@@ -31,6 +28,8 @@ class MyElement extends LitElement {
     <span>
         <button @click=${this.handleClick}>Increase</button>
     </span>
+
+
     `;
   }
 
