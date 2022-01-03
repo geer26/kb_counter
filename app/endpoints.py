@@ -506,7 +506,6 @@ class Del_competitor(Resource):
 
 class Fetch_user_events(Resource):
     def get(self):
-        print('HELLO')
         if not current_user.is_authenticated:
             return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 400
         try:

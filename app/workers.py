@@ -482,6 +482,5 @@ def modcompetitor(data):
 def fetch_userevents(userid):
     events = []
     for event in Event.query.filter_by(user = int(userid)):
-        event.append({'eid': event.id, 'eventname': event.short_name})
-    print(events)
-    return events
+        events.append({'eid': event.id, 'eventname': event.short_name})
+    return json.dumps(events)
