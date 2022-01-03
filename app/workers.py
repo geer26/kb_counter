@@ -353,8 +353,8 @@ def mod_event(data):
                     db.session.delete(Competitor.query.get(int(c)))
 
         event.sequence = json.dumps(temp_sequence)
-        db.session.commit()
 
+        db.session.commit()
         return True
     except:
         return False
@@ -460,7 +460,20 @@ def modcompetitor(data):
     try:
         print(data)
         #{'compid': 1, 'eventid': 1, 'userid': 2, 'cname': 'adr', 'association': '', 'weight': 343, 'y_o_b': 234, 'gender': 2, 'workout': '2'}
+        #TODO modify event.sequence also!!!
 
+        '''
+        competitor = Competitor.query.get(int(data['compid']))
+        competitor.cname = str(data['cname'])
+        competitor.association = str(data['association'])
+        competitor.weight = int(data['weight'])
+        competitor.y_o_b = int(data['y_o_b'])
+        competitor.gender = int(data['gender'])
+        competitor.workout = int(data['workout'])
+        competitor.event = int(data['eventid'])
+        competitor.generate_category()
+        db.session.commit()
+        '''
         return True
     except:
         return False
