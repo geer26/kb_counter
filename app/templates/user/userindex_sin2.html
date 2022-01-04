@@ -2,8 +2,11 @@
 
 
 {% block header %}
-<script type="module" src="/static/js/singlemode/singlemode2.js"></script>
+
 <link rel="stylesheet" href="/static/css/user/singlemode.css">
+
+<script src="/static/js/singlemode/singlemode2.js" defer></script>
+
 {% endblock %}
 
 
@@ -25,7 +28,7 @@
             <p class="whitetext">{{event['eventname']}}</p>
             <div class="buttonholder">
             {% if event['playable'] %}
-                <i class="material-icons btn btn-large chunkbutton green" onclick="" >play_circle_outline</i>
+                <i class="material-icons btn btn-large chunkbutton green" onclick="fetch_event({{event['eid']}})" >play_circle_outline</i>
             {% else %}
                 <i class="material-icons btn btn-large chunkbutton amber" onclick="" >error_outline</i>
             {% endif %}

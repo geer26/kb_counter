@@ -9,10 +9,8 @@ from app.workers import get_settingsmode_data, fetch_userevents
 @app.route( '/index', methods=['GET', 'POST'] )
 def index():
     if request.method == 'POST' and not current_user.is_authenticated:
-        #print(request.values)
         return redirect('/')
     else:
-        #print(session)
         if not current_user.is_authenticated:
             return render_template('landingpage.html')
         elif current_user.is_authenticated and current_user.is_superuser:

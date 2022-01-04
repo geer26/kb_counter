@@ -493,14 +493,28 @@ def fetch_event(eventid):
     e = Event.query.get(int(eventid))
     event['id'] = e.id
     event['name'] = e.short_name
-    event['workouts'] = []
-    for wo in e.workouts:
-        w = Workout.query.get(int(wo))
-        exercises = []
-        for ex in w.exercises:
-            e = Exercise.query.get(int(ex))
-            exercises.append()
-        event['workouts'].append({ 'id': w.id, 'name': w.short_name  })
-    event['sequence'] = e.sequence
 
+    #get workouts
+    event['workouts'] = []
+    for workout in json.loads(e.workouts):
+        w = Workout.query.get(int(workout))
+        exercises = []
+        for exercise in json.loads(w.exercises):
+            exercises.append(Exercise.query.get(int(exercise)).get_self_json())
+        data = w.get_self_json()
+        data['exercises'] = exercises
+        event['workouts'].append(data)
+
+    #get sequence and competitors
+    event['sequence'] = {}
+    if e.named == 0:
+        event['sequence'] = None
+    else:
+        for key in json.loads(e.sequence).keys():
+            list = []
+            for comp in json.loads(e.sequence)[key]:
+                competitor = Competitor.query.get(int(comp))
+                list.append(competitor.get_self_json())
+            event['sequence'][key] = list
+    print(f'EVENT TO FETCH: {event}')
     return event

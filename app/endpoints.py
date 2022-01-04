@@ -10,7 +10,7 @@ from app.workers import pw_complexity, addsu, adduser, get_all_data, deluser, ad
     del_exercise, get_user_exercises, check_exercise_belonging, mod_exercise, add_workout, \
     get_user_workouts, del_workout, edit_workout, add_event, get_user_events, del_event, \
     swap_event_enable, get_single_event, mod_event, get_settingsmode_data, get_competitorsdata, \
-    addcompetitor, update_sequence, get_competitordata, fetch_userevents
+    addcompetitor, update_sequence, get_competitordata, fetch_userevents, fetch_event
 
 from app.models import User, Exercise, Event, Competitor
 
@@ -515,6 +515,21 @@ class Fetch_user_events(Resource):
 
 
 
+class Fetch_single_event(Resource):
+    def post(self):
+        if not current_user.is_authenticated:
+            return {'status': 1, 'message': 'A művelet végrehajtásához jelentkezzen be!'}, 400
+        json_data = request.get_json(force=True)
+        ev = int(json_data['eid'])
+        event = Event.query.get(ev)
+        if current_user.id != event.user and not current_user.is_superuser:
+            return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
+        try:
+            return {'status': 0, 'message': 'Sikeres művelet', 'data': fetch_event(ev)}, 200
+        except:
+            return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
+
+
 
 
 
@@ -542,3 +557,4 @@ api.add_resource(Add_competitor, '/API/addcompetitor')
 api.add_resource(Del_competitor, '/API/delcomp')
 api.add_resource(Hide_comps_fragment, '/API/hidecomp')
 api.add_resource(Fetch_user_events, '/API/fetchevents')
+api.add_resource(Fetch_single_event, '/API/fetch_s_event')
