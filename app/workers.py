@@ -479,8 +479,28 @@ def modcompetitor(data):
         return False
 
 
+
 def fetch_userevents(userid):
     events = []
     for event in Event.query.filter_by(user = int(userid)):
-        events.append({'eid': event.id, 'eventname': event.short_name})
+        events.append({'eid': event.id, 'eventname': event.short_name, 'playable': not event.closed})
     return json.dumps(events)
+
+
+
+def fetch_event(eventid):
+    event = {}
+    e = Event.query.get(int(eventid))
+    event['id'] = e.id
+    event['name'] = e.short_name
+    event['workouts'] = []
+    for wo in e.workouts:
+        w = Workout.query.get(int(wo))
+        exercises = []
+        for ex in w.exercises:
+            e = Exercise.query.get(int(ex))
+            exercises.append()
+        event['workouts'].append({ 'id': w.id, 'name': w.short_name  })
+    event['sequence'] = e.sequence
+
+    return event

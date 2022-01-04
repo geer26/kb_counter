@@ -1,7 +1,8 @@
 from app import app, socket, handler
+import json
 from flask import request, redirect, render_template, send_from_directory, send_file, session
 from flask_login import current_user, login_user, logout_user, login_required
-from app.workers import get_settingsmode_data
+from app.workers import get_settingsmode_data, fetch_userevents
 
 
 @app.route( '/', methods=['GET', 'POST'] )
@@ -22,7 +23,7 @@ def index():
         elif current_user.is_authenticated and not current_user.is_superuser and session['_mode'] == 'EXC' :
             return render_template('user/userindex_exc.html')
         elif current_user.is_authenticated and not current_user.is_superuser and session['_mode'] == 'SIN' :
-            return render_template('user/userindex_sin.html')
+            return render_template('user/userindex_sin2.html', title="TEST", data = json.loads(fetch_userevents(current_user.id)))
         elif current_user.is_authenticated and not current_user.is_superuser and session['_mode'] == 'COO' :
             return render_template('user/userindex_coo.html')
         else:

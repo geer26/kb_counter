@@ -1,0 +1,39 @@
+{% extends 'base2.html' %}
+
+
+{% block header %}
+<script type="module" src="/static/js/singlemode/singlemode2.js"></script>
+<link rel="stylesheet" href="/static/css/user/singlemode.css">
+{% endblock %}
+
+
+{% block body %}
+
+<div class="fixed-action-btn" style="margin-right: 30px; margin-bottom: 30px; z-index: 100;">
+    <a class="btn-floating btn-large red">
+      <i class="large material-icons tooltipped" onclick="window.location.href='/logout'" data-position="bottom" data-tooltip="Kilépés">logout</i>
+    </a>
+</div>
+
+<h3 class="whitetext select-title">Válasszon eseményt!</h3>
+
+<div class="select-container">
+
+    {% for event in data %}
+
+        <div class="event-frag">
+            <p class="whitetext">{{event['eventname']}}</p>
+            <div class="buttonholder">
+            {% if event['playable'] %}
+                <i class="material-icons btn btn-large chunkbutton green" onclick="" >play_circle_outline</i>
+            {% else %}
+                <i class="material-icons btn btn-large chunkbutton amber" onclick="" >error_outline</i>
+            {% endif %}
+            </div>
+        </div>
+
+    {% endfor %}
+
+</div>
+
+{% endblock %}

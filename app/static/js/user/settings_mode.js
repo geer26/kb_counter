@@ -857,7 +857,9 @@ function edit_competitors(eid){
 
             error: (jqXhr, textStatus, errorMessage) => {
                 hide_loader();
-                showerror(jqXhr['responseJSON']['message'], $('#eventerror'));
+                console.log(jqXhr['responseJSON']['message']);
+                showerror('nooooo', $('#eventerror'));
+                //showerror(jqXhr['responseJSON']['message'], $('#eventerror'));
             }
 
     });
