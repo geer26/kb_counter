@@ -516,5 +516,5 @@ def fetch_event(eventid):
                 competitor = Competitor.query.get(int(comp))
                 list.append(competitor.get_self_json())
             event['sequence'][key] = list
-    #print(f'EVENT TO FETCH: {event}')
+    print(f'EVENT TO FETCH: {event}')
     return event
