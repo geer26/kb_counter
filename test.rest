@@ -4,8 +4,7 @@
 # Type: application/json
 # JSON payload: {"username": <str>, "password": <str>, "su": <boolean>}
 # Returns: 200, 401 or 500 with message
-#POST http://127.0.0.1:5001/API/adduser HTTP/1.1
-POST https://geer26.ddns.net/API/adduser HTTP/1.1
+POST http://127.0.0.1:5001/API/adduser HTTP/1.1
 content-type: application/json
 
 {
@@ -44,11 +43,6 @@ content-type: application/json
     "password": 123456,
     "mode": "SET"
 }
-
-
-
-###logout
-GET http://127.0.0.1:5001/logout HTTP/1.1
 
 
 
@@ -108,31 +102,55 @@ content-type: application/json
 # Endpoint: /API/delevent
 # Method: POST
 # Type: application/json
-# JSON payload: {id:<int>, user:<int>}
+# JSON payload: {id:<int>, userid:<int>}
 # Returns: 200 or 500 with message
 POST http://127.0.0.1:5001/API/delevent HTTP/1.1
 content-type: application/json
 
 {
     "id": 2,
-    "user": 2
+    "userid": 2
 }
 
 
 
-### Delete competitor
-# Endpoint: /API/delcomp
+### Swap event enable
+# Endpoint: /API/swapenable
 # Method: POST
 # Type: application/json
-# JSON payload: {id:<int>, userid:<int>, eventid: <int>}
+# JSON payload: {id:<int>, userid:<int>}
 # Returns: 200 or 500 with message
-POST http://127.0.0.1:5001/API/delcomp HTTP/1.1
+POST http://127.0.0.1:5001/API/swapenable HTTP/1.1
 content-type: application/json
 
 {
-    "id": 1,
-    "userid": 1,
-    "eventid": 1
+    "id": 2,
+    "userid": 2
+}
+
+
+
+### Add competitor
+# Endpoint: /API/addcompetitor
+# Method: POST
+# Type: application/json
+# JSON payload: {
+#               eventid: <int>,
+#               userid: <int>,
+#               cname: ,
+#               association: ,
+#               weight: <int>,
+#               y_o_b: <int>,
+#               gender: <int>,
+#               workout: <int>
+# }
+# Returns: 200 or 500 with message
+POST http://127.0.0.1:5001/API/addcompetitor HTTP/1.1
+content-type: application/json
+
+{
+    "userid": 2,
+    "eventid": 2
 }
 
 

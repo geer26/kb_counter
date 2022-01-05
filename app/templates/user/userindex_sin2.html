@@ -5,6 +5,8 @@
 
 <link rel="stylesheet" href="/static/css/user/singlemode.css">
 
+<script src="/static/js/vue.js" defer></script>
+
 <script src="/static/js/singlemode/singlemode2.js" defer></script>
 
 {% endblock %}
@@ -18,25 +20,34 @@
     </a>
 </div>
 
-<h3 class="whitetext select-title">Válasszon eseményt!</h3>
+<div id="app" class="hidden">
+    <div id="components-demo">
+        <button-counter></button-counter>
+    </div>
+</div>
 
-<div class="select-container">
 
-    {% for event in data %}
+<div id="select-workout" style="width:100%;">
+    <h3 class="whitetext select-title">Válasszon eseményt!</h3>
 
-        <div class="event-frag">
-            <p class="whitetext">{{event['eventname']}}</p>
-            <div class="buttonholder">
-            {% if event['playable'] %}
-                <i class="material-icons btn btn-large chunkbutton green" onclick="fetch_event({{event['eid']}})" >play_circle_outline</i>
-            {% else %}
-                <i class="material-icons btn btn-large chunkbutton amber" onclick="" >error_outline</i>
-            {% endif %}
+    <div class="select-container">
+
+        {% for event in data %}
+
+            <div class="event-frag">
+                <p class="whitetext">{{event['eventname']}}</p>
+                <div class="buttonholder">
+                {% if event['playable'] %}
+                    <i class="material-icons btn btn-large chunkbutton green" onclick="fetch_event({{event['eid']}})" >play_circle_outline</i>
+                {% else %}
+                    <i class="material-icons btn btn-large chunkbutton amber" onclick="" >error_outline</i>
+                {% endif %}
+                </div>
             </div>
-        </div>
 
-    {% endfor %}
+        {% endfor %}
 
+    </div>
 </div>
 
 {% endblock %}
