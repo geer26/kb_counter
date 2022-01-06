@@ -46,6 +46,16 @@ Vue.component('downcounter', {
 })
 
 
+Vue.component('sidebar', {
+    name: 'sidebar',
+    data: function(){
+        return { content: 'SIDEBAR'}
+    },
+    props: [],
+    template: '<div><p>{{content}}</p></div>'
+})
+
+
 
 //------------------Vue app---------------------
 var app = new Vue({

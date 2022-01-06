@@ -502,6 +502,7 @@ def fetch_event(eventid):
         w = Workout.query.get(int(workout))
         for compid in competitor_sequence[workout]:
             c = Competitor.query.get(int(compid))
+            cid = c.id
             cname = c.cname
             cassoc = c.association
             # get exercises to fullfil
@@ -515,7 +516,7 @@ def fetch_event(eventid):
                 ex['duration'] = e.duration
                 exercises.append(ex)
 
-            data_to_return.append({'cname': cname, 'cassoc': cassoc, 'exercises':exercises})
+            data_to_return.append({'cid':cid, 'cname': cname, 'cassoc': cassoc, 'exercises':exercises})
 
 
     #print(f'DATA TO WORK WITH: {data_to_return}')
