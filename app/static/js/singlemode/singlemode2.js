@@ -17,22 +17,6 @@ function fetch_event(id){
     }, 'json')
 }
 
-//------------------Vue app---------------------
-var app = new Vue({
-
-    delimiters: ['##', '##'],
-
-    el: '#app',
-
-    data: {
-        message: 'Hello Vue!',
-        data: {},
-    },
-
-    created: function(){},
-
-})
-
 
 //----------------Components--------------------
 Vue.component('button-counter', {
@@ -49,5 +33,44 @@ Vue.component('button-counter', {
 
 })
 
-new Vue({ el: '#components-demo' })
+
+Vue.component('downcounter', {
+    name: '',
+    data: function(){
+        return {
+            secs: 30
+        }
+    },
+    props: [],
+    template: ''
+})
+
+
+
+//------------------Vue app---------------------
+var app = new Vue({
+
+    delimiters: ['##', '##'],
+
+    components: {
+        //'counterbutton',
+    },
+
+    el: '#app',
+
+    data: {
+        message: 'Hello Vue!',
+        data: {},
+    },
+
+    created() {},
+
+    computed: {},
+
+    methods: {},
+
+})
+
+
+
 

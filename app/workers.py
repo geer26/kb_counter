@@ -489,32 +489,35 @@ def fetch_userevents(userid):
 
 
 def fetch_event(eventid):
-    event = {}
+    # desired structure: [ {competitor data, 'exercises:[ {exercise data}, ... ]'}, ... ]
+    data_to_return = []
+    # select event
     e = Event.query.get(int(eventid))
-    event['id'] = e.id
-    event['name'] = e.short_name
-
-    #get workouts
-    event['workouts'] = []
-    for workout in json.loads(e.workouts):
+    # get workout sequence in the event
+    workout_sequence = json.loads(e.workouts)
+    #get competitors sequence
+    competitor_sequence = json.loads(e.sequence)
+    # get competitors in sequence
+    for workout in workout_sequence:
         w = Workout.query.get(int(workout))
-        exercises = []
-        for exercise in json.loads(w.exercises):
-            exercises.append(Exercise.query.get(int(exercise)).get_self_json())
-        data = w.get_self_json()
-        data['exercises'] = exercises
-        event['workouts'].append(data)
+        for compid in competitor_sequence[workout]:
+            c = Competitor.query.get(int(compid))
+            cname = c.cname
+            cassoc = c.association
+            # get exercises to fullfil
+            exercises = []
+            for exercise in json.loads(w.exercises):
+                ex = {}
+                e = Exercise.query.get(int(exercise))
+                ex['ename'] = e.short_name
+                ex['type'] = e.type
+                ex['max_rep'] = e.max_rep
+                ex['duration'] = e.duration
+                exercises.append(ex)
 
-    #get sequence and competitors
-    event['sequence'] = {}
-    if e.named == 0:
-        event['sequence'] = None
-    else:
-        for key in json.loads(e.sequence).keys():
-            list = []
-            for comp in json.loads(e.sequence)[key]:
-                competitor = Competitor.query.get(int(comp))
-                list.append(competitor.get_self_json())
-            event['sequence'][key] = list
-    print(f'EVENT TO FETCH: {event}')
-    return event
+            data_to_return.append({'cname': cname, 'cassoc': cassoc, 'exercises':exercises})
+
+
+    #print(f'DATA TO WORK WITH: {data_to_return}')
+
+    return data_to_return
