@@ -4,6 +4,12 @@
 }
 
 
+
+.hidden{
+    display: hidden;
+}
+
+
 #select-workout{
     position: absolute;
     top: 0;
@@ -94,6 +100,7 @@
     left: 0;
 
     margin: 0;
+    padding-left: 2%;
 
     width: 100%;
     height: 100%;
@@ -102,13 +109,122 @@
 
     display: grid;
 
-    grid-template-columns: 1fr 4fr 1fr;
-    grid-template-rows: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    grid-template-rows: 1fr 5fr 4fr;
 
     justify-content: space-evenly;
     grid-template-areas:
-        "settings_upper counter_upper info_upper"
-        "settings_upper counter_lower info_lower";
+        "weight-select  exercise-info exercise-info exercise-info name-info name-info"
+        "timer timer timer timer timer timer-icon"
+        "reps-section reps-section score-section score-section score-section .";
+}
+
+
+.weight-select{
+    position: relative;
+    grid-area: weight-select;
+    border: 1px solid red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.exercise-info{
+    position: relative;
+    grid-area: exercise-info;
+    border: 1px solid red;
+    color: white;
+}
+
+
+.name-info{
+    position: relative;
+    grid-area: name-info;
+    border: 1px solid red;
+    color: white;
+}
+
+
+.timer{
+    position: relative;
+    grid-area: timer;
+    //border: 1px solid red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.timer h1{
+    font-weight: bold;
+    font-size: 200px;
+    color: yellow;
+}
+
+
+.timer-icon{
+    position: relative;
+    grid-area: timer-icon;
+    border: 1px solid red;
+    color: white;
+}
+
+
+.timer-title{
+    position: absolute;
+    left: 0;
+    top: 0;
+    //border: 1px solid red;
+    color: white;
+}
+
+
+.reps-section{
+    position: relative;
+    grid-area: reps-section;
+    //border: 1px solid red;
+    color: white;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.reps-section h1{
+    font-weight: bold;
+    font-size: 200px;
+    color: yellow;
+}
+
+
+.reps-title{
+    position: absolute;
+    top: 0;
+    left: 0;
+    color: red;
+    margin: 0;
+    font-weight: bold;
+}
+
+
+.score-section{
+    position: relative;
+    grid-area: score-section;
+    //border: 1px solid red;
+    color: white;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+.score-section h1{
+    font-weight: bold;
+    font-size: 200px;
+    color: yellow;
 }
 
 
@@ -117,6 +233,7 @@
     height: 100%;
     position: absolute;
     left: -18%;
+    z-index: 2;
     backdrop-filter: blur(2px);
     background-image: linear-gradient(to right, rgba(0,0,0,0),rgba(0,0,0,0),rgba(0,0,0,0),rgba(0,0,0,0),rgba(0,0,0,0),rgba(0,0,0,0),rgba(0,0,0,0),rgba(255, 255, 255, .4));
     transition: .4s;
