@@ -38,10 +38,15 @@
             <div class="event-frag">
                 <p class="whitetext">{{event['eventname']}}</p>
                 <div class="buttonholder">
+                    {% if event['named'] == 1 %}
+                    <i class="material-icons btn btn-large chunkbutton teal tooltipped" data-position="bottom" data-tooltip="Verseny">groups</i>
+                    {% else %}
+                    <i class="material-icons btn btn-large chunkbutton teal tooltipped" data-position="bottom" data-tooltip="Gyakorlás">person_outline</i>
+                    {% endif %}
                 {% if event['playable'] %}
-                    <i class="material-icons btn btn-large chunkbutton green" onclick="fetch_event({{event['eid']}})" >play_circle_outline</i>
+                    <i class="material-icons btn btn-large chunkbutton green tooltipped" onclick="fetch_event({{event['eid']}})" data-position="bottom" data-tooltip="Indítás">play_circle_outline</i>
                 {% else %}
-                    <i class="material-icons btn btn-large chunkbutton amber" onclick="" >error_outline</i>
+                    <i class="material-icons btn btn-large chunkbutton amber tooltipped" onclick="" data-position="bottom" data-tooltip="Lezárva!">error_outline</i>
                 {% endif %}
                 </div>
             </div>
