@@ -23,12 +23,16 @@
 <div id="app">
 
     <div class="appcontainer hidden">
-        <sidebar class="sidebar"></sidebar>
+        <div class="sidebar">
+            <ul>
+                <li v-for="(player, index) in data" :style="{ color: (playerIndex == index) ? 'red' : 'black' }" :class=""> ## player.cname ## </li>
+            </ul>
+        </div>
         <div class="weight-select">
             <button-counter></button-counter>
         </div>
         <div class="exercise-info"> EXERCISE INFO </div>
-        <div class="name-info"> NAME INFO </div>
+        <div class="name-info"> ## currentPlayer ? currentPlayer.cname : "NÉVTELEN" ##  </div>
         <div class="timer">
             <h4 class="reps-title">HÁTRALÉVŐ IDŐ:</h4>
             <h1> 0:0:0 </h1>

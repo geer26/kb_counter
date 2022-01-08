@@ -15,6 +15,7 @@ function fetch_event(id){
         app.data = data['data'];
         $('#select-workout').remove();
         $('#app').show();
+        app.$forceUpdate();
     }, 'json')
 }
 
@@ -22,28 +23,31 @@ function fetch_event(id){
 //----------------Components--------------------
 Vue.component('button-counter', {
 
-    name: 'counterbutton',
-
     data: function () {
         return {
-        count: 0
+        count: 0,
         }
     },
 
-    template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
+    template: `
+        <button v-on:click="count++">
+                You clicked me {{ count }} times.
+        </button>
+    `,
 
 })
 
 
 Vue.component('downcounter', {
-    name: '',
     data: function(){
         return {
-            secs: 30
+            secs: 30,
         }
     },
     props: [],
-    template: ''
+    template: `
+
+    `,
 })
 
 
@@ -53,7 +57,11 @@ Vue.component('sidebar', {
         return { content: 'SIDEBAR'}
     },
     props: [],
-    template: '<div><p>{{content}}</p></div>'
+    template: `
+        <ul>
+            <li v-for="player in data"> ## player.cname ## </li>
+        </ul>
+    `,
 })
 
 
@@ -64,22 +72,49 @@ var app = new Vue({
 
     delimiters: ['##', '##'],
 
-    components: {
-        //'counterbutton',
-    },
-
     el: '#app',
 
-    data: {
-        message: 'Hello Vue!',
-        data: {},
+    data: function() {
+        return {
+            message: 'Hello Vue!',
+            data: {},
+
+            playerIndex: 0,
+            currentPlayer: null
+        }
+    },
+
+    props: {
+        dt: {},
     },
 
     created() {},
 
     computed: {},
 
-    methods: {},
+    methods: {
+        nextPlayer: function() {
+            this.playerIndex++;
+            if (this.playerIndex >= this.data.length) {
+                // VÉGE
+            }
+        },
+
+        showCurrentPlayer: function() {
+            this.currentPlayer = this.data[this.playerIndex];
+        }
+    },
+
+    mounted(){
+        console.log('HELLO, VUE HERE!');
+    },
+
+    updated() {
+        this.message = "Started";
+        this.playerIndex = 0;
+        // Show current player info
+        this.showCurrentPlayer();
+    }
 
 })
 
