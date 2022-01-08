@@ -490,11 +490,28 @@ def fetch_userevents(userid):
 
 def fetch_event(eventid):
     # desired structure: [ {competitor data, 'exercises:[ {exercise data}, ... ]'}, ... ]
+
     data_to_return = []
     # select event
     e = Event.query.get(int(eventid))
     # get workout sequence in the event
     workout_sequence = json.loads(e.workouts)
+    # if unnamed event, return an other structure
+    if e.named == 0:
+        for workout in json.loads(e.workouts):
+            w = Workout.query.get(int(workout))
+            exercises = []
+            for exercise in json.loads(w.exercises):
+                ex = {}
+                e = Exercise.query.get(int(exercise))
+                ex['ename'] = e.short_name
+                ex['type'] = e.type
+                ex['max_rep'] = e.max_rep
+                ex['duration'] = e.duration
+                exercises.append(ex)
+            data_to_return.append(exercises)
+        return data_to_return
+
     #get competitors sequence
     competitor_sequence = json.loads(e.sequence)
     # get competitors in sequence
@@ -517,7 +534,6 @@ def fetch_event(eventid):
                 exercises.append(ex)
 
             data_to_return.append({'cid':cid, 'cname': cname, 'cassoc': cassoc, 'exercises':exercises})
-
 
     #print(f'DATA TO WORK WITH: {data_to_return}')
 

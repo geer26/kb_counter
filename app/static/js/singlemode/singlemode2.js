@@ -58,6 +58,7 @@ Vue.component('sidebar', {
 
 
 
+
 //------------------Vue app---------------------
 var app = new Vue({
 

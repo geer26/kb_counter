@@ -525,7 +525,7 @@ class Fetch_single_event(Resource):
         if current_user.id != event.user and not current_user.is_superuser:
             return {'status': 1, 'message': 'Nem jogosult a művelet végrehajtására!'}, 403
         try:
-            return {'status': 0, 'message': 'Sikeres művelet', 'data': fetch_event(ev)}, 200
+            return { 'status': 0, 'message': 'Sikeres művelet', 'data': fetch_event(ev) }, 200
         except:
             return {'status': 1, 'message': 'Sikertelen művelet!'}, 500
 
